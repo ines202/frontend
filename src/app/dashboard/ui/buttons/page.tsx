@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
 export const metadata: Metadata = {
   title: "Next.js Buttons | Doolab Dashboard",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const Buttons = () => {
   return (
-    <DefaultLayout>
+    <DashboardLayout>
       <Breadcrumb pageName="Buttons" />
 
       {/* <!-- Normal Button Items --> */}
@@ -470,7 +470,7 @@ const Buttons = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </DashboardLayout>
   );
 };
 

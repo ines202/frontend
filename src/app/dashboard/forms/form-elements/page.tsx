@@ -1,7 +1,7 @@
 import React from "react";
 import FormElements from "@/components/FormElements";
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
 export const metadata: Metadata = {
   title: "Next.js Form Elements | Doolab Dashboard",
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 const FormElementsPage = () => {
   return (
-    <DefaultLayout>
+    <DashboardLayout>
       <FormElements />
-    </DefaultLayout>
+    </DashboardLayout>
   );
 };
 

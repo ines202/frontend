@@ -4,7 +4,7 @@ import TableThree from "@/components/Tables/TableThree";
 import TableTwo from "@/components/Tables/TableTwo";
 
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
 export const metadata: Metadata = {
   title: "Next.js Tables | Doolab Dashboard",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const TablesPage = () => {
   return (
-    <DefaultLayout>
+    <DashboardLayout>
       <Breadcrumb pageName="Tables" />
 
       <div className="flex flex-col gap-10">
@@ -21,7 +21,7 @@ const TablesPage = () => {
         <TableTwo />
         <TableThree />
       </div>
-    </DefaultLayout>
+    </DashboardLayout>
   );
 };
 

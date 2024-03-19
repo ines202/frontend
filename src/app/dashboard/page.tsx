@@ -1,6 +1,6 @@
+import Dashboard from "@/components/Dashboard/dashboard";
 import { Metadata } from "next";
-import MainLayout from "@/components/Layouts/MainLayout";
-import Homepage from "@/components/Homepage";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
 export const metadata: Metadata = {
   title: "Doolab | Dashboard",
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <MainLayout>
-        <Homepage/>
-      </MainLayout>
+      <DashboardLayout>
+        <Dashboard />
+      </DashboardLayout>
     </>
   );
 }

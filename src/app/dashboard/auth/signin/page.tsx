@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
 export const metadata: Metadata = {
   title: "Next.js SignIn Page | Doolab Dashboard",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const SignIn: React.FC = () => {
   return (
-    <DefaultLayout>
+    <DashboardLayout>
       <Breadcrumb pageName="Sign In" />
 
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -298,7 +298,7 @@ const SignIn: React.FC = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </DashboardLayout>
   );
 };
 

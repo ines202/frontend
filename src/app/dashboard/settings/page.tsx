@@ -1,7 +1,7 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
 export const metadata: Metadata = {
   title: "Next.js Settings | Doolab Dashboard",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const Settings = () => {
   return (
-    <DefaultLayout>
+    <DashboardLayout>
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Settings" />
 
@@ -316,7 +316,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </DashboardLayout>
   );
 };
 
