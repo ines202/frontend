@@ -18,10 +18,7 @@ export default function Home() {
 
   return (
     <>
-      <DashboardLayout
-        loggedInUser={loggedInUser}
-        logout={logout}
-      >
+      <DashboardLayout>
         <Dashboard />
       </DashboardLayout>
     </>

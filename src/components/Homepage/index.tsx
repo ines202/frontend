@@ -1,9 +1,12 @@
+"use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 type Props = {};
 
 const Homepage = (props: Props) => {
+  const router = useRouter();
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
       <div className="relative h-40 w-40 p-2 drop-shadow-2">
@@ -18,6 +21,9 @@ const Homepage = (props: Props) => {
       <input
         type="submit"
         value="Go to Dashboard"
+        onClick={() => {
+          router.push("/dashboard");
+        }}
         className="w-min cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
       />
     </div>

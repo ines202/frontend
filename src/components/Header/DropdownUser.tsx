@@ -2,13 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Doctor } from "@/types/doctor";
+import { useAuth } from "../AuthContext";
 
-interface IProps {
-  loggedInUser: Doctor | null;
-  logout: () => void;
-}
-
-const DropdownUser = ({ loggedInUser, logout }: IProps) => {
+const DropdownUser = () => {
+  const { loggedInUser, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);

@@ -6,12 +6,8 @@ import { type Doctor } from "@/types/doctor";
 
 export default function DashboardLayout({
   children,
-  loggedInUser,
-  logout,
 }: {
   children: React.ReactNode;
-  loggedInUser: Doctor | null;
-  logout: () => void;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
@@ -26,8 +22,6 @@ export default function DashboardLayout({
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           {/* <!-- ===== Header Start ===== --> */}
           <Header
-            loggedInUser={loggedInUser}
-            logout={logout}
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
           />

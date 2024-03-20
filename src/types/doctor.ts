@@ -5,4 +5,5 @@ export type Doctor = {
   address: string;
   speciality: string;
   phoneNumber: string;
+  password: string;
 };

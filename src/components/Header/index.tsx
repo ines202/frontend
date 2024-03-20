@@ -4,13 +4,10 @@ import DropdownMessage from "./DropdownMessage";
 import DropdownNotification from "./DropdownNotification";
 import DropdownUser from "./DropdownUser";
 import Image from "next/image";
-import { Doctor } from "@/types/doctor";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
-  loggedInUser: Doctor | null;
-  logout: () => void;
 }) => {
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
@@ -121,10 +118,7 @@ const Header = (props: {
           </ul>
 
           {/* <!-- User Area --> */}
-          <DropdownUser
-            loggedInUser={props.loggedInUser}
-            logout={props.logout}
-          />
+          <DropdownUser />
           {/* <!-- User Area --> */}
         </div>
       </div>
