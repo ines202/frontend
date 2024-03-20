@@ -1,14 +1,11 @@
+"use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
-import { Metadata } from "next";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
-
-export const metadata: Metadata = {
-  title: "Next.js Settings | Doolab Dashboard",
-  description: "Doolab Dashboard",
-};
+import { useAuth } from "@/components/AuthContext";
 
 const Settings = () => {
+  const { loggedInUser } = useAuth();
   return (
     <DashboardLayout>
       <div className="mx-auto max-w-270">
@@ -63,8 +60,8 @@ const Settings = () => {
                           type="text"
                           name="fullName"
                           id="fullName"
-                          placeholder="Devid Jhon"
-                          defaultValue="Devid Jhon"
+                          placeholder={`${loggedInUser?.name} ${loggedInUser?.lastName}`}
+                          defaultValue={`${loggedInUser?.name} ${loggedInUser?.lastName}`}
                         />
                       </div>
                     </div>
@@ -81,8 +78,8 @@ const Settings = () => {
                         type="text"
                         name="phoneNumber"
                         id="phoneNumber"
-                        placeholder="+990 3343 7865"
-                        defaultValue="+990 3343 7865"
+                        placeholder={loggedInUser?.phoneNumber}
+                        defaultValue={loggedInUser?.phoneNumber}
                       />
                     </div>
                   </div>
@@ -125,8 +122,8 @@ const Settings = () => {
                         type="email"
                         name="emailAddress"
                         id="emailAddress"
-                        placeholder="devidjond45@gmail.com"
-                        defaultValue="devidjond45@gmail.com"
+                        placeholder={loggedInUser?.email}
+                        defaultValue={loggedInUser?.email}
                       />
                     </div>
                   </div>
@@ -141,10 +138,10 @@ const Settings = () => {
                     <input
                       className="w-full rounded border border-stroke bg-gray px-4.5 py-3 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                       type="text"
-                      name="Username"
-                      id="Username"
-                      placeholder="devidjhon24"
-                      defaultValue="devidjhon24"
+                      name="Address"
+                      id="Address"
+                      placeholder={loggedInUser?.address}
+                      defaultValue={loggedInUser?.address}
                     />
                   </div>
 
@@ -226,12 +223,13 @@ const Settings = () => {
               <div className="p-7">
                 <form action="#">
                   <div className="mb-4 flex items-center gap-3">
-                    <div className="h-14 w-14 rounded-full">
+                    <div className="relative h-14 w-14 rounded-full border-2 border-purple-500 drop-shadow-2">
                       <Image
-                        src={"/images/user/user-03.png"}
-                        width={55}
-                        height={55}
-                        alt="User"
+                        src={"/images/logo/logo.png"}
+                        width={56}
+                        height={56}
+                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                        alt="profile"
                       />
                     </div>
                     <div>

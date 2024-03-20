@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Doctor } from "@/types/doctor";
 
-const DropdownUser = () => {
+interface IProps {
+  loggedInUser: Doctor | null;
+  logout: () => void;
+}
+
+const DropdownUser = ({ loggedInUser, logout }: IProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -44,21 +50,18 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {loggedInUser?.name} {loggedInUser?.lastName}
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">{loggedInUser?.speciality}</span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
+        <span className="relative h-12 w-12 rounded-full border-2 border-purple-500 drop-shadow-2">
           <Image
-            width={112}
-            height={112}
-            src={"/images/user/user-01.png"}
-            style={{
-              width: "auto",
-              height: "auto",
-            }}
-            alt="User"
+            src={"/images/logo/logo.png"}
+            width={48}
+            height={48}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            alt="profile"
           />
         </span>
 
@@ -161,7 +164,10 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={logout}
+        >
           <svg
             className="fill-current"
             width="22"

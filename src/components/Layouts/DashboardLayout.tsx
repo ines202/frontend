@@ -2,11 +2,16 @@
 import React, { useState, ReactNode } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
+import { type Doctor } from "@/types/doctor";
 
 export default function DashboardLayout({
   children,
+  loggedInUser,
+  logout,
 }: {
   children: React.ReactNode;
+  loggedInUser: Doctor | null;
+  logout: () => void;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
@@ -20,7 +25,12 @@ export default function DashboardLayout({
         {/* <!-- ===== Content Area Start ===== --> */}
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           {/* <!-- ===== Header Start ===== --> */}
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <Header
+            loggedInUser={loggedInUser}
+            logout={logout}
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+          />
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}

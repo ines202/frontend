@@ -5,6 +5,7 @@ import "@/css/satoshi.css";
 import "@/css/style.css";
 import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
+import { AuthProvider } from "@/components/AuthContext";
 
 export default function RootLayout({
   children,
@@ -14,8 +15,6 @@ export default function RootLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // const pathname = usePathname();
-
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
@@ -23,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <div className="dark:bg-boxdark-2 dark:text-bodydark">
-          {loading ? <Loader /> : children}
-        </div>
+        <AuthProvider>
+          <div className="dark:bg-boxdark-2 dark:text-bodydark">
+            {loading ? <Loader /> : children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

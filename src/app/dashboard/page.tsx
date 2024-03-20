@@ -1,16 +1,27 @@
+"use client";
+import { useAuth } from "@/components/AuthContext";
 import Dashboard from "@/components/Dashboard/dashboard";
-import { Metadata } from "next";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
-
-export const metadata: Metadata = {
-  title: "Doolab | Dashboard",
-  description: "Doolab Dashboard",
-};
+import { Doctor } from "@/types/doctor";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const { loggedInUser, logout } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loggedInUser) {
+      router.push("/dashboard/auth/signin");
+    }
+  }, [loggedInUser]);
+
   return (
     <>
-      <DashboardLayout>
+      <DashboardLayout
+        loggedInUser={loggedInUser}
+        logout={logout}
+      >
         <Dashboard />
       </DashboardLayout>
     </>
