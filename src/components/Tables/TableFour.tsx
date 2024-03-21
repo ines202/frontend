@@ -1,4 +1,4 @@
-import { BRAND } from "@/types/brand";
+import { BRAND } from "@/types/notification";
 import Image from "next/image";
 import DropdownDefault from "../Dropdowns/DropdownDefault";
 
@@ -52,7 +52,7 @@ const TableFour: React.FC = () => {
         <div className="mb-6 flex justify-between">
           <div>
             <h4 className="text-title-sm2 font-bold text-black dark:text-white">
-              Top Channels
+              ineeees
             </h4>
           </div>
           <DropdownDefault />

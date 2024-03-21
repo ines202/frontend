@@ -28,7 +28,7 @@ const Profile = () => {
             <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4">
               <label
                 htmlFor="cover"
-                className="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-80 xsm:px-4"
+                className="flex cursor-pointer items-center justify-center gap-2 rounded bg-purple-700 px-2 py-1 text-sm font-medium text-white hover:bg-opacity-80 xsm:px-4"
               >
                 <input
                   type="file"
@@ -65,7 +65,7 @@ const Profile = () => {
           </div>
           <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
             <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
-              <div className="relative h-40 w-40 rounded-full border-4 border-purple-500 drop-shadow-2">
+              <div className="relative h-40 w-40 rounded-full border-4 border-purple-700 drop-shadow-2">
                 <Image
                   src={"/images/logo/logo.png"}
                   width={160}
@@ -75,7 +75,7 @@ const Profile = () => {
                 />
                 <label
                   htmlFor="profile"
-                  className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
+                  className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-purple-700 text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
                 >
                   <svg
                     className="fill-current"
@@ -139,11 +139,8 @@ const Profile = () => {
                   About Me
                 </h4>
                 <p className="mt-4.5">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Pellentesque posuere fermentum urna, eu condimentum mauris
-                  tempus ut. Donec fermentum blandit aliquet. Etiam dictum
-                  dapibus ultricies. Sed vel aliquet libero. Nunc a augue
-                  fermentum, pharetra ligula sed, aliquam lacus.
+                Using my extensive medical training and years of real-world experience, 
+                I work hard to provide my patients with high-quality diagnostic and efficient care.
                 </p>
               </div>
 
