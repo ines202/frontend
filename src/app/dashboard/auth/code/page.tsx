@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { FaRegEnvelope } from "react-icons/fa";
 
 const CodeReceive: React.FC = () => {
   return (
@@ -31,8 +30,8 @@ const CodeReceive: React.FC = () => {
                   />
                 </Link>
 
-                <p className="2xl:px-10 text-center mt-10">
-                  Don't worry, we'll help you.
+                <p className="mt-10 text-center 2xl:px-10">
+                  Don&apos;t worry, we&apos;ll help you.
                 </p>
 
                 <span className="inline-block">
@@ -43,7 +42,7 @@ const CodeReceive: React.FC = () => {
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                   <path
+                    <path
                       d="M33.5825 294.844L30.5069 282.723C25.0538 280.414 19.4747 278.414 13.7961 276.732L13.4079 282.365L11.8335 276.159C4.79107 274.148 0 273.263 0 273.263C0 273.263 6.46998 297.853 20.0448 316.653L35.8606 319.429L23.5737 321.2C25.2813 323.253 27.1164 325.196 29.0681 327.019C48.8132 345.333 70.8061 353.736 78.1898 345.787C85.5736 337.838 75.5526 316.547 55.8074 298.235C49.6862 292.557 41.9968 288.001 34.2994 284.415L33.5825 294.844Z"
                       fill="#F2F2F2"
                     />
@@ -162,28 +161,26 @@ const CodeReceive: React.FC = () => {
 
             <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
               <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <h2 className="mb-9 text-xl font-bold text-black dark:text-white sm:text-title-xl2   ">
+                <h2 className="mb-9 text-xl font-bold text-black dark:text-white sm:text-title-xl2   ">
                   Welcome Back!
                 </h2>
-                
+
                 <form>
                   <div className="mb-4">
-                    <label className="mb-2.5 text-center block font-medium text-black dark:text-white">
-                    Please enter the 4 digits code 
-                    sent to your email address.  
+                    <label className="mb-2.5 block text-center font-medium text-black dark:text-white">
+                      Please enter the 4 digits code sent to your email address.
                     </label>
-                    <div className="flex space-x-2 mt-10">
-        {[...Array(4)].map((_, i) => (
-          <input
-            key={i}
-            className="w-1/4 p-3 text-center border rounded-md focus:border-blue-500 focus:ring-blue-500"
-            type="number"
-            
-            pattern="[0-9]*"
-            inputMode="numeric"
-          />
-        ))}
-      </div>
+                    <div className="mt-10 flex space-x-2">
+                      {[...Array(4)].map((_, i) => (
+                        <input
+                          key={i}
+                          className="w-1/4 rounded-md border p-3 text-center focus:border-blue-500 focus:ring-blue-500"
+                          type="number"
+                          pattern="[0-9]*"
+                          inputMode="numeric"
+                        />
+                      ))}
+                    </div>
                   </div>
 
                   <div className="mb-5">
@@ -191,14 +188,17 @@ const CodeReceive: React.FC = () => {
                       type="submit"
                       value="Verify now"
                       className="w-full cursor-pointer rounded-lg border border-purple-700 bg-purple-700  p-4 text-white transition hover:bg-opacity-90"
-                     // onClick={(e) => e.preventDefault()}
+                      // onClick={(e) => e.preventDefault()}
                     />
                   </div>
 
                   <div className="mt-6 text-center">
                     <p>
-                    Didn’t get any code?{" "}
-                      <Link href="/dashboard/auth/signin" className="text-purple-700">
+                      Didn&apos;t get any code?{" "}
+                      <Link
+                        href="/dashboard/auth/signin"
+                        className="text-purple-700"
+                      >
                         Resend code
                       </Link>
                     </p>

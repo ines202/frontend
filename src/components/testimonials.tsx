@@ -38,16 +38,16 @@ export default function Testimonials() {
           <p className="text-black mt-2 sm:text-title-xl2">See what our users say about us</p>
         </div>
         <div>
-          <button onClick={prevTestimonial} className="bg-transparent border border-gray-300 text-black hover:bg-gray-100 rounded-full bg-purple-100 duration-150 cursor-pointer pt-4 pb-4 px-4 py-2">
+          <button onClick={prevTestimonial} className="bg-transparent border border-gray-300 text-black hover:bg-gray-100 rounded-full bg-purple-100 duration-150 cursor-pointer pt-4 pb-4 px-4 py-2 transition-transform transform hover:scale-110">
             Prev
           </button>
-          <button onClick={nextTestimonial} className="bg-transparent border border-gray-300 text-black hover:bg-gray-100 rounded-full bg-purple-100 duration-150 cursor-pointer ms-5 pt-4 pb-4 px-4 py-2">
+          <button onClick={nextTestimonial} className="bg-transparent border border-gray-300 text-black hover:bg-gray-100 rounded-full bg-purple-100  cursor-pointer ms-5 pt-4 pb-4 px-4 py-2 transition-transform transform hover:scale-110">
             Next
           </button>
         </div>
       </div>
       <div className="flex justify-center pt-10">
-        <div className="min-w-md max-w-md bg-white rounded-lg drop-shadow-xl p-6">
+        <div className="min-w-md max-w-md bg-white rounded-lg drop-shadow-xl p-6 transform hover:scale-105 transition-transform">
           <p className="text-black">{testimonials[activeIndex].quote}</p>
           <div className="mt-4">
             <p className="font-semibold text-black">{testimonials[activeIndex].name}</p>
@@ -56,17 +56,17 @@ export default function Testimonials() {
         </div>
       </div>
       <div>
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 pt-30 pb-10 text-center">
-        <h1 className="text-5xl font-bold text-purple-700">
-          DOWNLOAD
-        </h1>
-        <p className="mt-3 text-black text-2xl font-bold">
-          Download Our App Mobile To Get More Foot Care.
-        </p>
-        <Link className="mt-5 mb-10 text-4xl text-black" href= "#" > 
-        <span className="text-purple-700">Doolab</span>Care
-        </Link>
-      </main>
+        <main className="flex flex-col items-center justify-center w-full flex-1 px-20 pt-30 pb-10 text-center">
+          <h1 className="text-5xl font-bold text-purple-700 transition-all duration-500 hover:text-pink-700">
+            DOWNLOAD
+          </h1>
+          <p className="mt-3 text-black text-2xl font-bold transition-all duration-500 hover:text-gray-700">
+            Download Our App Mobile To Get More Foot Care.
+          </p>
+          <Link className="mt-5 mb-10 text-4xl text-black transition-all duration-500 hover:text-purple-700" href="#">
+            <span className="text-purple-700">Doolab</span>Care
+          </Link>
+        </main>
       </div>
     </div>
   );

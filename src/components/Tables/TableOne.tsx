@@ -13,11 +13,11 @@ const notificationData: NOTIFICATION[] = [
   },
   {
     fullname: "John Doe",
-    date: new Date("2024-03-21"),
-    hour: "14:30",
+    date: new Date("2024-02-21"),
+    hour: "16:30",
     phone: 1234567890,
     result: 20,
-    image: "/images/logo/logo.png",
+    image: "/images/product/product-01.png",
   },
   {
     fullname: "John Doe",
@@ -113,8 +113,8 @@ const TableOne = () => {
                 Show
               </button>
               {selectedImage === notification.image && (
-                <div className="absolute z-10 min-h-full
-                h-full flex items-center justify-center bg-purple-100 ">
+                <div className="absolute  z-10 w-full min-h-64
+                flex items-center justify-center bg-purple-100 ">
                   <div className="">
                     <Image src={selectedImage} alt="Notification Image" layout="responsive" width={300} height={300} />
                     <button
