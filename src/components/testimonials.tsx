@@ -38,10 +38,10 @@ export default function Testimonials() {
           <p className="text-black mt-2 sm:text-title-xl2">See what our users say about us</p>
         </div>
         <div>
-          <button onClick={prevTestimonial} className="bg-transparent border border-gray-300 text-black hover:bg-gray-100 rounded-full bg-purple-100 cursor-pointer pt-4 pb-4 px-4 py-2">
+          <button onClick={prevTestimonial} className="bg-transparent border border-gray-300 text-black hover:bg-gray-100 rounded-full bg-purple-100 duration-150 cursor-pointer pt-4 pb-4 px-4 py-2">
             Prev
           </button>
-          <button onClick={nextTestimonial} className="bg-transparent border border-gray-300 text-black hover:bg-gray-100 rounded-full bg-purple-100 cursor-pointer ms-5 pt-4 pb-4 px-4 py-2">
+          <button onClick={nextTestimonial} className="bg-transparent border border-gray-300 text-black hover:bg-gray-100 rounded-full bg-purple-100 duration-150 cursor-pointer ms-5 pt-4 pb-4 px-4 py-2">
             Next
           </button>
         </div>

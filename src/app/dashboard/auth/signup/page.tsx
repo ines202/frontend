@@ -346,11 +346,6 @@ const SignUp: React.FC = () => {
                         }}
                       />
 
-                      <span className="absolute right-4 top-4">
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <MdLockOutline className="text-gray-400" size={20} />
-</div>
-                      </span>
                     </div>
                   </div>
 

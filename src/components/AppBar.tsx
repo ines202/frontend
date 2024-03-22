@@ -11,7 +11,7 @@ type Props = {};
 const AppBar = (props: Props) => {
   const router = useRouter();
   return (
-    <div className="bg-purple-100 h-screen">
+    <div className="bg-purple-100">
       
         <title>Home - Diabetic Foot Health Management</title>
 
@@ -52,7 +52,7 @@ const AppBar = (props: Props) => {
         </div>
       </header>
 
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto px-4 bg-purple-100  h-screen">
         <section className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mt-70 ml-10">
             <h2 className="text-4xl font-bold text-black">Diabetic Foot Health Management</h2>

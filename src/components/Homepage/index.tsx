@@ -18,9 +18,7 @@ const Homepage = (props: Props) => {
       <AboutUs />
       <Services />
       <Testimonials />
-      <ContactUs />
-   
-      
+      <ContactUs /> 
     </div>
   );
 };
