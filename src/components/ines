@@ -530,7 +530,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
     },
     {
       'text':
-      "Votre service a vraiment fait la différence pour notre entreprise. Nous avons vu une amélioration significative de nos performances depuis que nous avons commencé à travailler avec vous. Merci pour votre excellent travail!",
+      "Your service has truly made a difference in our clinic. We have seen significant improvements in our patients' health since working with you. Thank you for your excellent work!",
       'name': 'John Doe',
       'position': 'Directeur général',
     },
