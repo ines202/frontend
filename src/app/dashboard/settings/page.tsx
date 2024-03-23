@@ -3,14 +3,13 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import { useAuth } from "@/components/AuthContext";
-import { BsPerson  } from "react-icons/bs";
-import { FaRegEnvelope } from 'react-icons/fa';
+import { BsPerson } from "react-icons/bs";
+import { FaRegEnvelope } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
 import { IoCallOutline } from "react-icons/io5";
 const Settings = () => {
   const { loggedInUser } = useAuth();
   return (
-    
     <DashboardLayout>
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Settings" />
@@ -29,21 +28,29 @@ const Settings = () => {
                     <div className="w-full sm:w-1/2">
                       <label
                         className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="fullName">Full Name
+                        htmlFor="fullName"
+                      >
+                        Full Name
                       </label>
                       <div className="relative">
                         <span className="absolute left-4.5 top-4">
-                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                           <BsPerson className="text-gray-400" size={20} />
-                         </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <BsPerson className="text-gray-400" size={20} />
+                          </div>
                         </span>
                         <input
                           className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                           type="text"
                           name="fullName"
                           id="fullName"
-                          placeholder={`${loggedInUser?.name} ${loggedInUser?.lastName}`}
-                          defaultValue={`${loggedInUser?.name} ${loggedInUser?.lastName}`}
+                          placeholder={`${loggedInUser?.first_name} ${loggedInUser?.last_name}`}
+                          defaultValue={`${loggedInUser?.first_name} ${loggedInUser?.last_name}`}
                         />
                       </div>
                     </div>
@@ -51,22 +58,33 @@ const Settings = () => {
                     <div className="w-full sm:w-1/2">
                       <label
                         className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="phoneNumber">Phone Number
+                        htmlFor="phone"
+                      >
+                        Phone Number
                       </label>
                       <div className="relative">
                         <span className="absolute left-4.5 top-4">
-                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                           <IoCallOutline className="text-gray-400" size={20} />
-                         </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <IoCallOutline
+                              className="text-gray-400"
+                              size={20}
+                            />
+                          </div>
                         </span>
-                      <input
-                        className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                        type="text"
-                        name="phoneNumber"
-                        id="phoneNumber"
-                        placeholder={loggedInUser?.phoneNumber}
-                        defaultValue={loggedInUser?.phoneNumber}
-                      />
+                        <input
+                          className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          type="text"
+                          name="phone"
+                          id="phone"
+                          placeholder={loggedInUser?.phone}
+                          defaultValue={loggedInUser?.phone}
+                        />
                       </div>
                     </div>
                   </div>
@@ -74,13 +92,22 @@ const Settings = () => {
                   <div className="mb-5.5">
                     <label
                       className="mb-3 block text-sm font-medium text-black dark:text-white"
-                      htmlFor="emailAddress"> Email Address
+                      htmlFor="emailAddress"
+                    >
+                      {" "}
+                      Email Address
                     </label>
                     <div className="relative">
                       <span className="absolute left-4.5 top-4">
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                           <FaRegEnvelope className="text-gray-400" size={20} />
-                         </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <FaRegEnvelope className="text-gray-400" size={20} />
+                        </div>
                       </span>
                       <input
                         className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
@@ -96,23 +123,34 @@ const Settings = () => {
                   <div className="mb-5.5">
                     <label
                       className="mb-3 block text-sm font-medium text-black dark:text-white"
-                      htmlFor="Address">Address
+                      htmlFor="Address"
+                    >
+                      Address
                     </label>
                     <div className="relative">
                       <span className="absolute left-4.5 top-4">
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                           <GiPositionMarker className="text-gray-400" size={20} />
-                         </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <GiPositionMarker
+                            className="text-gray-400"
+                            size={20}
+                          />
+                        </div>
                       </span>
-                    <input
-                      className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                      type="text"
-                      name="Address"
-                      id="Address"
-                      placeholder={loggedInUser?.address}
-                      defaultValue={loggedInUser?.address}
-                    />
-                  </div>
+                      <input
+                        className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                        type="text"
+                        name="Address"
+                        id="Address"
+                        placeholder={loggedInUser?.address}
+                        defaultValue={loggedInUser?.address}
+                      />
+                    </div>
                   </div>
 
                   <div className="mb-5.5">

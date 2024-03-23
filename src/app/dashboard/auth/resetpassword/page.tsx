@@ -206,7 +206,7 @@ const RessetPassword: React.FC = () => {
                       value="Reset"
                       onClick={(e) => {
                         e.preventDefault();
-                        login();
+                        // login();
                       }}
                       className="w-full cursor-pointer rounded-lg border border-purple-700 bg-purple-700  p-4 text-white transition hover:bg-opacity-90"
                     />

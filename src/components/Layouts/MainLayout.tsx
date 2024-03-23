@@ -20,9 +20,7 @@ export default function MainLayout({
           {/* <!-- ===== Header End ===== --> */}
           {/* <!-- ===== Main Content Start ===== --> */}
           <main>
-            <div className="mx-auto h-screen max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-              {children}
-            </div>
+            <div className="w-full h-screen">{children}</div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
         </div>

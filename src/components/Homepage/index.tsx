@@ -13,7 +13,7 @@ type Props = {};
 const Homepage = (props: Props) => {
   const router = useRouter();
   return (
-    <div className=" h-screen">
+    <div className="h-screen">
       <AppBar /> 
       <AboutUs />
       <Services />

@@ -50,7 +50,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {loggedInUser?.name} {loggedInUser?.lastName}
+            {loggedInUser?.first_name} {loggedInUser?.last_name}
           </span>
           <span className="block text-xs">{loggedInUser?.speciality}</span>
         </span>
@@ -97,7 +97,13 @@ const DropdownUser = () => {
               href="/dashboard/profile"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <BsPerson className="text-gray-400" size={20} />
               </div>
               My Profile
@@ -108,9 +114,15 @@ const DropdownUser = () => {
               href="/dashboard/settings"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                           <FiSettings className="text-gray-400" size={20} />
-                         </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <FiSettings className="text-gray-400" size={20} />
+              </div>
               Account Settings
             </Link>
           </li>
@@ -119,9 +131,15 @@ const DropdownUser = () => {
           className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
           onClick={logout}
         >
-         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                           <TbLogout2 className="text-gray-400" size={20} />
-                         </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TbLogout2 className="text-gray-400" size={20} />
+          </div>
           Log Out
         </button>
       </div>

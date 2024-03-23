@@ -6,26 +6,27 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 import { useAuth } from "@/components/AuthContext";
 import { Doctor } from "@/types/doctor";
-import { BsPerson  } from "react-icons/bs";
-import { FaRegEnvelope } from 'react-icons/fa';
-import { MdLockOutline } from 'react-icons/md';
+import { BsPerson } from "react-icons/bs";
+import { FaRegEnvelope } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
 import { IoCallOutline } from "react-icons/io5";
-import { BsBriefcase } from 'react-icons/bs';
+import { BsBriefcase } from "react-icons/bs";
+import clsx from "clsx";
 
 const initialDoctor: Doctor = {
-  name: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   email: "",
   address: "",
   speciality: "",
-  phoneNumber: "",
+  phone: "",
   password: "",
+  role: "doctor",
 };
 
 const SignUp: React.FC = () => {
-  const [myNewDoctor, setMyNewDoctor] = useState<Doctor | null>(initialDoctor);
-  const { signUp } = useAuth();
+  const [myNewDoctor, setMyNewDoctor] = useState<Doctor>(initialDoctor);
+  const { signUp, loading } = useAuth();
   return (
     <div className="flex h-screen w-screen items-center justify-center ">
       <div className="w-full max-w-5xl">
@@ -34,12 +35,13 @@ const SignUp: React.FC = () => {
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="flex flex-wrap items-center">
             <div className="hidden w-full xl:block xl:w-1/2">
-                <h2 className=" ms-15  text-2xl font-bold text-black dark:text-white sm:text-title-xl2"> Welcome to 
-                  <span className="text-purple-700 ms-4">Doolab</span>Care
-                </h2>
+              <h2 className=" ms-15  text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+                {" "}
+                Welcome to
+                <span className="ms-2 text-purple-700">Doolab</span>Care
+              </h2>
               <div className="px-26 py-17.5 ">
-              
-                <Link className="mb-5.5 inline-block pl-13   pb-8" href="/">
+                <Link className="mb-5.5 inline-block pb-8   pl-13" href="/">
                   <Image
                     className="hidden dark:block "
                     src={"/images/logo/logo.png"}
@@ -55,8 +57,9 @@ const SignUp: React.FC = () => {
                     height={40}
                   />
                 </Link>
-                <p className="2xl:px-10 text-center">
-                To keep connected with us please login with your personal info.
+                <p className="text-center 2xl:px-10">
+                  To keep connected with us please login with your personal
+                  info.
                 </p>
 
                 <span className=" inline-block">
@@ -185,58 +188,78 @@ const SignUp: React.FC = () => {
             </div>
 
             <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
-              <div className="w-full p-4 sm:p-12.5 xl:p-17.5">             
-                
+              <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
                 <form>
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">First Name</label>
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      First Name
+                    </label>
                     <div className="relative">
                       <input
                         type="text"
                         placeholder="Enter your First name"
-                        value={myNewDoctor?.name}
+                        value={myNewDoctor?.first_name}
                         onChange={(e) => {
-                          setMyNewDoctor({
-                            ...myNewDoctor,
-                            name: e.target.value,
-                          });
+                          if (e.target.value.length > 0) {
+                            setMyNewDoctor({
+                              ...myNewDoctor,
+                              first_name: e.target.value,
+                            });
+                          }
                         }}
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                       />
-                      
+
                       <span className="absolute right-4 top-4">
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <BsPerson className="text-grey-200" size={20} />
-</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <BsPerson className="text-grey-200" size={20} />
+                        </div>
                       </span>
                     </div>
                   </div>
-                  
+
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white"> Last Name </label>
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      {" "}
+                      Last Name{" "}
+                    </label>
                     <div className="relative">
                       <input
                         type="text"
                         placeholder="Enter your Last name"
-                        value={myNewDoctor?.lastName}
+                        value={myNewDoctor?.last_name}
                         onChange={(e) => {
                           setMyNewDoctor({
                             ...myNewDoctor,
-                            lastName: e.target.value,
+                            last_name: e.target.value,
                           });
                         }}
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                       />
 
                       <span className="absolute right-4 top-4">
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <BsPerson className="text-grey-200" size={20} />
-</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <BsPerson className="text-grey-200" size={20} />
+                        </div>
                       </span>
                     </div>
                   </div>
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">Email</label>
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      Email
+                    </label>
                     <div className="relative">
                       <input
                         type="email"
@@ -252,15 +275,24 @@ const SignUp: React.FC = () => {
                       />
 
                       <span className="absolute right-4 top-4">
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <FaRegEnvelope className="text-grey-200" size={20} />
-</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <FaRegEnvelope className="text-grey-200" size={20} />
+                        </div>
                       </span>
                     </div>
                   </div>
 
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white"> Address</label>
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      {" "}
+                      Address
+                    </label>
                     <div className="relative">
                       <input
                         type="text"
@@ -272,41 +304,64 @@ const SignUp: React.FC = () => {
                             address: e.target.value,
                           });
                         }}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"/>
+                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
+                      />
 
                       <span className="absolute right-4 top-4">
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <GiPositionMarker className="text-grey-200" size={20} />
-</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <GiPositionMarker
+                            className="text-grey-200"
+                            size={20}
+                          />
+                        </div>
                       </span>
                     </div>
                   </div>
 
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white"> Phone Numbe</label>
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      {" "}
+                      Phone Number
+                    </label>
                     <div className="relative">
                       <input
                         type="text"
                         placeholder="Enter your Phone Number"
-                        value={myNewDoctor?.phoneNumber}
+                        value={myNewDoctor?.phone}
                         onChange={(e) => {
                           setMyNewDoctor({
                             ...myNewDoctor,
-                            phoneNumber: e.target.value,
+                            phone: e.target.value,
                           });
                         }}
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"/>
+                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
+                      />
 
                       <span className="absolute right-4 top-4">
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <IoCallOutline className="text-gray-200" size={20} />
-</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <IoCallOutline className="text-gray-200" size={20} />
+                        </div>
                       </span>
                     </div>
                   </div>
 
                   <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white"> Speciality</label>
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      {" "}
+                      Speciality
+                    </label>
                     <div className="relative">
                       <input
                         type="text"
@@ -322,9 +377,15 @@ const SignUp: React.FC = () => {
                       />
 
                       <span className="absolute right-4 top-4">
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <BsBriefcase className="text-gray-200" size={20} />
-</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <BsBriefcase className="text-gray-200" size={20} />
+                        </div>
                       </span>
                     </div>
                   </div>
@@ -345,7 +406,6 @@ const SignUp: React.FC = () => {
                           });
                         }}
                       />
-
                     </div>
                   </div>
 
@@ -367,12 +427,19 @@ const SignUp: React.FC = () => {
                   <div className="mb-5">
                     <input
                       type="submit"
-                      value="Create account"
+                      value={loading ? "Creating account.." : "Create account"}
                       onClick={(e) => {
                         e.preventDefault();
-                        signUp(myNewDoctor!);
+                        signUp(myNewDoctor);
                       }}
-                      className="w-full cursor-pointer rounded-lg border border-purple-700 bg-purple-700 p-4 text-white transition hover:bg-opacity-90"
+                      className={clsx(
+                        "w-full cursor-pointer rounded-lg border border-purple-700 bg-purple-700 p-4 text-white transition hover:bg-opacity-90",
+                        {
+                          "opacity-50": loading,
+                          "pointer-events-none": loading,
+                        },
+                      )}
+                      disabled={loading}
                     />
                   </div>
 

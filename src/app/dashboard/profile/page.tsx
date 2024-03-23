@@ -109,7 +109,7 @@ const Profile = () => {
             </div>
             <div className="mt-4">
               <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                {`${loggedInUser?.name} ${loggedInUser?.lastName}`}
+                {`${loggedInUser?.first_name} ${loggedInUser?.last_name}`}
               </h3>
               <p className="font-medium">{loggedInUser?.speciality}</p>
               <p className="font-medium">{loggedInUser?.address}</p>
@@ -139,8 +139,9 @@ const Profile = () => {
                   About Me
                 </h4>
                 <p className="mt-4.5">
-                Using my extensive medical training and years of real-world experience, 
-                I work hard to provide my patients with high-quality diagnostic and efficient care.
+                  Using my extensive medical training and years of real-world
+                  experience, I work hard to provide my patients with
+                  high-quality diagnostic and efficient care.
                 </p>
               </div>
 
