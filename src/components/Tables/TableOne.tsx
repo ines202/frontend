@@ -4,7 +4,8 @@ import Image from "next/image";
 
 const notificationData: NOTIFICATION[] = [
   {
-    fullname: "John Doe",
+    firstname: "John ",
+    lastname: " Doe",
     date: new Date("2024-03-21"),
     hour: "14:30",
     phone: 1234567890,
@@ -12,7 +13,8 @@ const notificationData: NOTIFICATION[] = [
     image: "/images/logo/logo.png",
   },
   {
-    fullname: "John Doe",
+    firstname: " Doe",
+    lastname: "John ",
     date: new Date("2024-02-21"),
     hour: "16:30",
     phone: 1234567890,
@@ -20,7 +22,8 @@ const notificationData: NOTIFICATION[] = [
     image: "/images/product/product-01.png",
   },
   {
-    fullname: "John Doe",
+    firstname: "ines",
+    lastname: "boukhors",
     date: new Date("2024-03-21"),
     hour: "14:30",
     phone: 1234567890,
@@ -28,7 +31,8 @@ const notificationData: NOTIFICATION[] = [
     image: "/images/logo/logo.png",
   },
   {
-    fullname: "John Doe",
+    firstname: "kawther",
+    lastname: "rached",
     date: new Date("2024-03-21"),
     hour: "14:30",
     phone: 1234567890,
@@ -60,7 +64,7 @@ const TableOne = () => {
         <div className="grid grid-cols-3 rounded-sm bg-gray-200 dark:bg-gray-800 sm:grid-cols-6">
           {/* En-têtes de colonne */}
           <div className="p-2.5">
-            <h5 className="text-sm font-medium uppercase">Patient</h5>
+            <h5 className="text-sm font-medium uppercase">Full name</h5>
           </div>
           <div className="p-2.5 text-center">
             <h5 className="text-sm font-medium uppercase">Date</h5>
@@ -91,7 +95,8 @@ const TableOne = () => {
           >
             {/* Contenu de chaque notification */}
             <div className="flex items-center p-2.5">
-              <p className="text-black dark:text-white">{notification.fullname}</p>
+              <p className="text-black dark:text-white">{notification.firstname}</p>
+              <p className="text-black dark:text-white ms-2">{notification.lastname}</p>
             </div>
             <div className="flex items-center justify-center p-2.5">
               <p className="text-black dark:text-white">{notification.date.toLocaleDateString()}</p>

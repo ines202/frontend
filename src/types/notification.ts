@@ -1,9 +1,9 @@
 export type NOTIFICATION = {
-
-  fullname: string;
+  firstname: string;
+  lastname: string;
   date : Date;
   hour: string;
   phone: number;
   result: number;
-   image: string;
+  image: string;
 };

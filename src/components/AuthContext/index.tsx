@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setLoggedInUser(null);
-    router.push("/dashboard/auth/signin");
+    router.push("/signup");
   };
 
   const login = async (email: string, password: string) => {
@@ -70,7 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       onSuccess: () => {
         toast.success("Doctor Signed-up successfully");
         setTimeout(() => {
-          router.push("/dashboard/auth/signin");
+          router.push("/signup");
         }, 3000);
       },
       onError: (error) => {

@@ -1,12 +1,8 @@
-export type Doctor = {
+export type Patient = {
   id: number;
   first_name: string;
   last_name: string;
   email: string;
-  address: string;
-  speciality: string;
   phone: string;
   password: string;
-  pic: string;
-  role: string;
 };

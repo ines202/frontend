@@ -1,48 +1,20 @@
-import { BRAND } from "@/types/notification";
+import { Doctor } from "@/types/doctor";
 import Image from "next/image";
 import DropdownDefault from "../Dropdowns/DropdownDefault";
 
-const brandData: BRAND[] = [
-  {
-    logo: "/images/brand/brand-01.svg",
-    name: "Google",
-    visitors: 3.5,
-    revenues: "5,768",
-    sales: 590,
-    conversion: 4.8,
+const doctorData: Doctor[] = [
+   {
+    first_name: "ines",
+    last_name: "jjjjjj",
+    email: "jjjjjjjj",
+    address: "uyuyu",
+    speciality: "jhjhgf",
+    phone: "076543219",
+    password: "123456",
+    role: "doctor",
   },
-  {
-    logo: "/images/brand/brand-02.svg",
-    name: "Twitter",
-    visitors: 2.2,
-    revenues: "4,635",
-    sales: 467,
-    conversion: 4.3,
-  },
-  {
-    logo: "/images/brand/brand-06.svg",
-    name: "Youtube",
-    visitors: 2.1,
-    revenues: "4,290",
-    sales: 420,
-    conversion: 3.7,
-  },
-  {
-    logo: "/images/brand/brand-04.svg",
-    name: "Vimeo",
-    visitors: 1.5,
-    revenues: "3,580",
-    sales: 389,
-    conversion: 2.5,
-  },
-  {
-    logo: "/images/brand/brand-05.svg",
-    name: "Facebook",
-    visitors: 3.5,
-    revenues: "6,768",
-    sales: 390,
-    conversion: 4.2,
-  },
+  
+
 ];
 
 const TableFour: React.FC = () => {
@@ -52,7 +24,7 @@ const TableFour: React.FC = () => {
         <div className="mb-6 flex justify-between">
           <div>
             <h4 className="text-title-sm2 font-bold text-black dark:text-white">
-              ineeees
+              Doctor list
             </h4>
           </div>
           <DropdownDefault />
@@ -62,52 +34,55 @@ const TableFour: React.FC = () => {
           <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-4">
             <div className="p-2.5 xl:p-4">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Source
+                Full name
               </h5>
             </div>
             <div className="p-2.5 text-center xl:p-4">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Visitors
+                Email
               </h5>
             </div>
             <div className="p-2.5 text-center xl:p-4">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Revenues
+                Address
               </h5>
             </div>
             <div className="hidden p-2.5 text-center sm:block xl:p-4">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Conversion
+                Phone Number
+              </h5>
+            </div>
+            <div className="hidden p-2.5 text-center sm:block xl:p-4">
+              <h5 className="text-sm font-medium uppercase xsm:text-base">
+                Speciality
               </h5>
             </div>
           </div>
 
-          {brandData.map((brand, key) => (
+          {doctorData.map((doctor, key) => (
             <div
               className={`grid grid-cols-3 sm:grid-cols-4 ${
-                key === brandData.length - 1
+                key === doctorData.length - 1
                   ? ""
                   : "border-b border-stroke dark:border-strokedark"
               }`}
               key={key}
             >
               <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                <div className="h-9 w-full max-w-9 flex-shrink-0">
-                  <Image src={brand.logo} width={60} height={50} alt="Brand" />
-                </div>
+              <p className="hidden font-medium text-black dark:text-white sm:block">
+                  {doctor.first_name} </p>
                 <p className="hidden font-medium text-black dark:text-white sm:block">
-                  {brand.name}
-                </p>
+                  {doctor.last_name} </p>
               </div>
 
               <div className="flex items-center justify-center p-2.5 xl:p-5">
                 <p className="font-medium text-black dark:text-white">
-                  {brand.visitors}K
+                  {doctor.email}
                 </p>
               </div>
 
               <div className="flex items-center justify-center p-2.5 xl:p-5">
-                <p className="font-medium text-meta-3">${brand.revenues}</p>
+                <p className="font-medium text-meta-3">{doctor.address}</p>
               </div>
 
               <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
