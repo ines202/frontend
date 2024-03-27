@@ -1,19 +1,14 @@
-"use client"
+"use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import TableOne from "@/components/Tables/TableOne";
-import TableThree from "@/components/Tables/TableThree";
-import TableTwo from "@/components/Tables/TableTwo";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
-import TableFour from "@/components/Tables/TableFour";
-
-
+import Patients from "@/components/Patients/Patients";
 
 const TablesPage = () => {
   return (
     <DashboardLayout>
+      <Breadcrumb pageName="Patients" />
       <div className="flex flex-col gap-10">
-        <TableTwo />
-       
+        <Patients />
       </div>
     </DashboardLayout>
   );

@@ -1,3 +1,5 @@
+import { MedicalRecord } from "./medicalRecord";
+
 export type Patient = {
   id: number;
   first_name: string;
@@ -5,4 +7,5 @@ export type Patient = {
   email: string;
   phone: string;
   password: string;
+  medical_record?: MedicalRecord;
 };

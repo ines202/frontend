@@ -8,6 +8,7 @@ import { FaRegEnvelope } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
 import { IoCallOutline } from "react-icons/io5";
 import { LuClipboardEdit } from "react-icons/lu";
+import { Roles } from "@/types/types";
 const Settings = () => {
   const { loggedInUser } = useAuth();
   return (
@@ -28,7 +29,7 @@ const Settings = () => {
                       <label
                         className="mb-3 block text-sm font-medium text-black dark:text-white"
                         htmlFor="fullName"
->
+                      >
                         Full Name
                       </label>
                       <div className="relative">
@@ -48,8 +49,20 @@ const Settings = () => {
                           type="text"
                           name="fullName"
                           id="fullName"
-                          placeholder={`${loggedInUser?.first_name} ${loggedInUser?.last_name}`}
-                          defaultValue={`${loggedInUser?.first_name} ${loggedInUser?.last_name}`}
+                          placeholder={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? `${loggedInUser.doctor?.first_name} ${loggedInUser.doctor?.last_name}`
+                                : `${loggedInUser.admin?.first_name} ${loggedInUser.admin?.last_name}`
+                              : ""
+                          }
+                          defaultValue={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? `${loggedInUser.doctor?.first_name} ${loggedInUser.doctor?.last_name}`
+                                : `${loggedInUser.admin?.first_name} ${loggedInUser.admin?.last_name}`
+                              : ""
+                          }
                         />
                       </div>
                     </div>
@@ -81,8 +94,20 @@ const Settings = () => {
                           type="text"
                           name="phone"
                           id="phone"
-                          placeholder={loggedInUser?.phone}
-                          defaultValue={loggedInUser?.phone}
+                          placeholder={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? loggedInUser.doctor?.phone
+                                : loggedInUser.admin?.phone
+                              : ""
+                          }
+                          defaultValue={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? loggedInUser.doctor?.phone
+                                : loggedInUser.admin?.phone
+                              : ""
+                          }
                         />
                       </div>
                     </div>
@@ -113,8 +138,20 @@ const Settings = () => {
                         type="email"
                         name="emailAddress"
                         id="emailAddress"
-                        placeholder={loggedInUser?.email}
-                        defaultValue={loggedInUser?.email}
+                        placeholder={
+                          loggedInUser
+                            ? loggedInUser.role === Roles.doctor
+                              ? loggedInUser.doctor?.email
+                              : loggedInUser.admin?.email
+                            : ""
+                        }
+                        defaultValue={
+                          loggedInUser
+                            ? loggedInUser.role === Roles.doctor
+                              ? loggedInUser.doctor?.email
+                              : loggedInUser.admin?.email
+                            : ""
+                        }
                       />
                     </div>
                   </div>
@@ -146,8 +183,20 @@ const Settings = () => {
                         type="text"
                         name="Address"
                         id="Address"
-                        placeholder={loggedInUser?.address}
-                        defaultValue={loggedInUser?.address}
+                        placeholder={
+                          loggedInUser
+                            ? loggedInUser.role === Roles.doctor
+                              ? loggedInUser.doctor?.address
+                              : ""
+                            : ""
+                        }
+                        defaultValue={
+                          loggedInUser
+                            ? loggedInUser.role === Roles.doctor
+                              ? loggedInUser.doctor?.address
+                              : ""
+                            : ""
+                        }
                       />
                     </div>
                   </div>
@@ -159,7 +208,7 @@ const Settings = () => {
                     >
                       BIO
                     </label>
-                   { /*<div className="relative">
+                    {/*<div className="relative">
                       <span className="absolute left-4.5 top-4">
                       <LuClipboardEdit size={20} />
                       </span>

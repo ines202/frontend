@@ -5,6 +5,8 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthContext";
 import { MdOutlinePhotoCamera } from "react-icons/md";
+import { Roles } from "@/types/types";
+import { useEffect } from "react";
 
 const Profile = () => {
   const { loggedInUser } = useAuth();
@@ -54,7 +56,7 @@ const Profile = () => {
                   htmlFor="profile"
                   className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-purple-700 text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
                 >
-                   <MdOutlinePhotoCamera size={20} />
+                  <MdOutlinePhotoCamera size={20} />
                   <input
                     type="file"
                     name="profile"
@@ -66,10 +68,22 @@ const Profile = () => {
             </div>
             <div className="mt-4">
               <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                {`${loggedInUser?.first_name} ${loggedInUser?.last_name}`}
+                {loggedInUser &&
+                  (loggedInUser?.role === Roles.admin
+                    ? `${loggedInUser.admin?.first_name} ${loggedInUser.admin?.last_name}`
+                    : `${loggedInUser.doctor?.first_name} ${loggedInUser.doctor?.last_name}`)}
               </h3>
-              <p className="font-medium">{loggedInUser?.speciality}</p>
-              <p className="font-medium">{loggedInUser?.address}</p>
+              <p className="font-medium">
+                {loggedInUser &&
+                  (loggedInUser.role === Roles.doctor
+                    ? loggedInUser.doctor?.speciality
+                    : "Admin")}
+              </p>
+              <p className="font-medium">
+                {loggedInUser &&
+                  loggedInUser.role === Roles.doctor &&
+                  loggedInUser.doctor?.address}
+              </p>
               {/* <div className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
                 <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                   <span className="font-semibold text-black dark:text-white">

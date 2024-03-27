@@ -6,6 +6,7 @@ import { useAuth } from "../AuthContext";
 import { BsPerson } from "react-icons/bs";
 import { TbLogout2 } from "react-icons/tb";
 import { FiSettings } from "react-icons/fi";
+import { Roles } from "@/types/types";
 
 const DropdownUser = () => {
   const { loggedInUser, logout } = useAuth();
@@ -50,9 +51,16 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {loggedInUser?.first_name} {loggedInUser?.last_name}
+            {loggedInUser &&
+              (loggedInUser.role === Roles.doctor
+                ? `${loggedInUser.doctor?.first_name} ${loggedInUser.doctor?.last_name}`
+                : `${loggedInUser.admin?.first_name} ${loggedInUser.admin?.last_name}`)}
           </span>
-          <span className="block text-xs">{loggedInUser?.speciality}</span>
+          <span className="block text-xs">
+            {loggedInUser && loggedInUser.role === Roles.doctor
+              ? loggedInUser.doctor?.speciality
+              : "Admin"}
+          </span>
         </span>
 
         <span className="relative h-12 w-12 rounded-full border-2 border-purple-700 drop-shadow-2">
