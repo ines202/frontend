@@ -3,7 +3,7 @@ import Image from "next/image";
 import DropdownDefault from "../Dropdowns/DropdownDefault";
 
 const doctorData: Doctor[] = [
-   {
+   {id:1,
     first_name: "ines",
     last_name: "jjjjjj",
     email: "jjjjjjjj",
@@ -12,8 +12,9 @@ const doctorData: Doctor[] = [
     phone: "076543219",
     password: "123456",
     role: "doctor",
+    pic:"",
   },
-  
+
 
 ];
 
@@ -57,6 +58,11 @@ const TableFour: React.FC = () => {
                 Speciality
               </h5>
             </div>
+            <div className="hidden p-2.5 text-center sm:block xl:p-4">
+              <h5 className="text-sm font-medium uppercase xsm:text-base">
+                Documents
+              </h5>
+            </div>
           </div>
 
           {doctorData.map((doctor, key) => (
@@ -69,6 +75,7 @@ const TableFour: React.FC = () => {
               key={key}
             >
               <div className="flex items-center gap-3 p-2.5 xl:p-5">
+
               <p className="hidden font-medium text-black dark:text-white sm:block">
                   {doctor.first_name} </p>
                 <p className="hidden font-medium text-black dark:text-white sm:block">
@@ -86,7 +93,11 @@ const TableFour: React.FC = () => {
               </div>
 
               <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                <p className="font-medium text-meta-5">{brand.conversion}%</p>
+                <p className="font-medium text-meta-5">{doctor.phone}</p>
+              </div>
+
+              <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                <p className="font-medium text-meta-5">{doctor.phone}</p>
               </div>
             </div>
           ))}

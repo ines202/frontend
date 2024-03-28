@@ -113,6 +113,12 @@ const Settings = () => {
                     </div>
                   </div>
 
+
+
+
+
+
+
                   <div className="mb-5.5">
                     <label
                       className="mb-3 block text-sm font-medium text-black dark:text-white"
@@ -208,7 +214,7 @@ const Settings = () => {
                     >
                       BIO
                     </label>
-                    {/*<div className="relative">
+                    <div className="relative">
                       <span className="absolute left-4.5 top-4">
                       <LuClipboardEdit size={20} />
                       </span>
@@ -223,7 +229,7 @@ const Settings = () => {
                         experience, I work hard to provide my patients with
                         high-quality diagnostic and efficient care."
                       ></textarea>
-                        </div>*/}
+                        </div>
                   </div>
 
                   <div className="flex justify-end gap-4.5">

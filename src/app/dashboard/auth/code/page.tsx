@@ -3,7 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
-const CodeReceive: React.FC = () => {
+interface CodeReceiveProps {
+  onPreviousStep: () => void;
+  onNextStep: () => void;
+}
+
+const CodeReceive: React.FC<CodeReceiveProps> = ({ onPreviousStep, onNextStep }) => {
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       <div className="w-full max-w-5xl">

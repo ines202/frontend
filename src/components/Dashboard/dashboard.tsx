@@ -4,6 +4,7 @@ import ChartOne from "../Charts/ChartOne";
 import ChartTwo from "../Charts/ChartTwo";
 import TableOne from "../Tables/TableOne";
 import CardDataStats from "../CardDataStats";
+import PatientList from "../Tables/TableTwo";
 
 const Dashboard: React.FC = () => {
   return (
@@ -101,6 +102,7 @@ const Dashboard: React.FC = () => {
         {/* <ChartThree /> */}
         <div className="col-span-12 xl:col-span-8">
           <TableOne />
+         
         </div>
         {/* <ChatCard /> */}
       </div>

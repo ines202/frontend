@@ -6,7 +6,7 @@ import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
 
 const Patients = () => {
-  const router = useRouter();
+  {/*const router = useRouter();
   // Queries
   const { data: patientProfiles, error, isLoading } = useGetPatients();
 
@@ -18,13 +18,13 @@ const Patients = () => {
   // Handlers
   const handleMedicalRecordClick = (patientProfile: PatientProfile) => {
     router.push(`/dashboard/patients/${patientProfile.patient.id}`);
-  };
+  };*/}
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="px-4 py-6 md:px-6 xl:px-7.5">
         <h4 className="text-xl font-semibold text-black dark:text-white">
-          List Patient
+          List Doctor
         </h4>
       </div>
 
@@ -35,16 +35,24 @@ const Patients = () => {
         <div className="col-span-2 hidden items-center sm:flex">
           <p className="font-medium">Email</p>
         </div>
+
         <div className="col-span-2 flex items-center">
+          <p className="font-medium">Address</p>
+        </div>
+
+        <div className="col-span-1 flex items-center">
           <p className="font-medium">Phone</p>
         </div>
 
-        <div className="col-span-2 flex items-center">
-          <p className="font-medium">Medical record</p>
+        <div className="col-span-1 flex items-center">
+          <p className="font-medium">Speciality</p>
         </div>
+
+
+
       </div>
 
-      {isLoading || !patientProfiles ? (
+     {/* {isLoading || !patientProfiles ? (
         <Skeleton count={5} />
       ) : (
         patientProfiles.map((patientProfile, key) => (
@@ -89,7 +97,7 @@ const Patients = () => {
             </div>
           </div>
         ))
-      )}
+      )}*/}
     </div>
   );
 };

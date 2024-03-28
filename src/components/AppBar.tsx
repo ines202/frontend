@@ -32,11 +32,11 @@ const AppBar = (props: Props) => {
         </div>
 
         <nav>
-          <ul className="flex space-x-4">
+          <ul className="flex space-x-10">
             <li>
               <a
                 href="#"
-                className="text-lg font-bold text-black hover:text-purple-700 "
+                className="text-2xl font-bold text-black hover:text-purple-700 "
               >
                 About Us{" "}
               </a>
@@ -44,7 +44,7 @@ const AppBar = (props: Props) => {
             <li>
               <a
                 href="#"
-                className="text-lg font-bold text-black hover:text-purple-700"
+                className="text-2xl font-bold text-black hover:text-purple-700"
               >
                 Services
               </a>
@@ -52,7 +52,7 @@ const AppBar = (props: Props) => {
             <li>
               <a
                 href="#"
-                className="text-lg  font-bold text-black hover:text-purple-700"
+                className="text-2xl  font-bold text-black hover:text-purple-700"
               >
                 Contact Us
               </a>
@@ -62,13 +62,22 @@ const AppBar = (props: Props) => {
         <div>
           <input
             type="submit"
-            value="Sign Up Now"
+            value="Sign Up"
             onClick={() => {
-              router.push("/dashboard");
+              router.push("/signup");
             }}
             className="w-min cursor-pointer rounded-lg border border-purple-700 bg-purple-700 p-4 font-bold text-white transition hover:bg-opacity-90"
           />
+          <input
+            type="submit"
+            value="Sign In"
+            onClick={() => {
+              router.push("/signin");
+            }}
+            className="w-min ml-10 cursor-pointer rounded-lg border border-purple-700 bg-purple-700 p-4 font-bold text-white transition hover:bg-opacity-90"
+          />
         </div>
+
       </header>
 
       <main className="container mx-auto h-screen flex-grow bg-purple-100  px-4">

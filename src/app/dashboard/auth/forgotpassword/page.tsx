@@ -4,8 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { FaRegEnvelope } from "react-icons/fa";
+import router from "next/router";
 
-const ForgotPassword: React.FC = () => {
+interface ForgotPasswordProps {
+  onNextStep: () => void;
+}
+
+const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onNextStep }) => {
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       <div className="w-full max-w-5xl">
@@ -80,8 +85,11 @@ const ForgotPassword: React.FC = () => {
                       type="submit"
                       value="Send "
                       className="w-full cursor-pointer rounded-lg border border-purple-700 bg-purple-700  p-4 text-white transition hover:bg-opacity-90"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={() => {
+                        router.push("/code")
+                      }}
                     />
+                   
                   </div>
 
                   <div className="mt-6 text-center">

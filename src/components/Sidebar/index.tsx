@@ -151,7 +151,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <Link
                   href="/dashboard/patients"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium
+                   text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("patients") &&
                     "bg-graydark dark:bg-meta-4"
                   }`}
@@ -160,13 +161,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Patient list
                 </Link>
               </li>
+
               {/* <!-- Menu Doctor list --> */}
               {loggedInUser?.role === Roles.admin && (
                 <li>
                   <Link
-                    href="#"
-                    className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname.includes("#") && "bg-graydark dark:bg-meta-4"
+                    href="/dashboard/doctors"
+                    className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium
+                     text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                      pathname.includes("doctors") && "bg-graydark dark:bg-meta-4"
                     }`}
                   >
                     <PiUserList size={23} />
@@ -188,11 +191,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Settings
                 </Link>
               </li>
-              {/* <!-- Menu Item Settings --> */}
+
+              {/* <!-- Menu Archive --> */}
               <li>
                 <Link
-                  href="/dashboard/settings"
-                  className={`group relative mt-60 flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                  href="#"
+                  className={`group relative mt-90 flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("archive") && "bg-graydark dark:bg-meta-4"
                   }`}
                 >

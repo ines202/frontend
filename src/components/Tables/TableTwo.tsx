@@ -3,37 +3,9 @@ import { Patient } from "@/types/patient";
 
 const patientData: Patient[] = [
   // Exemple 1
-  {id:4,
-    first_name: "John",
-    last_name: "Doe",
-    email: "john.doe@example.com",
-    phone: "124567890",
-    password:"12345",
-  },
-  {id:4,
-    first_name: "Alice",
-    last_name: "Smith",
-    email: "alice.smith@example.com",
-    phone: "0876543210",
-    password:"12345",
-  },
-  {id:4,
-    first_name: "Michael",
-    last_name: "Johnson",
-    email: "michael.johnson@example.com",
-    phone: "456780123",
-    password:"12345",
-  },
-  {id:4,
-    first_name: "Emily",
-    last_name: "Brown",
-    email: "emily.brown@example.com",
-    phone: "3206549870",
-    password:"12345",
-  },
 ];
 
-const TableTwo = () => {
+const PatientList = () => {
   const handleMedicalRecordClick = (patient: Patient) => {
     // Gérer le clic sur le bouton du dossier médical du patient
     console.log(
@@ -94,7 +66,6 @@ const TableTwo = () => {
             </p>
           </div>
 
-
           <div className="flex items-center justify-center p-2.5">
             <button
               className="rounded-md bg-purple-700 px-3 py-1 text-sm text-white hover:bg-purple-700 dark:text-white"
@@ -109,4 +80,4 @@ const TableTwo = () => {
   );
 };
 
-export default TableTwo;
+export default PatientList;

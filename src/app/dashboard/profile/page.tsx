@@ -14,7 +14,7 @@ const Profile = () => {
     <DashboardLayout>
       <div className="mx-auto max-w-242.5">
         <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <div className="relative z-20 h-35 md:h-65">
+          {/*<div className="relative z-20 h-35 md:h-65">
             {/* <Image
               src={"/images/cover/cover-01.png"}
               alt="profile cover"
@@ -25,7 +25,7 @@ const Profile = () => {
                 width: "auto",
                 height: "auto",
               }}
-            /> */}
+            /> }
             <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4">
               <label
                 htmlFor="cover"
@@ -41,8 +41,8 @@ const Profile = () => {
                 <span>Edit</span>
               </label>
             </div>
-          </div>
-          <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
+          </div> */}
+          <div className="px-4 mt-30 pb-6 text-center lg:pb-8 xl:pb-11.5">
             <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
               <div className="relative h-40 w-40 rounded-full border-4 border-purple-700 drop-shadow-2">
                 <Image
@@ -52,18 +52,7 @@ const Profile = () => {
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full p-4"
                   alt="profile"
                 />
-                <label
-                  htmlFor="profile"
-                  className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-purple-700 text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
-                >
-                  <MdOutlinePhotoCamera size={20} />
-                  <input
-                    type="file"
-                    name="profile"
-                    id="profile"
-                    className="sr-only"
-                  />
-                </label>
+                
               </div>
             </div>
             <div className="mt-4">
@@ -105,7 +94,7 @@ const Profile = () => {
                 </div>
               </div> */}
 
-              {/*<div className="mx-auto mt-6 max-w-180">
+              <div className="mx-auto mt-6 max-w-180">
                 <h4 className="font-semibold text-black dark:text-white">
                   About Me
                 </h4>
@@ -114,7 +103,7 @@ const Profile = () => {
                   experience, I work hard to provide my patients with
                   high-quality diagnostic and efficient care.
                 </p>
-            </div>*/}
+            </div>
 
               {/* <div className="mt-6.5">
                 <h4 className="mb-3.5 font-medium text-black dark:text-white">
