@@ -3,11 +3,12 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import { useAuth } from "@/components/AuthContext";
-import { BsPerson } from "react-icons/bs";
+import { BsBriefcase, BsPerson } from "react-icons/bs";
 import { FaRegEnvelope } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
 import { IoCallOutline } from "react-icons/io5";
 import { LuClipboardEdit } from "react-icons/lu";
+
 import { Roles } from "@/types/types";
 const Settings = () => {
   const { loggedInUser } = useAuth();
@@ -113,13 +114,8 @@ const Settings = () => {
                     </div>
                   </div>
 
-
-
-
-
-
-
-                  <div className="mb-5.5">
+                  <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
+                    <div className="w-full sm:w-1/2">
                     <label
                       className="mb-3 block text-sm font-medium text-black dark:text-white"
                       htmlFor="emailAddress"
@@ -160,8 +156,50 @@ const Settings = () => {
                         }
                       />
                     </div>
-                  </div>
+                    </div>
 
+                    <div className="w-full sm:w-1/2">
+                      <label
+                        className="mb-3 block text-sm font-medium text-black dark:text-white"
+                        htmlFor="speciality"
+                      >
+                        Speciality
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-4.5 top-4">
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <BsBriefcase className="text-gray-200" size={20} />
+                          </div>
+                        </span>
+                        <input
+                          className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          type="text"
+                          name="speciality"
+                          id="speciality"
+                          placeholder={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? loggedInUser.doctor?.speciality
+                                : ""
+                              : ""
+                          }
+                          defaultValue={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? loggedInUser.doctor?.speciality
+                                : ""
+                              : ""
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <div className="mb-5.5">
                     <label
                       className="mb-3 block text-sm font-medium text-black dark:text-white"

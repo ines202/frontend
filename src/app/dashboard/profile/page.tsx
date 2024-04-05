@@ -52,7 +52,7 @@ const Profile = () => {
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full p-4"
                   alt="profile"
                 />
-                
+
               </div>
             </div>
             <div className="mt-4">
@@ -72,6 +72,11 @@ const Profile = () => {
                 {loggedInUser &&
                   loggedInUser.role === Roles.doctor &&
                   loggedInUser.doctor?.address}
+              </p>
+              <p className="font-medium">
+                {loggedInUser &&
+                  loggedInUser.role === Roles.doctor &&
+                  loggedInUser.doctor?.phone}
               </p>
               {/* <div className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
                 <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">

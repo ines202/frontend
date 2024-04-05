@@ -97,7 +97,7 @@ const SignIn: React.FC = () => {
                     </div>
                     <div>
                       <Link
-                        href="/dashboard/auth/forgotpassword"
+                        href="/dashboard/auth/resetpassword"
                         className="ms-60 text-purple-700"
                       >
                         Forgot password?
