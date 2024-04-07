@@ -16,7 +16,7 @@ interface AuthContextType {
   loggedInUser: User | null;
   login: (email: string, password: string) => void;
   logout: () => void;
-  signUp: (myNewDoctor: Doctor) => void;
+  signUp: (myNewDoctor: Omit<Doctor, "id">) => void;
   loading: boolean;
 }
 
@@ -125,13 +125,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     );
   };
 
-  const signUp = async (myNewDoctor: Doctor) => {
+  const signUp = async (myNewDoctor: Omit<Doctor, "id">) => {
     console.log("Signing up...");
     await createDoctor(myNewDoctor, {
       onSuccess: () => {
         toast.success("Doctor Signed-up successfully");
         setTimeout(() => {
-          router.push("/signup");
+          router.push("/signin");
         }, 3000);
       },
       onError: (error) => {

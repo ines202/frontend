@@ -6,8 +6,8 @@ import { Admin } from "@/types/admin";
 import { Role } from "@/types/types";
 
 export const useCreateDoctor = () => {
-  return useMutation<Doctor, AxiosError, Doctor>({
-    mutationFn: async (newDoctor: Doctor) => {
+  return useMutation<Doctor, AxiosError, Omit<Doctor, "id">>({
+    mutationFn: async (newDoctor: Omit<Doctor, "id">) => {
       try {
         const response = await API.post("/doctor/register", newDoctor);
         return response.data;

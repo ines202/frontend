@@ -2,15 +2,28 @@ import { useMutation } from "@tanstack/react-query";
 import API from "@/app/lib/api";
 import { AxiosError } from "axios";
 
+export const UploadFolders = {
+  "doctor/documents": "doctor/documents",
+  "doctor/images": "doctor/images",
+  "patient/documents": "patient/documents",
+  "patient/images": "patient/images",
+} as const;
+
+type UploadFilesArgs = {
+  files: File[];
+  folder: (typeof UploadFolders)[keyof typeof UploadFolders];
+};
+
 export const useUploadFiles = () => {
   return useMutation<
     { files: { path: string }[]; status: boolean },
     AxiosError,
-    File[]
+    UploadFilesArgs
   >({
-    mutationFn: async (files: File[]) => {
+    mutationFn: async ({ files, folder }: UploadFilesArgs) => {
       try {
         const formData = new FormData();
+        formData.append("folder", folder);
         files.forEach((file) => formData.append("files", file));
         const response = await API.post("/upload", formData, {
           headers: {
