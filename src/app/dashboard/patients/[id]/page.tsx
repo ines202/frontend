@@ -4,10 +4,12 @@ import { useAuth } from "@/components/AuthContext";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import { Roles } from "@/types/types";
-import { useParams } from "next/navigation";
+
+import { useParams, useRouter } from "next/navigation";
 
 const PatientDetails = () => {
   const params = useParams();
+  const router = useRouter();
   const { id } = params;
   const { loggedInUser } = useAuth();
 
@@ -32,11 +34,11 @@ const PatientDetails = () => {
               <h2 className="mb-4 border-b border-stroke px-7 py-4 text-2xl font-semibold text-black dark:border-strokedark dark:text-white">
                 Personal Information
               </h2>
-              <div className="mb-4 grid grid-cols-2 gap-4">
+              <div className="mb-3 grid grid-cols-2 gap-4">
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="firstName"
-                    className="font-medium text-black dark:text-white"
+                    className="mb-3 font-medium text-black dark:text-white"
                   >
                     First Name:
                   </label>
@@ -50,7 +52,7 @@ const PatientDetails = () => {
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="lastName"
-                    className="font-medium text-black dark:text-white"
+                    className="mb-3 font-medium text-black dark:text-white"
                   >
                     Last Name:
                   </label>
@@ -64,7 +66,7 @@ const PatientDetails = () => {
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="email"
-                    className="font-medium text-black dark:text-white"
+                    className="mb-3 font-medium text-black dark:text-white"
                   >
                     Email:
                   </label>
@@ -78,7 +80,7 @@ const PatientDetails = () => {
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="phone"
-                    className="font-medium text-black dark:text-white"
+                    className="mb-3 font-medium text-black dark:text-white"
                   >
                     Phone:
                   </label>
@@ -89,21 +91,23 @@ const PatientDetails = () => {
                     value={patientProfile.patient.phone}
                   />
                 </div>
-              </div>
-              <div className="mb-3 flex flex-col">
+                <div className="mb-3 flex flex-col">
                 <label
                   htmlFor="address"
-                  className="font-medium text-black dark:text-white"
+                  className="mb-3 font-medium text-black dark:text-white"
                 >
                   Address:
                 </label>
                 <input
                   type="text"
                   id="address"
-                  className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                  className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                   value={patientProfile.patient.address}
                 />
               </div>
+
+              </div>
+
             </div>
             {patientProfile.patient.medical_record && (
               <div>
@@ -114,7 +118,7 @@ const PatientDetails = () => {
                   <div className="mb-3 flex flex-col">
                     <label
                       htmlFor="bloodGroup"
-                      className="font-medium text-black dark:text-white"
+                      className="mb-3 font-medium text-black dark:text-white"
                     >
                       Blood Group:
                     </label>
@@ -128,7 +132,7 @@ const PatientDetails = () => {
                   <div className="mb-3 flex flex-col">
                     <label
                       htmlFor="diabetesType"
-                      className="font-medium text-black dark:text-white"
+                      className="mb-3 font-medium text-black dark:text-white"
                     >
                       Diabetes Type:
                     </label>
@@ -142,7 +146,7 @@ const PatientDetails = () => {
                   <div className="mb-3 flex flex-col">
                     <label
                       htmlFor="hadDiabetes"
-                      className="font-medium text-black dark:text-white"
+                      className="mb-3 font-medium text-black dark:text-white"
                     >
                       Has Diabetes:
                     </label>
@@ -158,7 +162,7 @@ const PatientDetails = () => {
                   <div className="mb-3 flex flex-col">
                     <label
                       htmlFor="hasDfu"
-                      className="font-medium text-black dark:text-white"
+                      className="mb-3 font-medium text-black dark:text-white"
                     >
                       Has DFU:
                     </label>
@@ -176,7 +180,7 @@ const PatientDetails = () => {
                   <div className="mb-3 flex flex-col">
                     <label
                       htmlFor="isSmoker"
-                      className="font-medium text-black dark:text-white"
+                      className="mb-3 font-medium text-black dark:text-white"
                     >
                       Is Smoker:
                     </label>
@@ -196,7 +200,7 @@ const PatientDetails = () => {
                       <div className="mb-3 flex flex-col">
                         <label
                           htmlFor="doctor"
-                          className="font-medium text-black dark:text-white"
+                          className="mb-3 font-medium text-black dark:text-white"
                         >
                           Doctor:
                         </label>
@@ -217,7 +221,11 @@ const PatientDetails = () => {
           <button className="mr-2 rounded-md bg-purple-700 px-4 py-2 text-white">
             Save
           </button>
-          <button className="rounded-md bg-purple-100 px-4 py-2 text-black">
+
+          <button
+            className="mr-2 rounded-md bg-purple-700 px-4 py-2 text-white"
+            onClick={() => router.back()}
+          >
             Back
           </button>
         </div>

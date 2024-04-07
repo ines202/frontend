@@ -28,7 +28,7 @@ const DoctorDetails = () => {
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="firstName"
-                    className="font-medium text-black dark:text-white"
+                    className="mb-3 font-medium text-black dark:text-white"
                   >
                     First Name:
                   </label>
@@ -42,7 +42,7 @@ const DoctorDetails = () => {
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="lastName"
-                    className="font-medium text-black dark:text-white"
+                    className=" mb-3 font-medium text-black dark:text-white"
                   >
                     Last Name:
                   </label>
@@ -56,7 +56,7 @@ const DoctorDetails = () => {
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="email"
-                    className="font-medium text-black dark:text-white"
+                    className=" mb-3 font-medium text-black dark:text-white"
                   >
                     Email:
                   </label>
@@ -70,7 +70,7 @@ const DoctorDetails = () => {
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="phone"
-                    className="font-medium text-black dark:text-white"
+                    className=" mb-3 font-medium text-black dark:text-white"
                   >
                     Phone:
                   </label>
@@ -86,7 +86,7 @@ const DoctorDetails = () => {
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="bloodGroup"
-                    className="font-medium text-black dark:text-white"
+                    className="mb-3 font-medium text-black dark:text-white"
                   >
                     Speciality:
                   </label>
@@ -100,7 +100,7 @@ const DoctorDetails = () => {
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="diabetesType"
-                    className="font-medium text-black dark:text-white"
+                    className="mb-3 font-medium text-black dark:text-white"
                   >
                     Bio:
                   </label>
