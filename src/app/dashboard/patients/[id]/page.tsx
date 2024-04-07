@@ -1,12 +1,15 @@
 "use client";
 import { useGetPatientById } from "@/api/patient";
+import { useAuth } from "@/components/AuthContext";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
+import { Roles } from "@/types/types";
 import { useParams } from "next/navigation";
 
 const PatientDetails = () => {
   const params = useParams();
   const { id } = params;
+  const { loggedInUser } = useAuth();
 
   // Queries
   const {
@@ -26,7 +29,7 @@ const PatientDetails = () => {
         {patientProfile && (
           <div>
             <div>
-              <h2 className="mb-4 text-2xl font-semibold border-b border-stroke px-7 py-4 dark:border-strokedark text-black dark:text-white">
+              <h2 className="mb-4 border-b border-stroke px-7 py-4 text-2xl font-semibold text-black dark:border-strokedark dark:text-white">
                 Personal Information
               </h2>
               <div className="mb-4 grid grid-cols-2 gap-4">
@@ -42,7 +45,6 @@ const PatientDetails = () => {
                     id="firstName"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={patientProfile.patient.first_name}
-
                   />
                 </div>
                 <div className="mb-3 flex flex-col">
@@ -57,7 +59,6 @@ const PatientDetails = () => {
                     id="lastName"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={patientProfile.patient.last_name}
-
                   />
                 </div>
                 <div className="mb-3 flex flex-col">
@@ -72,7 +73,6 @@ const PatientDetails = () => {
                     id="email"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={patientProfile.patient.email}
-
                   />
                 </div>
                 <div className="mb-3 flex flex-col">
@@ -87,14 +87,27 @@ const PatientDetails = () => {
                     id="phone"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={patientProfile.patient.phone}
-
                   />
                 </div>
+              </div>
+              <div className="mb-3 flex flex-col">
+                <label
+                  htmlFor="address"
+                  className="font-medium text-black dark:text-white"
+                >
+                  Address:
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                  value={patientProfile.patient.address}
+                />
               </div>
             </div>
             {patientProfile.patient.medical_record && (
               <div>
-                <h2 className="mb-4 text-2xl font-semibold border-b border-stroke px-7 py-4 dark:border-strokedark text-black dark:text-white">
+                <h2 className="mb-4 border-b border-stroke px-7 py-4 text-2xl font-semibold text-black dark:border-strokedark dark:text-white">
                   Medical Record
                 </h2>
                 <div className="mb-4 grid grid-cols-2 gap-4">
@@ -110,7 +123,6 @@ const PatientDetails = () => {
                       id="bloodGroup"
                       className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                       value={patientProfile.patient.medical_record.bloodGroup}
-
                     />
                   </div>
                   <div className="mb-3 flex flex-col">
@@ -125,7 +137,6 @@ const PatientDetails = () => {
                       id="diabetesType"
                       className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                       value={patientProfile.patient.medical_record.diabetesType}
-
                     />
                   </div>
                   <div className="mb-3 flex flex-col">
@@ -142,7 +153,6 @@ const PatientDetails = () => {
                       value={new Date(
                         patientProfile.patient.medical_record.hadDiabetes,
                       ).toDateString()}
-
                     />
                   </div>
                   <div className="mb-3 flex flex-col">
@@ -157,11 +167,10 @@ const PatientDetails = () => {
                       id="hasDfu"
                       className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                       value={
-                        patientProfile.patient.medical_record.hasDfu
+                        patientProfile.patient.medical_record.hasDFU
                           ? "Yes"
                           : "No"
                       }
-
                     />
                   </div>
                   <div className="mb-3 flex flex-col">
@@ -180,34 +189,37 @@ const PatientDetails = () => {
                           ? "Yes"
                           : "No"
                       }
-
                     />
                   </div>
-                  {patientProfile.patient.medical_record.doctor && (
-                    <div className="mb-3 flex flex-col">
-                      <label
-                        htmlFor="doctor"
-                        className="font-medium text-black dark:text-white"
-                      >
-                        Doctor:
-                      </label>
-                      <input
-                        type="text"
-                        id="doctor"
-                        className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                        value={`${patientProfile.patient.medical_record.doctor.first_name} ${patientProfile.patient.medical_record.doctor.last_name}`}
-
-                      />
-                    </div>
-                  )}
+                  {patientProfile.patient.medical_record.doctor &&
+                    loggedInUser?.role === Roles.admin && (
+                      <div className="mb-3 flex flex-col">
+                        <label
+                          htmlFor="doctor"
+                          className="font-medium text-black dark:text-white"
+                        >
+                          Doctor:
+                        </label>
+                        <input
+                          type="text"
+                          id="doctor"
+                          className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          value={`${patientProfile.patient.medical_record.doctor.first_name} ${patientProfile.patient.medical_record.doctor.last_name}`}
+                        />
+                      </div>
+                    )}
                 </div>
               </div>
             )}
           </div>
         )}
-         <div className="flex justify-end mt-4">
-          <button className="px-4 py-2 mr-2 bg-purple-700 text-white rounded-md">Save</button>
-          <button className="px-4 py-2 bg-purple-100 text-black rounded-md">Back</button>
+        <div className="mt-4 flex justify-end">
+          <button className="mr-2 rounded-md bg-purple-700 px-4 py-2 text-white">
+            Save
+          </button>
+          <button className="rounded-md bg-purple-100 px-4 py-2 text-black">
+            Back
+          </button>
         </div>
       </div>
     </DashboardLayout>

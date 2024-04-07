@@ -104,9 +104,9 @@ const Profile = () => {
                   About Me
                 </h4>
                 <p className="mt-4.5">
-                  Using my extensive medical training and years of real-world
-                  experience, I work hard to provide my patients with
-                  high-quality diagnostic and efficient care.
+                {loggedInUser &&
+                  loggedInUser.role === Roles.doctor &&
+                  loggedInUser.doctor?.bio}
                 </p>
             </div>
 

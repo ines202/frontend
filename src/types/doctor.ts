@@ -9,4 +9,7 @@ export type Doctor = {
   password: string;
   pic: string;
   role: string;
+  bio?: string;
+  document: string;
+  profilePicture?: string;
 };

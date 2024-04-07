@@ -10,10 +10,6 @@ const Patients = () => {
   // Queries
   const { data: patientProfiles, error, isLoading } = useGetPatients();
 
-  useEffect(() => {
-    console.log("patientProfiles: ", patientProfiles);
-  }, [patientProfiles]);
-
   // Effects
   // Handlers
   const handleMedicalRecordClick = (patientProfile: PatientProfile) => {
@@ -24,7 +20,7 @@ const Patients = () => {
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="px-4 py-6 md:px-6 xl:px-7.5">
         <h4 className="text-xl font-semibold text-black dark:text-white">
-          List Patient
+          Patients List
         </h4>
       </div>
 
@@ -32,7 +28,7 @@ const Patients = () => {
         <div className="col-span-2 flex items-center">
           <p className="font-medium">Full name</p>
         </div>
-        <div className="col-span-2 hidden items-center sm:flex">
+        <div className="col-span-2 items-center">
           <p className="font-medium">Email</p>
         </div>
         <div className="col-span-2 flex items-center">

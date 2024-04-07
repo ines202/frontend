@@ -116,54 +116,12 @@ const Settings = () => {
 
                   <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                     <div className="w-full sm:w-1/2">
-                    <label
-                      className="mb-3 block text-sm font-medium text-black dark:text-white"
-                      htmlFor="emailAddress"
-                    >
-                      {" "}
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-4.5 top-4">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <FaRegEnvelope className="text-gray-400" size={20} />
-                        </div>
-                      </span>
-                      <input
-                        className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                        type="email"
-                        name="emailAddress"
-                        id="emailAddress"
-                        placeholder={
-                          loggedInUser
-                            ? loggedInUser.role === Roles.doctor
-                              ? loggedInUser.doctor?.email
-                              : loggedInUser.admin?.email
-                            : ""
-                        }
-                        defaultValue={
-                          loggedInUser
-                            ? loggedInUser.role === Roles.doctor
-                              ? loggedInUser.doctor?.email
-                              : loggedInUser.admin?.email
-                            : ""
-                        }
-                      />
-                    </div>
-                    </div>
-
-                    <div className="w-full sm:w-1/2">
                       <label
                         className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="speciality"
+                        htmlFor="emailAddress"
                       >
-                        Speciality
+                        {" "}
+                        Email Address
                       </label>
                       <div className="relative">
                         <span className="absolute left-4.5 top-4">
@@ -174,31 +132,69 @@ const Settings = () => {
                               alignItems: "center",
                             }}
                           >
-                            <BsBriefcase className="text-gray-200" size={20} />
+                            <FaRegEnvelope
+                              className="text-gray-400"
+                              size={20}
+                            />
                           </div>
                         </span>
                         <input
                           className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                          type="text"
-                          name="speciality"
-                          id="speciality"
+                          type="email"
+                          name="emailAddress"
+                          id="emailAddress"
                           placeholder={
                             loggedInUser
                               ? loggedInUser.role === Roles.doctor
-                                ? loggedInUser.doctor?.speciality
-                                : ""
+                                ? loggedInUser.doctor?.email
+                                : loggedInUser.admin?.email
                               : ""
                           }
                           defaultValue={
                             loggedInUser
                               ? loggedInUser.role === Roles.doctor
-                                ? loggedInUser.doctor?.speciality
-                                : ""
+                                ? loggedInUser.doctor?.email
+                                : loggedInUser.admin?.email
                               : ""
                           }
                         />
                       </div>
                     </div>
+
+                    {loggedInUser?.role === Roles.doctor && (
+                      <div className="w-full sm:w-1/2">
+                        <label
+                          className="mb-3 block text-sm font-medium text-black dark:text-white"
+                          htmlFor="speciality"
+                        >
+                          Speciality
+                        </label>
+                        <div className="relative">
+                          <span className="absolute left-4.5 top-4">
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                            >
+                              <BsBriefcase
+                                className="text-gray-200"
+                                size={20}
+                              />
+                            </div>
+                          </span>
+                          <input
+                            className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                            type="text"
+                            name="speciality"
+                            id="speciality"
+                            placeholder={loggedInUser.doctor?.speciality}
+                            defaultValue={loggedInUser.doctor?.speciality}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <div className="mb-5.5">
                     <label
@@ -245,30 +241,34 @@ const Settings = () => {
                     </div>
                   </div>
 
-                  <div className="mb-5.5">
-                    <label
-                      className="mb-3 block text-sm font-medium text-black dark:text-white"
-                      htmlFor="Address"
-                    >
-                      BIO
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-4.5 top-4">
-                      <LuClipboardEdit size={20} />
-                      </span>
+                  {loggedInUser?.role === Roles.doctor && (
+                    <div className="mb-5.5">
+                      <label
+                        className="mb-3 block text-sm font-medium text-black dark:text-white"
+                        htmlFor="Address"
+                      >
+                        Bio
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-4.5 top-4">
+                          <LuClipboardEdit size={20} />
+                        </span>
 
-                      <textarea
-                        className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                        name="bio"
-                        id="bio"
-                        rows={6}
-                        placeholder="Write your bio here"
-                        defaultValue=" Using my extensive medical training and years of real-world
-                        experience, I work hard to provide my patients with
-                        high-quality diagnostic and efficient care."
-                      ></textarea>
-                        </div>
-                  </div>
+                        <textarea
+                          className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          name="bio"
+                          id="bio"
+                          rows={6}
+                          placeholder="Write your bio here"
+                          value={
+                            loggedInUser.role === Roles.doctor
+                              ? loggedInUser.doctor?.bio
+                              : ""
+                          }
+                        ></textarea>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="flex justify-end gap-4.5">
                     <button

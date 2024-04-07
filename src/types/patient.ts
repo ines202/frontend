@@ -7,5 +7,7 @@ export type Patient = {
   email: string;
   phone: string;
   password: string;
+  address: string;
+  isArchived: boolean;
   medical_record?: MedicalRecord;
 };

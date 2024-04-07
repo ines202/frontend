@@ -11,6 +11,7 @@ import { GiPositionMarker } from "react-icons/gi";
 import { IoCallOutline } from "react-icons/io5";
 import { BsBriefcase } from "react-icons/bs";
 import clsx from "clsx";
+import ImageUpload from "@/components/ImageUpload";
 
 const initialDoctor: Doctor = {
   first_name: "",
@@ -21,11 +22,18 @@ const initialDoctor: Doctor = {
   phone: "",
   password: "",
   role: "doctor",
+  pic: "",
+  document: "",
 };
 
 const SignUp: React.FC = () => {
   const [myNewDoctor, setMyNewDoctor] = useState<Doctor>(initialDoctor);
   const { signUp, loading } = useAuth();
+
+  // Handlers
+  const handleUploadImage = (pic: string) => {
+    setMyNewDoctor({ ...myNewDoctor, pic });
+  };
   return (
     <div className="flex h-screen w-screen items-center justify-center ">
       <div className="w-full max-w-5xl">
@@ -291,6 +299,11 @@ const SignUp: React.FC = () => {
                       />
                     </div>
                   </div>
+                  <ImageUpload
+                    uploadedImageURL={(imageURL) =>
+                      setMyNewDoctor({ ...myNewDoctor, pic: imageURL })
+                    }
+                  />
 
                   {/* <div className="mb-6">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">Re-type Passwor</label>

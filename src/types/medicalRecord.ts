@@ -6,7 +6,7 @@ export type MedicalRecord = {
   patientId: Patient;
   doctorId: Doctor;
   diabetesType: string;
-  hasDfu: boolean;
+  hasDFU: boolean;
   isSmoker: boolean;
   hadDiabetes: Date;
   bloodGroup: string;
