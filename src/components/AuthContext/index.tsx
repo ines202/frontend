@@ -17,6 +17,7 @@ interface AuthContextType {
   login: (email: string, password: string) => void;
   logout: () => void;
   signUp: (myNewDoctor: Omit<Doctor, "id">) => void;
+  updateToken: (token: string) => void;
   loading: boolean;
 }
 
@@ -48,42 +49,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const { mutateAsync: verifyUserToken, isPending: isPendingVerifyUserToken } =
     useVerifyUserToken();
 
-  // Effects
-
-  useEffect(() => {
-    // Check if the user is already logged in by checking localStorage item "token"
-    const token = localStorage.getItem("token");
-    if (token) {
-      // Send a request to the backend with the token to get the user details
-      verifyUserToken(
-        { token },
-        {
-          onSuccess: (resp) => {
-            const { role, doctor, admin } = resp.data;
-            if (role === Roles.admin) {
-              setLoggedInUser({
-                role,
-                token,
-                admin: admin,
-              });
-            } else {
-              setLoggedInUser({
-                role,
-                token,
-                doctor: doctor,
-              });
-            }
-          },
-          onError: (error) => {
-            console.error(error);
-            toast.error(`Login Failed: ${error}`);
-          },
-        },
-      );
-    }
-  }, []);
-
   // Handlers
+  const updateToken = async (token: string) => {
+    localStorage.setItem("token", token);
+    await verifyUserToken(
+      { token },
+      {
+        onSuccess: (resp) => {
+          const { role, doctor, admin } = resp.data;
+          if (role === Roles.admin) {
+            setLoggedInUser({
+              role,
+              token,
+              admin: admin,
+            });
+          } else {
+            setLoggedInUser({
+              role,
+              token,
+              doctor: doctor,
+            });
+          }
+        },
+        onError: (error) => {
+          console.error(error);
+          toast.error(`Login Failed: ${error}`);
+        },
+      },
+    );
+  };
+
   const logout = () => {
     setLoggedInUser(null);
     localStorage.removeItem("token");
@@ -96,7 +91,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       { email, password },
       {
         onSuccess: (data) => {
-          console.log('data: ', data);
+          console.log("data: ", data);
           const { role, doctor, admin, token } = data;
           if (role === Roles.admin) {
             setLoggedInUser({
@@ -142,6 +137,40 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     });
   };
 
+  // Effects
+  useEffect(() => {
+    // Check if the user is already logged in by checking localStorage item "token"
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Send a request to the backend with the token to get the user details
+      verifyUserToken(
+        { token },
+        {
+          onSuccess: (resp) => {
+            const { role, doctor, admin } = resp.data;
+            if (role === Roles.admin) {
+              setLoggedInUser({
+                role,
+                token,
+                admin: admin,
+              });
+            } else {
+              setLoggedInUser({
+                role,
+                token,
+                doctor: doctor,
+              });
+            }
+          },
+          onError: (error) => {
+            console.error(error);
+            toast.error(`Login Failed: ${error}`);
+          },
+        },
+      );
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -149,6 +178,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         login,
         logout,
         signUp,
+        updateToken,
         loading: isPendingLoginDoctor || isPendingCreateDoctor,
       }}
     >

@@ -5,7 +5,7 @@ import { UploadFolders, useUploadFiles } from "@/api/upload";
 
 interface IProps {
   uploadedImageURL: (imageURL: string) => void;
-  uploadFolder: typeof UploadFolders[keyof typeof UploadFolders];
+  uploadFolder: (typeof UploadFolders)[keyof typeof UploadFolders];
 }
 
 const ImageUpload = ({ uploadedImageURL, uploadFolder }: IProps) => {
@@ -54,9 +54,9 @@ const ImageUpload = ({ uploadedImageURL, uploadFolder }: IProps) => {
           <div className="relative h-20 w-20 rounded-full border-2 border-purple-500 drop-shadow-2">
             <Image
               src={imageURL}
-              width={80}
-              height={80}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              fill
+              sizes="100%"
+              className="absolute rounded-full object-cover p-1"
               alt="profile"
             />
           </div>
