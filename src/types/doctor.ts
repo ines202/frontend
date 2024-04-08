@@ -12,4 +12,5 @@ export type Doctor = {
   bio?: string;
   document: string;
   profilePicture?: string;
+  isDisabled: boolean;
 };

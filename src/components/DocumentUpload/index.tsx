@@ -6,10 +6,15 @@ import { HiOutlineDocumentArrowUp } from "react-icons/hi2";
 
 interface IProps {
   uploadedDocumentURL: (documentURL: string) => void;
-  uploadFolder: typeof UploadFolders[keyof typeof UploadFolders];
+  uploadFolder: (typeof UploadFolders)[keyof typeof UploadFolders];
+  hideSuccess?: boolean;
 }
 
-const DocumentUpload = ({ uploadedDocumentURL, uploadFolder }: IProps) => {
+const DocumentUpload = ({
+  uploadedDocumentURL,
+  uploadFolder,
+  hideSuccess = false,
+}: IProps) => {
   const [documentURL, setDocumentURL] = useState<string | null>(null);
 
   // Mutations
@@ -19,7 +24,10 @@ const DocumentUpload = ({ uploadedDocumentURL, uploadFolder }: IProps) => {
   const handleUploadFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e?.target?.files) return;
     const myFiles = Array.from(e.target.files);
-    const { files } = await uploadFiles({files: myFiles, folder: uploadFolder});
+    const { files } = await uploadFiles({
+      files: myFiles,
+      folder: uploadFolder,
+    });
     setDocumentURL(files[0].path);
     uploadedDocumentURL(files[0].path);
   };
@@ -46,11 +54,11 @@ const DocumentUpload = ({ uploadedDocumentURL, uploadFolder }: IProps) => {
         </div>
       </div>
       <div className="mb-4 flex items-center justify-center">
-        <div className="flex items-center justify-center gap-2 text-green-600 mt-4">
-          {documentURL && (
+        <div className="mt-4 flex items-center justify-center gap-2 text-green-600">
+          {documentURL && !hideSuccess && (
             <>
               <p className="text-base font-semibold">Document uploaded</p>
-              <HiOutlineDocumentArrowUp className="text-2xl"/>
+              <HiOutlineDocumentArrowUp className="text-2xl" />
             </>
           )}
         </div>

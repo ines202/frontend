@@ -10,7 +10,6 @@ const TablesPage = () => {
       <Breadcrumb pageName="Doctors" />
       <div className="flex flex-col gap-10">
         <Doctors />
-
       </div>
     </DashboardLayout>
   );

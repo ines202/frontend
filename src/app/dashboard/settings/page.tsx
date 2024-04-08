@@ -16,10 +16,15 @@ import { useUpdateDoctor } from "@/api/doctor";
 import { useState } from "react";
 import DocumentUpload from "@/components/DocumentUpload";
 import { toast } from "react-toastify";
+import {
+  HiOutlineDocumentArrowDown,
+  HiOutlineDocumentArrowUp,
+} from "react-icons/hi2";
 const Settings = () => {
   const { loggedInUser, updateToken } = useAuth();
   const [newDoctor, setNewDoctor] = useState(loggedInUser?.doctor!);
   const [showOldImage, setShowOldImage] = useState(true);
+  const [showOldDocument, setShowOldDocument] = useState(true);
 
   // Mutations
   const { mutateAsync: updateDoctor, isPending } = useUpdateDoctor();
@@ -29,12 +34,14 @@ const Settings = () => {
     if (!newDoctor) return;
     const { token } = await updateDoctor(newDoctor);
     await updateToken(token);
+    setShowOldDocument(true);
+    setShowOldImage(true);
     toast.success("Profile updated successfully");
   };
   return (
     <DashboardLayout>
       <div className="mx-auto max-w-270">
-        <div className="grid grid-cols-3 grid-rows-3 gap-x-8 gap-y-15">
+        <div className="grid grid-cols-3 grid-rows-3 gap-x-8 gap-y-10">
           <div className="col-span-2 row-span-2">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
@@ -390,9 +397,26 @@ const Settings = () => {
                         ...newDoctor,
                         document: documentURL,
                       });
+                      setShowOldDocument(false);
                     }}
+                    hideSuccess={showOldDocument}
                   />
                 </div>
+                {showOldDocument && loggedInUser?.role === Roles.doctor && (
+                  <div className="">
+                    <div className="flex items-center justify-center gap-2 text-purple-700">
+                      <a
+                        href={loggedInUser.doctor?.document}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-base font-medium hover:underline dark:text-purple-400"
+                      >
+                        Download Document
+                      </a>
+                      <HiOutlineDocumentArrowDown className="text-xl" />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
