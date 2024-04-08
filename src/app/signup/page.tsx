@@ -30,17 +30,18 @@ const initialDoctor: Omit<Doctor, "id"> = {
 };
 
 const SignUp: React.FC = () => {
-  const [myNewDoctor, setMyNewDoctor] = useState<Omit<Doctor, "id">>(initialDoctor);
+  const [myNewDoctor, setMyNewDoctor] =
+    useState<Omit<Doctor, "id">>(initialDoctor);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { signUp, loading } = useAuth();
 
   // Handlers
   const handleUploadImage = (imageURL: string) => {
-    setMyNewDoctor({ ...myNewDoctor, pic: imageURL })
+    setMyNewDoctor({ ...myNewDoctor, profilePicture: imageURL });
   };
-  const handleUploadDocument = (documentURL: string) => { 
-    setMyNewDoctor({ ...myNewDoctor, document: documentURL })
-  }
+  const handleUploadDocument = (documentURL: string) => {
+    setMyNewDoctor({ ...myNewDoctor, document: documentURL });
+  };
 
   const handleSubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();

@@ -96,6 +96,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       { email, password },
       {
         onSuccess: (data) => {
+          console.log('data: ', data);
           const { role, doctor, admin, token } = data;
           if (role === Roles.admin) {
             setLoggedInUser({
