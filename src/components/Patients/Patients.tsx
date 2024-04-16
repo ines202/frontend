@@ -77,7 +77,7 @@ const Patients = () => {
                 View
               </button>
               <button
-                className="rounded-md bg-purple-100 ml-5 px-3 py-1 text-sm text-black  dark:text-black"
+                className="ml-5 rounded-md bg-purple-100 px-3 py-1 text-sm text-black  dark:text-black"
                 //onClick={() => handleMedicalRecordClick(patientProfile)}
               >
                 Archive

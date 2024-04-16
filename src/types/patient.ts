@@ -10,4 +10,5 @@ export type Patient = {
   address: string;
   isArchived: boolean;
   medical_record?: MedicalRecord;
+
 };

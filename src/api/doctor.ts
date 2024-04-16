@@ -1,4 +1,9 @@
-import { QueryOptions, skipToken, useQuery } from "@tanstack/react-query";
+import {
+  QueryOptions,
+  skipToken,
+  useMutation,
+  useQuery,
+} from "@tanstack/react-query";
 import API from "@/app/lib/api";
 import { AxiosError } from "axios";
 import { Doctor } from "@/types/doctor";
@@ -30,6 +35,28 @@ export const useGetDoctorById = (id: string) => {
         // Handle errors here
         console.error("Error fetching doctor:", error);
         throw error; // Re-throw to inform React Query of the error
+      }
+    },
+  });
+};
+
+export const useUpdateDoctor = () => {
+  return useMutation<
+    {
+      status: boolean;
+      message: string;
+      token: string;
+    },
+    AxiosError,
+    Doctor
+  >({
+    mutationFn: async (doctor) => {
+      try {
+        const response = await API.put(`/doctor/${doctor.id}`, doctor);
+        return response.data;
+      } catch (error: any) {
+        console.error("Error updating doctor:", error);
+        throw error;
       }
     },
   });

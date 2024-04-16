@@ -42,17 +42,20 @@ const Profile = () => {
               </label>
             </div>
           </div> */}
-          <div className="px-4 mt-30 pb-6 text-center lg:pb-8 xl:pb-11.5">
+          <div className="mt-30 px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
             <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
               <div className="relative h-40 w-40 rounded-full border-4 border-purple-700 drop-shadow-2">
-                <Image
-                  src={"/images/user/user-01.png"}
-                  width={160}
-                  height={160}
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full p-4"
-                  alt="profile"
-                />
-
+                {loggedInUser &&
+                  loggedInUser.role === Roles.doctor &&
+                  loggedInUser.doctor?.profilePicture && (
+                    <Image
+                      src={loggedInUser.doctor.profilePicture}
+                      fill
+                      sizes="100%"
+                      className="absolute rounded-full object-cover p-1"
+                      alt="profile"
+                    />
+                  )}
               </div>
             </div>
             <div className="mt-4">
@@ -104,11 +107,11 @@ const Profile = () => {
                   About Me
                 </h4>
                 <p className="mt-4.5">
-                {loggedInUser &&
-                  loggedInUser.role === Roles.doctor &&
-                  loggedInUser.doctor?.bio}
+                  {loggedInUser &&
+                    loggedInUser.role === Roles.doctor &&
+                    loggedInUser.doctor?.bio}
                 </p>
-            </div>
+              </div>
 
               {/* <div className="mt-6.5">
                 <h4 className="mb-3.5 font-medium text-black dark:text-white">

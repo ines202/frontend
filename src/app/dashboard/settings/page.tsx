@@ -10,13 +10,36 @@ import { IoCallOutline } from "react-icons/io5";
 import { LuClipboardEdit } from "react-icons/lu";
 
 import { Roles } from "@/types/types";
+import ImageUpload from "@/components/ImageUpload";
+import { UploadFolders } from "@/api/upload";
+import { useUpdateDoctor } from "@/api/doctor";
+import { useState } from "react";
+import DocumentUpload from "@/components/DocumentUpload";
+import { toast } from "react-toastify";
+import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 const Settings = () => {
-  const { loggedInUser } = useAuth();
+  const { loggedInUser, updateToken } = useAuth();
+  const [newDoctor, setNewDoctor] = useState(loggedInUser?.doctor!);
+  const [showOldImage, setShowOldImage] = useState(true);
+  const [showOldDocument, setShowOldDocument] = useState(true);
+
+  // Mutations
+  const { mutateAsync: updateDoctor, isPending } = useUpdateDoctor();
+
+  // Handlers
+  const handleSaveChanges = async () => {
+    if (!newDoctor) return;
+    const { token } = await updateDoctor(newDoctor);
+    await updateToken(token);
+    setShowOldDocument(true);
+    setShowOldImage(true);
+    toast.success("Profile updated successfully");
+  };
   return (
     <DashboardLayout>
       <div className="mx-auto max-w-270">
-        <div className="grid grid-cols-5 gap-8">
-          <div className="col-span-5 xl:col-span-3">
+        <div className="grid grid-cols-3 grid-rows-3 gap-x-8 gap-y-10">
+          <div className="col-span-2 row-span-2">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
                 <h3 className="font-medium text-black dark:text-white">
@@ -46,7 +69,7 @@ const Settings = () => {
                           </div>
                         </span>
                         <input
-                          className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                           type="text"
                           name="fullName"
                           id="fullName"
@@ -64,6 +87,13 @@ const Settings = () => {
                                 : `${loggedInUser.admin?.first_name} ${loggedInUser.admin?.last_name}`
                               : ""
                           }
+                          value={newDoctor?.first_name}
+                          onChange={(e) => {
+                            setNewDoctor({
+                              ...newDoctor,
+                              first_name: e.target.value,
+                            });
+                          }}
                         />
                       </div>
                     </div>
@@ -91,7 +121,7 @@ const Settings = () => {
                           </div>
                         </span>
                         <input
-                          className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                           type="text"
                           name="phone"
                           id="phone"
@@ -109,6 +139,13 @@ const Settings = () => {
                                 : loggedInUser.admin?.phone
                               : ""
                           }
+                          value={newDoctor?.phone}
+                          onChange={(e) => {
+                            setNewDoctor({
+                              ...newDoctor,
+                              phone: e.target.value,
+                            });
+                          }}
                         />
                       </div>
                     </div>
@@ -120,7 +157,6 @@ const Settings = () => {
                         className="mb-3 block text-sm font-medium text-black dark:text-white"
                         htmlFor="emailAddress"
                       >
-                        {" "}
                         Email Address
                       </label>
                       <div className="relative">
@@ -139,7 +175,7 @@ const Settings = () => {
                           </div>
                         </span>
                         <input
-                          className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                           type="email"
                           name="emailAddress"
                           id="emailAddress"
@@ -157,6 +193,13 @@ const Settings = () => {
                                 : loggedInUser.admin?.email
                               : ""
                           }
+                          value={newDoctor?.email}
+                          onChange={(e) => {
+                            setNewDoctor({
+                              ...newDoctor,
+                              email: e.target.value,
+                            });
+                          }}
                         />
                       </div>
                     </div>
@@ -185,61 +228,77 @@ const Settings = () => {
                             </div>
                           </span>
                           <input
-                            className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                            className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                             type="text"
                             name="speciality"
                             id="speciality"
                             placeholder={loggedInUser.doctor?.speciality}
                             defaultValue={loggedInUser.doctor?.speciality}
+                            value={newDoctor?.speciality}
+                            onChange={(e) => {
+                              setNewDoctor({
+                                ...newDoctor,
+                                speciality: e.target.value,
+                              });
+                            }}
                           />
                         </div>
                       </div>
                     )}
                   </div>
-                  <div className="mb-5.5">
-                    <label
-                      className="mb-3 block text-sm font-medium text-black dark:text-white"
-                      htmlFor="Address"
-                    >
-                      Address
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-4.5 top-4">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
+                  {loggedInUser?.role === Roles.doctor && (
+                    <div className="mb-5.5">
+                      <label
+                        className="mb-3 block text-sm font-medium text-black dark:text-white"
+                        htmlFor="Address"
+                      >
+                        Address
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-4.5 top-4">
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <GiPositionMarker
+                              className="text-gray-400"
+                              size={20}
+                            />
+                          </div>
+                        </span>
+                        <input
+                          className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          type="text"
+                          name="Address"
+                          id="Address"
+                          placeholder={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? loggedInUser.doctor?.address
+                                : ""
+                              : ""
+                          }
+                          defaultValue={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? loggedInUser.doctor?.address
+                                : ""
+                              : ""
+                          }
+                          value={newDoctor?.address}
+                          onChange={(e) => {
+                            setNewDoctor({
+                              ...newDoctor,
+                              address: e.target.value,
+                            });
                           }}
-                        >
-                          <GiPositionMarker
-                            className="text-gray-400"
-                            size={20}
-                          />
-                        </div>
-                      </span>
-                      <input
-                        className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                        type="text"
-                        name="Address"
-                        id="Address"
-                        placeholder={
-                          loggedInUser
-                            ? loggedInUser.role === Roles.doctor
-                              ? loggedInUser.doctor?.address
-                              : ""
-                            : ""
-                        }
-                        defaultValue={
-                          loggedInUser
-                            ? loggedInUser.role === Roles.doctor
-                              ? loggedInUser.doctor?.address
-                              : ""
-                            : ""
-                        }
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {loggedInUser?.role === Roles.doctor && (
                     <div className="mb-5.5">
@@ -255,16 +314,18 @@ const Settings = () => {
                         </span>
 
                         <textarea
-                          className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                           name="bio"
                           id="bio"
                           rows={6}
                           placeholder="Write your bio here"
-                          value={
-                            loggedInUser.role === Roles.doctor
-                              ? loggedInUser.doctor?.bio
-                              : ""
-                          }
+                          value={newDoctor?.bio}
+                          onChange={(e) => {
+                            setNewDoctor({
+                              ...newDoctor,
+                              bio: e.target.value,
+                            });
+                          }}
                         ></textarea>
                       </div>
                     </div>
@@ -272,14 +333,10 @@ const Settings = () => {
 
                   <div className="flex justify-end gap-4.5">
                     <button
-                      className="flex justify-center rounded border border-stroke px-6 py-2 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
-                      type="submit"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="flex justify-center rounded bg-purple-700 px-6 py-2 font-medium text-gray hover:bg-opacity-90"
-                      type="submit"
+                      className="flex justify-center rounded bg-purple-700 px-6 py-2 font-medium text-gray hover:bg-opacity-90 disabled:bg-purple-400"
+                      type="button"
+                      onClick={handleSaveChanges}
+                      disabled={isPending}
                     >
                       Save
                     </button>
@@ -288,105 +345,97 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-5 xl:col-span-2">
-            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-              <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                <h3 className="font-medium text-black dark:text-white">
-                  Your Photo
-                </h3>
-              </div>
-              <div className="p-7">
-                <form action="#">
-                  <div className="mb-4 flex items-center gap-3">
-                    <div className="relative h-14 w-14 rounded-full border-2 border-purple-500 drop-shadow-2">
-                      <Image
-                        src={"/images/logo/logo.png"}
-                        width={56}
-                        height={56}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-                        alt="profile"
+          {loggedInUser?.role === Roles.doctor && (
+            <div className="col-span-1 row-span-1">
+              <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                  <h3 className="font-medium text-black dark:text-white">
+                    Your Photo
+                  </h3>
+                </div>
+                <div className="p-7">
+                  <div>
+                    {showOldImage && (
+                      <div className="mb-4 flex items-center justify-center">
+                        <div className="relative h-20 w-20 rounded-full border-2 border-purple-700 drop-shadow-2">
+                          {loggedInUser &&
+                            loggedInUser.role === Roles.doctor &&
+                            loggedInUser.doctor?.profilePicture && (
+                              <Image
+                                src={loggedInUser.doctor.profilePicture}
+                                fill
+                                sizes="100%"
+                                className="absolute rounded-full object-cover p-1"
+                                alt="profile"
+                              />
+                            )}
+                        </div>
+                      </div>
+                    )}
+                    <div>
+                      <h3 className="mb-3 font-medium text-black dark:text-white">
+                        To change your photo
+                      </h3>
+                      <ImageUpload
+                        uploadFolder={UploadFolders["doctor/images"]}
+                        uploadedImageURL={(imageURL) => {
+                          setNewDoctor({
+                            ...newDoctor,
+                            profilePicture: imageURL,
+                          });
+                          setShowOldImage(false);
+                        }}
                       />
                     </div>
-                    <div>
-                      <span className="mb-1.5 text-black dark:text-white">
-                        Edit your photo
-                      </span>
-                      <span className="flex gap-2.5">
-                        <button className="text-sm hover:text-primary">
-                          Delete
-                        </button>
-                        <button className="text-sm hover:text-primary">
-                          Update
-                        </button>
-                      </span>
-                    </div>
                   </div>
-
-                  <div
-                    id="FileUpload"
-                    className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5"
-                  >
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
-                    />
-                    <div className="flex flex-col items-center justify-center space-y-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M1.99967 9.33337C2.36786 9.33337 2.66634 9.63185 2.66634 10V12.6667C2.66634 12.8435 2.73658 13.0131 2.8616 13.1381C2.98663 13.2631 3.1562 13.3334 3.33301 13.3334H12.6663C12.8431 13.3334 13.0127 13.2631 13.1377 13.1381C13.2628 13.0131 13.333 12.8435 13.333 12.6667V10C13.333 9.63185 13.6315 9.33337 13.9997 9.33337C14.3679 9.33337 14.6663 9.63185 14.6663 10V12.6667C14.6663 13.1971 14.4556 13.7058 14.0806 14.0809C13.7055 14.456 13.1968 14.6667 12.6663 14.6667H3.33301C2.80257 14.6667 2.29387 14.456 1.91879 14.0809C1.54372 13.7058 1.33301 13.1971 1.33301 12.6667V10C1.33301 9.63185 1.63148 9.33337 1.99967 9.33337Z"
-                            fill="#3C50E0"
-                          />
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M7.5286 1.52864C7.78894 1.26829 8.21106 1.26829 8.4714 1.52864L11.8047 4.86197C12.0651 5.12232 12.0651 5.54443 11.8047 5.80478C11.5444 6.06513 11.1223 6.06513 10.8619 5.80478L8 2.94285L5.13807 5.80478C4.87772 6.06513 4.45561 6.06513 4.19526 5.80478C3.93491 5.54443 3.93491 5.12232 4.19526 4.86197L7.5286 1.52864Z"
-                            fill="#3C50E0"
-                          />
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M7.99967 1.33337C8.36786 1.33337 8.66634 1.63185 8.66634 2.00004V10C8.66634 10.3682 8.36786 10.6667 7.99967 10.6667C7.63148 10.6667 7.33301 10.3682 7.33301 10V2.00004C7.33301 1.63185 7.63148 1.33337 7.99967 1.33337Z"
-                            fill="#3C50E0"
-                          />
-                        </svg>
-                      </span>
-                      <p>
-                        <span className="text-primary">Click to upload</span> or
-                        drag and drop
-                      </p>
-                      <p className="mt-1.5">SVG, PNG, JPG or GIF</p>
-                      <p>(max, 800 X 800px)</p>
-                    </div>
-                  </div>
-
-                  <div className="flex justify-end gap-4.5">
-                    <button
-                      className="flex justify-center rounded border border-stroke px-6 py-2 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
-                      type="submit"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="flex justify-center rounded bg-purple-700 px-6 py-2 font-medium text-gray hover:bg-opacity-90"
-                      type="submit"
-                    >
-                      Save
-                    </button>
-                  </div>
-                </form>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+          {loggedInUser?.role === Roles.doctor && (
+            <div className="col-span-1 row-span-1">
+              <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                  <h3 className="font-medium text-black dark:text-white">
+                    Your Document
+                  </h3>
+                </div>
+                <div className="p-7">
+                  {showOldDocument && loggedInUser?.role === Roles.doctor && (
+                    <div className="">
+                      <div className="mb-5 flex items-center justify-center gap-2 text-purple-700">
+                        <a
+                          href={loggedInUser.doctor?.document}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-base font-medium hover:underline dark:text-purple-400"
+                        >
+                          Download Document
+                        </a>
+                        <HiOutlineDocumentArrowDown className="text-xl" />
+                      </div>
+                    </div>
+                  )}
+                  <div>
+                    <h3 className=" mb-3 font-medium text-black dark:text-white">
+                      To change your document
+                    </h3>
+                    <DocumentUpload
+                      uploadFolder={UploadFolders["doctor/documents"]}
+                      uploadedDocumentURL={(documentURL) => {
+                        setNewDoctor({
+                          ...newDoctor,
+                          document: documentURL,
+                        });
+                        setShowOldDocument(false);
+                      }}
+                      hideSuccess={showOldDocument}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </DashboardLayout>

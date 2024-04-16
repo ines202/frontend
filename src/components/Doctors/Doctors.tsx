@@ -1,17 +1,28 @@
 import Image from "next/image";
 import { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
-import { useGetDoctors } from "@/api/doctor";
+import { useGetDoctors, useUpdateDoctor } from "@/api/doctor";
 import { Doctor } from "@/types/doctor";
 import { useRouter } from "next/navigation";
+import clsx from "clsx";
 
 const Patients = () => {
   const router = useRouter();
   // Queries
-  const { data: doctors, error, isLoading } = useGetDoctors();
+  const { data: doctors, error, isLoading, refetch } = useGetDoctors();
+  // Mutations
+  const { mutateAsync: updateDoctor, isPending } = useUpdateDoctor();
   // Handlers
   const handleDoctorView = (doctor: Doctor) => {
     router.push(`/dashboard/doctors/${doctor.id}`);
+  };
+  const handleDoctorStatus = (doctor: Doctor) => async () => {
+    await updateDoctor({
+      ...doctor,
+      id: doctor.id,
+      isDisabled: !doctor.isDisabled,
+    });
+    await refetch();
   };
 
   return (
@@ -26,7 +37,7 @@ const Patients = () => {
         <div className="col-span-2 flex items-center">
           <p className="font-medium">Full name</p>
         </div>
-        <div className="col-span-2 items-center">
+        <div className="col-span-3 items-center">
           <p className="font-medium">Email</p>
         </div>
 
@@ -38,9 +49,7 @@ const Patients = () => {
           <p className="font-medium">Phone</p>
         </div>
 
-        <div className="col-span-2 flex items-center">
-          <p className="font-medium">Speciality</p>
-        </div>
+
         <div className="col-span-2 flex items-center">
           <p className="font-medium">Actions</p>
         </div>
@@ -61,7 +70,7 @@ const Patients = () => {
                 </p>
               </div>
             </div>
-            <div className="col-span-2 hidden items-center sm:flex">
+            <div className="col-span-3 hidden items-center sm:flex">
               <p className="text-sm text-black dark:text-white">
                 {doctor.email}
               </p>
@@ -76,24 +85,28 @@ const Patients = () => {
                 {doctor.phone}
               </p>
             </div>
-            <div className="col-span-2 flex items-center">
-              <p className="text-sm text-black dark:text-white">
-                {doctor.speciality}
-              </p>
-            </div>
 
-            <div className="col-span-2 flex items-center justify-center p-2.5">
+
+            <div className="col-span-2 flex items-center p-2.5">
               <button
-                className="rounded-md bg-purple-700 px-3 py-1 text-sm text-white  dark:text-white"
+                className="rounded-md bg-graydark px-3 py-1 text-sm text-white  dark:text-white"
                 onClick={() => handleDoctorView(doctor)}
               >
                 View
               </button>
               <button
-                className="ml-5 rounded-md bg-purple-100 px-3 py-1 text-sm text-black  dark:text-black"
-                //onClick={() => handleDoctorView(patientProfile)}
+                className={clsx(
+                  "disabled:bg-gray-300 dark:hover:bg-gray-800 ml-5 rounded-md bg-green-600 px-3 py-1 text-sm",
+                  {
+                    "bg-red text-white": doctor.isDisabled,
+                    "bg-green-600 text-white": !doctor.isDisabled,
+                    "cursor-not-allowed opacity-75": isPending,
+                  },
+                )}
+                onClick={handleDoctorStatus(doctor)}
+                disabled={isPending}
               >
-                Activate/Diactivate
+                {doctor.isDisabled ? "Enable" : "Disable"}
               </button>
             </div>
           </div>

@@ -16,7 +16,8 @@ interface AuthContextType {
   loggedInUser: User | null;
   login: (email: string, password: string) => void;
   logout: () => void;
-  signUp: (myNewDoctor: Doctor) => void;
+  signUp: (myNewDoctor: Omit<Doctor, "id">) => void;
+  updateToken: (token: string) => void;
   loading: boolean;
 }
 
@@ -48,8 +49,95 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const { mutateAsync: verifyUserToken, isPending: isPendingVerifyUserToken } =
     useVerifyUserToken();
 
-  // Effects
+  // Handlers
+  const updateToken = async (token: string) => {
+    localStorage.setItem("token", token);
+    await verifyUserToken(
+      { token },
+      {
+        onSuccess: (resp) => {
+          const { role, doctor, admin } = resp.data;
+          if (role === Roles.admin) {
+            setLoggedInUser({
+              role,
+              token,
+              admin: admin,
+            });
+          } else {
+            setLoggedInUser({
+              role,
+              token,
+              doctor: doctor,
+            });
+          }
+        },
+        onError: (error) => {
+          console.error(error);
+          toast.error(`Login Failed: ${error}`);
+        },
+      },
+    );
+  };
 
+  const logout = () => {
+    setLoggedInUser(null);
+    localStorage.removeItem("token");
+    router.push("/signup");
+  };
+
+  const login = async (email: string, password: string) => {
+    console.log("Logging in...");
+    await loginUser(
+      { email, password },
+      {
+        onSuccess: (data) => {
+          console.log("data: ", data);
+          const { role, doctor, admin, token } = data;
+          if (role === Roles.admin) {
+            setLoggedInUser({
+              role,
+              token,
+              admin: admin,
+            });
+          } else {
+            setLoggedInUser({
+              role,
+              token,
+              doctor: doctor,
+            });
+          }
+          // Store the token in localStorage
+          localStorage.setItem("token", token);
+          toast.success("Login successful");
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 3000);
+        },
+        onError: (error) => {
+          console.error(error);
+          toast.error(`Login Failed: ${error}`);
+        },
+      },
+    );
+  };
+
+  const signUp = async (myNewDoctor: Omit<Doctor, "id">) => {
+    console.log("Signing up...");
+    await createDoctor(myNewDoctor, {
+      onSuccess: () => {
+        toast.success("Doctor Signed-up successfully");
+        setTimeout(() => {
+          router.push("/signin");
+        }, 3000);
+      },
+      onError: (error) => {
+        console.error(error);
+        toast.error(`Login Failed: ${error}`);
+      },
+    });
+  };
+
+  // Effects
   useEffect(() => {
     // Check if the user is already logged in by checking localStorage item "token"
     const token = localStorage.getItem("token");
@@ -83,64 +171,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, []);
 
-  // Handlers
-  const logout = () => {
-    setLoggedInUser(null);
-    localStorage.removeItem("token");
-    router.push("/signup");
-  };
-
-  const login = async (email: string, password: string) => {
-    console.log("Logging in...");
-    await loginUser(
-      { email, password },
-      {
-        onSuccess: (data) => {
-          const { role, doctor, admin, token } = data;
-          if (role === Roles.admin) {
-            setLoggedInUser({
-              role,
-              token,
-              admin: admin,
-            });
-          } else {
-            setLoggedInUser({
-              role,
-              token,
-              doctor: doctor,
-            });
-          }
-          // Store the token in localStorage
-          localStorage.setItem("token", token);
-          toast.success("Login successful");
-          setTimeout(() => {
-            router.push("/dashboard");
-          }, 3000);
-        },
-        onError: (error) => {
-          console.error(error);
-          toast.error(`Login Failed: ${error}`);
-        },
-      },
-    );
-  };
-
-  const signUp = async (myNewDoctor: Doctor) => {
-    console.log("Signing up...");
-    await createDoctor(myNewDoctor, {
-      onSuccess: () => {
-        toast.success("Doctor Signed-up successfully");
-        setTimeout(() => {
-          router.push("/signup");
-        }, 3000);
-      },
-      onError: (error) => {
-        console.error(error);
-        toast.error(`Login Failed: ${error}`);
-      },
-    });
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -148,6 +178,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         login,
         logout,
         signUp,
+        updateToken,
         loading: isPendingLoginDoctor || isPendingCreateDoctor,
       }}
     >

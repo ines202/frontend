@@ -1,13 +1,21 @@
 "use client";
 import { useGetDoctorById } from "@/api/doctor";
+import { useAuth } from "@/components/AuthContext";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
+import { Roles } from "@/types/types";
 import { useParams, useRouter } from "next/navigation";
+import Image from 'next/image';
+import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
+import { useState } from 'react';
 
 const DoctorDetails = () => {
+  const { loggedInUser } = useAuth();
   const router = useRouter();
   const params = useParams();
   const { id } = params;
+  const [newDoctor, setNewDoctor] = useState({});
+  const [showOldDocument, setShowOldDocument] = useState(false);
 
   // Queries
   const { data: doctor, isLoading, error } = useGetDoctorById(id as string);
@@ -24,7 +32,26 @@ const DoctorDetails = () => {
               <h2 className="mb-4 border-b border-stroke py-4 text-2xl font-semibold text-black dark:border-strokedark dark:text-white">
                 Personal Information
               </h2>
-              <div className="mb-4 grid grid-cols-2 gap-4">
+              <div className="mb-4 grid grid-cols-3 gap-4">
+                <div className="mb-3 flex flex-col">
+                  <label
+                    htmlFor="firstName"
+                    className="mb-3 font-medium text-black dark:text-white"
+                  >
+                    Profile Photo:
+                  </label>
+                  <div className="relative h-40 w-40 rounded-full border-4 border-purple-700 drop-shadow-2">
+                    {doctor && doctor.profilePicture && (
+                      <Image
+                        src={doctor.profilePicture}
+                        fill
+                        sizes="100%"
+                        className="absolute rounded-full object-cover p-1"
+                        alt="doctor profile"
+                      />
+                    )}
+                  </div>
+                </div>
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="firstName"
@@ -81,32 +108,48 @@ const DoctorDetails = () => {
                     value={doctor.phone}
                   />
                 </div>
-              </div>
-              <div className="mb-4 grid grid-cols-2 gap-4">
                 <div className="mb-3 flex flex-col">
                   <label
-                    htmlFor="bloodGroup"
+                    htmlFor="speciality"
                     className="mb-3 font-medium text-black dark:text-white"
                   >
                     Speciality:
                   </label>
                   <input
                     type="text"
-                    id="bloodGroup"
+                    id="speciality"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={doctor.speciality}
                   />
                 </div>
                 <div className="mb-3 flex flex-col">
                   <label
-                    htmlFor="diabetesType"
+                    htmlFor="speciality"
+                    className="mb-3 font-medium text-black dark:text-white"
+                  >
+                    Document:
+                  </label>
+                  {loggedInUser && loggedInUser.role === Roles.admin && doctor?.document && (
+                    <a
+                      href={doctor.document}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-700 hover:underline"
+                    >
+                      Download Document
+                    </a>
+                  )}
+                </div>
+                <div className="mb-3 flex flex-col">
+                  <label
+                    htmlFor="bio"
                     className="mb-3 font-medium text-black dark:text-white"
                   >
                     Bio:
                   </label>
                   <textarea
                     rows={5}
-                    id="diabetesType"
+                    id="bio"
                     className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={doctor?.bio}
                   />

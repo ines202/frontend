@@ -63,14 +63,18 @@ const DropdownUser = () => {
           </span>
         </span>
 
-        <span className="relative h-12 w-12 rounded-full border-2 border-purple-700 drop-shadow-2">
-          <Image
-            src={"/images/logo/logo.png"}
-            width={48}
-            height={48}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-            alt="profile"
-          />
+        <span className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-700 drop-shadow-2">
+          {loggedInUser &&
+            loggedInUser.role === Roles.doctor &&
+            loggedInUser.doctor?.profilePicture && (
+              <Image
+                src={loggedInUser.doctor.profilePicture}
+                fill
+                sizes="100%"
+                className="absolute rounded-full object-cover p-0.5"
+                alt="profile"
+              />
+            )}
         </span>
 
         <svg

@@ -34,7 +34,7 @@ const PatientDetails = () => {
               <h2 className="mb-4 border-b border-stroke px-7 py-4 text-2xl font-semibold text-black dark:border-strokedark dark:text-white">
                 Personal Information
               </h2>
-              <div className="mb-3 grid grid-cols-2 gap-4">
+              <div className="mb-3 grid grid-cols-3 gap-4">
                 <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="firstName"
@@ -92,29 +92,80 @@ const PatientDetails = () => {
                   />
                 </div>
                 <div className="mb-3 flex flex-col">
-                <label
-                  htmlFor="address"
-                  className="mb-3 font-medium text-black dark:text-white"
-                >
-                  Address:
-                </label>
-                <input
-                  type="text"
-                  id="address"
-                  className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                  value={patientProfile.patient.address}
-                />
-              </div>
+                  <label
+                    htmlFor="address"
+                    className="mb-3 font-medium text-black dark:text-white"
+                  >
+                    Address:
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                    value={patientProfile.patient.address}
+                  />
+                </div>
 
+                <div className="mb-3 flex flex-col">
+                  <label
+                    htmlFor="gender"
+                    className="mb-3 font-medium text-black dark:text-white"
+                  >
+                    Gender:
+                  </label>
+                  <input
+                    type="text"
+                    id="gender"
+                    className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                  />
+                </div>
+                <div className="mb-3 flex flex-col">
+                  <label
+                    htmlFor="height"
+                    className="mb-3 font-medium text-black dark:text-white"
+                  >
+                    Height:
+                  </label>
+                  <input
+                    type="text"
+                    id="height"
+                    className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                  />
+                </div>
+                <div className="mb-3 flex flex-col">
+                  <label
+                    htmlFor="weight"
+                    className="mb-3 font-medium text-black dark:text-white"
+                  >
+                    Weight:
+                  </label>
+                  <input
+                    type="text"
+                    id="weight"
+                    className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                  />
+                </div>
+                <div className="mb-3 flex flex-col">
+                  <label
+                    htmlFor="birthdate"
+                    className="mb-3 font-medium text-black dark:text-white"
+                  >
+                    Birth date:
+                  </label>
+                  <input
+                    type="text"
+                    id="birthdate"
+                    className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                  />
+                </div>
               </div>
-
             </div>
             {patientProfile.patient.medical_record && (
               <div>
                 <h2 className="mb-4 border-b border-stroke px-7 py-4 text-2xl font-semibold text-black dark:border-strokedark dark:text-white">
                   Medical Record
                 </h2>
-                <div className="mb-4 grid grid-cols-2 gap-4">
+                <div className="mb-4 grid grid-cols-3 gap-4">
                   <div className="mb-3 flex flex-col">
                     <label
                       htmlFor="bloodGroup"
