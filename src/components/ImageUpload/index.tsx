@@ -6,6 +6,7 @@ import { UploadFolders, useUploadFiles } from "@/api/upload";
 interface IProps {
   uploadedImageURL: (imageURL: string) => void;
   uploadFolder: (typeof UploadFolders)[keyof typeof UploadFolders];
+
 }
 
 const ImageUpload = ({ uploadedImageURL, uploadFolder }: IProps) => {
@@ -30,9 +31,8 @@ const ImageUpload = ({ uploadedImageURL, uploadFolder }: IProps) => {
   return (
     <div>
       <div
-        id="ImageUpload
-    "
-        className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5"
+        id="ImageUpload"
+        className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4"
       >
         <input
           type="file"
@@ -44,17 +44,15 @@ const ImageUpload = ({ uploadedImageURL, uploadFolder }: IProps) => {
           <span className="flex h-8 w-8 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
             <FaUpload />
           </span>
-          <p>
-            <span className="text-primary">Click to upload</span> or drag and
-            drop
+          <p className="text-sm">
+            <span className="text-primary">Click to upload</span> profile
+            picture (PNG or JPG)
           </p>
-          <p className="mt-1.5">PNG or JPG</p>
-          <p>(max, 800 X 800px)</p>
         </div>
       </div>
       <div className="mb-4 flex items-center justify-center">
-        <div className="relative h-20 w-20 rounded-full border-2 border-purple-500 drop-shadow-2">
-          {imageURL && (
+        {imageURL && (
+          <div className="relative h-20 w-20 rounded-full border-2 border-purple-500 drop-shadow-2">
             <Image
               src={imageURL}
               fill

@@ -102,7 +102,7 @@ const Patients = () => {
               </button>
               <button
                 className={clsx(
-                  "disabled:bg-gray-300 dark:hover:bg-gray-800 ml-5 rounded-md bg-purple-100 px-3 py-1 text-sm",
+                  "disabled:bg-gray-300 dark:hover:bg-gray-800 ml-5 rounded-md bg-green-600 px-3 py-1 text-sm",
                   {
                     "bg-red text-white": doctor.isDisabled,
                     "bg-green-600 text-white": !doctor.isDisabled,

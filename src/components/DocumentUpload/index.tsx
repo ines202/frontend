@@ -36,7 +36,7 @@ const DocumentUpload = ({
     <div>
       <div
         id="DocumentUpload"
-        className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-purple-700 bg-gray px-4 py-4 dark:bg-meta-4"
+        className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4"
       >
         <input
           type="file"
@@ -49,11 +49,11 @@ const DocumentUpload = ({
             <FaUpload />
           </span>
           <p className="text-sm">
-            <span className="text-purple-700">Click to upload</span> your document
+            <span className="text-primary">Click to upload</span> your document
           </p>
         </div>
       </div>
-      <div className=" flex items-center justify-center">
+      <div className="mb-4 flex items-center justify-center">
         <div className="mt-4 flex items-center justify-center gap-2 text-green-600">
           {documentURL && !hideSuccess && (
             <>

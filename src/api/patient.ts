@@ -36,14 +36,3 @@ export const useGetPatientById = (id: string) => {
   });
 };
 
-const useArchivePatient = () => {
-  return useMutation<void, Error, string>(async (patientId: string) => {
-    try {
-      await API.post(`/patients/${patientId}/archive`);
-    } catch (error) {
-      throw new Error("Erreur lors de l'archivage du patient.");
-    }
-  });
-};
-
-export default useArchivePatient;
