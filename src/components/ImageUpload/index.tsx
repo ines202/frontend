@@ -30,8 +30,9 @@ const ImageUpload = ({ uploadedImageURL, uploadFolder }: IProps) => {
   return (
     <div>
       <div
-        id="ImageUpload"
-        className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-purple-700 bg-gray px-4 py-4 dark:bg-meta-4"
+        id="ImageUpload
+    "
+        className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5"
       >
         <input
           type="file"
@@ -43,15 +44,17 @@ const ImageUpload = ({ uploadedImageURL, uploadFolder }: IProps) => {
           <span className="flex h-8 w-8 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
             <FaUpload />
           </span>
-          <p className="text-sm">
-            <span className="text-purple-700">Click to upload</span> profile
-            picture (PNG or JPG)
+          <p>
+            <span className="text-primary">Click to upload</span> or drag and
+            drop
           </p>
+          <p className="mt-1.5">PNG or JPG</p>
+          <p>(max, 800 X 800px)</p>
         </div>
       </div>
-      <div className=" flex items-center justify-center">
-        {imageURL && (
-          <div className="relative h-20 w-20 rounded-full border-2 border-purple-700 drop-shadow-2">
+      <div className="mb-4 flex items-center justify-center">
+        <div className="relative h-20 w-20 rounded-full border-2 border-purple-500 drop-shadow-2">
+          {imageURL && (
             <Image
               src={imageURL}
               fill
