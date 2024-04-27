@@ -1,8 +1,7 @@
-import { QueryOptions, skipToken, useQuery } from "@tanstack/react-query";
+import { QueryOptions, skipToken, useMutation, useQuery } from "@tanstack/react-query";
 import API from "@/app/lib/api";
 import { AxiosError } from "axios";
 import { PatientProfile } from "@/types/patientProfile";
-import { useMutation } from "@tanstack/react-query";
 
 export const useGetPatients = () => {
   return useQuery<PatientProfile[], AxiosError>({
@@ -35,4 +34,30 @@ export const useGetPatientById = (id: string) => {
     },
   });
 };
+// export const archivePatient = async (id) => {
+//   try {
+//     const response = await API.put(`/patient/${id}/archive`); // Utilisez l'endpoint approprié pour l'archivage
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+// export const useArchivePatient = () => {
+//   return useMutation<void, AxiosError, string>(
+//     async (id: string) => {
+//       try {
+//         await archivePatient(id);
+//       } catch (error: any) {
+//         console.error("Error archiving patient:", error);
+//         throw error;
+//       }
+//     },
+//     {
+//       onSuccess: () => {
+//         queryCache.invalidateQueries("patients"); // Rafraîchir la liste des patients après l'archivage
+//       },
+//     }
+//   );
+// };
+
 

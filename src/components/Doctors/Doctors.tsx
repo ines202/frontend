@@ -48,11 +48,12 @@ const Patients = () => {
         <div className="col-span-2 flex items-center">
           <p className="font-medium">Phone</p>
         </div>
-
-        <div className="col-span-2 flex items-center">
-          <p className="font-medium">Speciality</p>
+       
+        <div className="col-span-2 flex items-center ">
+          <p className="font-medium">More details</p>
         </div>
-        <div className="col-span-2 flex items-center">
+
+        <div className="col-span-2 flex items-center justify-center">
           <p className="font-medium">Actions</p>
         </div>
       </div>
@@ -87,22 +88,20 @@ const Patients = () => {
                 {doctor.phone}
               </p>
             </div>
-            <div className="col-span-2 flex items-center">
-              <p className="text-sm text-black dark:text-white">
-                {doctor.speciality}
-              </p>
-            </div>
+           
 
-            <div className="col-span-2 flex items-center justify-center p-2.5">
+            <div className="col-span-2 flex items-center  p-2.5">
               <button
-                className="rounded-md bg-graydark px-3 py-1 text-sm text-white  dark:text-white"
+                className="rounded-md bg-purple-700 px-3 py-1 text-sm text-white  dark:text-white"
                 onClick={() => handleDoctorView(doctor)}
               >
                 View
               </button>
+            </div>
+            <div className="col-span-2 flex items-center p-2.5" >
               <button
                 className={clsx(
-                  "disabled:bg-gray-300 dark:hover:bg-gray-800 ml-5 rounded-md bg-green-600 px-3 py-1 text-sm",
+                  "disabled:bg-gray-300 dark:hover:bg-gray-800  rounded-md bg-green-600 px-3 py-1 text-sm",
                   {
                     "bg-red text-white": doctor.isDisabled,
                     "bg-green-600 text-white": !doctor.isDisabled,
@@ -114,7 +113,14 @@ const Patients = () => {
               >
                 {doctor.isDisabled ? "Enable" : "Disable"}
               </button>
+              <button
+                className=" ml-5 rounded-md bg-purple-100 px-3 py-1 text-sm text-black  dark:text-black"
+                onClick={() => handleDoctorView(doctor)}
+              >
+                Archive
+              </button>
             </div>
+           
           </div>
         ))
       )}

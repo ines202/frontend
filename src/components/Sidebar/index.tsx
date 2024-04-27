@@ -10,6 +10,7 @@ import { FiSettings } from "react-icons/fi";
 import { BsPerson } from "react-icons/bs";
 import { PiUserList } from "react-icons/pi";
 import { GoArchive } from "react-icons/go";
+import { GiFootprint } from "react-icons/gi";
 import { useAuth } from "../AuthContext";
 import { Roles } from "@/types/types";
 
@@ -135,6 +136,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item Profile --> */}
+              {loggedInUser?.role === Roles.doctor && (
               <li>
                 <Link
                   href="/dashboard/profile"
@@ -146,6 +148,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Profile
                 </Link>
               </li>
+              )}
 
               {/* <!-- Menu Patient list --> */}
               <li>
@@ -191,20 +194,51 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Settings
                 </Link>
               </li>
-
-              {/* <!-- Menu Archive --> */}
+              {loggedInUser?.role === Roles.doctor && (
+              <li>
+                <Link
+                  href="/dashboard/test"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("test") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <GiFootprint size={20} />
+                  Foot test
+                </Link>
+              </li>
+              )}
+             
+             </ul>
+             {/* <!-- Menu Archive --> */}
+             <ul>
+             <hr className="mt-50 border-gray-600" />
               <li>
                 <Link
                   href="#"
-                  className={`group relative mt-90 flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                  className={` group relative   flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("archive") && "bg-graydark dark:bg-meta-4"
                   }`}
                 >
                   <GoArchive size={20} />
-                  Archive
+                  Archived patient
                 </Link>
               </li>
-            </ul>
+              {loggedInUser?.role === Roles.admin && (
+              <li>
+                <Link
+                  href="#"
+                  className={`group relative  flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("archive") && "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <GoArchive size={20} />
+                  Archived doctor
+                </Link>
+              </li>
+               )}
+               </ul>
+           
           </div>
           {/* <!-- Others Group --> */}
         </nav>

@@ -82,7 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     setLoggedInUser(null);
     localStorage.removeItem("token");
-    router.push("/signup");
+    router.push("/signin");
   };
 
   const login = async (email: string, password: string) => {

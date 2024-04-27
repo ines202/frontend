@@ -13,21 +13,22 @@ import { Roles } from "@/types/types";
 import ImageUpload from "@/components/ImageUpload";
 import { UploadFolders } from "@/api/upload";
 import { useUpdateDoctor } from "@/api/doctor";
+import { useUpdateAdmin } from "@/api/admin";
 import { useState } from "react";
 import DocumentUpload from "@/components/DocumentUpload";
 import { toast } from "react-toastify";
-import {
-  HiOutlineDocumentArrowDown,
-  HiOutlineDocumentArrowUp,
-} from "react-icons/hi2";
+import {  HiOutlineDocumentArrowDown,} from "react-icons/hi2";
+
 const Settings = () => {
   const { loggedInUser, updateToken } = useAuth();
   const [newDoctor, setNewDoctor] = useState(loggedInUser?.doctor!);
+  const [newAdmin, setNewAdmin] = useState(loggedInUser?.admin!);
   const [showOldImage, setShowOldImage] = useState(true);
   const [showOldDocument, setShowOldDocument] = useState(true);
 
   // Mutations
   const { mutateAsync: updateDoctor, isPending } = useUpdateDoctor();
+  const { mutateAsync: updateAdmin, } = useUpdateAdmin();
 
   // Handlers
   const handleSaveChanges = async () => {
@@ -52,12 +53,12 @@ const Settings = () => {
               <div className="p-7">
                 <form action="#">
                   <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
-                    <div className="w-full sm:w-1/2">
+                  <div className="w-full sm:w-1/2">
                       <label
                         className="mb-3 block text-sm font-medium text-black dark:text-white"
                         htmlFor="fullName"
                       >
-                        Full Name
+                        First Name
                       </label>
                       <div className="relative">
                         <span className="absolute left-4.5 top-4">
@@ -74,20 +75,20 @@ const Settings = () => {
                         <input
                           className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                           type="text"
-                          name="fullName"
-                          id="fullName"
+                          name="firstName"
+                          id="firstName"
                           placeholder={
                             loggedInUser
                               ? loggedInUser.role === Roles.doctor
-                                ? `${loggedInUser.doctor?.first_name} ${loggedInUser.doctor?.last_name}`
-                                : `${loggedInUser.admin?.first_name} ${loggedInUser.admin?.last_name}`
+                                ? loggedInUser.doctor?.first_name
+                                : loggedInUser.admin?.first_name
                               : ""
                           }
                           defaultValue={
                             loggedInUser
                               ? loggedInUser.role === Roles.doctor
-                                ? `${loggedInUser.doctor?.first_name} ${loggedInUser.doctor?.last_name}`
-                                : `${loggedInUser.admin?.first_name} ${loggedInUser.admin?.last_name}`
+                                ? loggedInUser.doctor?.first_name
+                                : loggedInUser.admin?.first_name
                               : ""
                           }
                           value={newDoctor?.first_name}
@@ -100,58 +101,56 @@ const Settings = () => {
                         />
                       </div>
                     </div>
-
                     <div className="w-full sm:w-1/2">
-                      <label
-                        className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="phone"
-                      >
-                        Phone Number
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-4.5 top-4">
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
-                          >
-                            <IoCallOutline
-                              className="text-gray-400"
-                              size={20}
-                            />
-                          </div>
-                        </span>
-                        <input
-                          className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                          type="text"
-                          name="phone"
-                          id="phone"
-                          placeholder={
-                            loggedInUser
-                              ? loggedInUser.role === Roles.doctor
-                                ? loggedInUser.doctor?.phone
-                                : loggedInUser.admin?.phone
-                              : ""
-                          }
-                          defaultValue={
-                            loggedInUser
-                              ? loggedInUser.role === Roles.doctor
-                                ? loggedInUser.doctor?.phone
-                                : loggedInUser.admin?.phone
-                              : ""
-                          }
-                          value={newDoctor?.phone}
-                          onChange={(e) => {
-                            setNewDoctor({
-                              ...newDoctor,
-                              phone: e.target.value,
-                            });
-                          }}
-                        />
-                      </div>
-                    </div>
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="fullName">
+                      Last Name
+                    </label>
+                    <div className="relative">
+    <span className="absolute left-4.5 top-4">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <BsPerson className="text-gray-400" size={20} />
+      </div>
+    </span>
+    <input
+      className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+      type="text"
+      name="lastName"
+      id="lastName"
+      placeholder={
+        loggedInUser
+          ? loggedInUser.role === Roles.doctor
+            ? loggedInUser.doctor?.last_name
+            : loggedInUser.admin?.last_name
+          : ""
+      }
+      defaultValue={
+        loggedInUser
+          ? loggedInUser.role === Roles.doctor
+            ? loggedInUser.doctor?.last_name
+            : loggedInUser.admin?.last_name
+          : ""
+      }
+      value={newDoctor?.last_name}
+      onChange={(e) => {
+        setNewDoctor({
+          ...newDoctor,
+          last_name: e.target.value,
+        });
+      }}
+    />
+  </div> 
+</div>
+
+
+                    
                   </div>
 
                   <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
@@ -206,8 +205,64 @@ const Settings = () => {
                         />
                       </div>
                     </div>
+                    <div className="w-full sm:w-1/2">
+                      <label
+                        className="mb-3 block text-sm font-medium text-black dark:text-white"
+                        htmlFor="phone"
+                      >
+                        Phone Number
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-4.5 top-4">
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <IoCallOutline
+                              className="text-gray-400"
+                              size={20}
+                            />
+                          </div>
+                        </span>
+                        <input
+                          className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                          type="text"
+                          name="phone"
+                          id="phone"
+                          placeholder={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? loggedInUser.doctor?.phone
+                                : loggedInUser.admin?.phone
+                              : ""
+                          }
+                          defaultValue={
+                            loggedInUser
+                              ? loggedInUser.role === Roles.doctor
+                                ? loggedInUser.doctor?.phone
+                                : loggedInUser.admin?.phone
+                              : ""
+                          }
+                          value={newDoctor?.phone}
+                          onChange={(e) => {
+                            setNewDoctor({
+                              ...newDoctor,
+                              phone: e.target.value,
+                            });
+                          }}
+                        />
+                      </div>
+                    </div>
 
-                    {loggedInUser?.role === Roles.doctor && (
+                    
+                  </div>
+
+                  <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
+                  
+                  {loggedInUser?.role === Roles.doctor && (
                       <div className="w-full sm:w-1/2">
                         <label
                           className="mb-3 block text-sm font-medium text-black dark:text-white"
@@ -248,11 +303,10 @@ const Settings = () => {
                         </div>
                       </div>
                     )}
-                  </div>
                   {loggedInUser?.role === Roles.doctor && (
-                    <div className="mb-5.5">
-                      <label
-                        className="mb-3 block text-sm font-medium text-black dark:text-white"
+                     <div className="w-full sm:w-1/2">
+                     <label
+                       className="mb-3 block text-sm font-medium text-black dark:text-white"
                         htmlFor="Address"
                       >
                         Address
@@ -273,8 +327,7 @@ const Settings = () => {
                           </div>
                         </span>
                         <input
-                          className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
-                          type="text"
+                          className="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none disabled:bg-gray dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"                          type="text"
                           name="Address"
                           id="Address"
                           placeholder={
@@ -301,7 +354,12 @@ const Settings = () => {
                         />
                       </div>
                     </div>
+                    
                   )}
+                  </div>
+
+
+
 
                   {loggedInUser?.role === Roles.doctor && (
                     <div className="mb-5.5">

@@ -6,7 +6,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useAuth } from "@/components/AuthContext";
 import { Doctor } from "@/types/doctor";
 import { BsPerson } from "react-icons/bs";
-import { FaRegEnvelope } from "react-icons/fa";
+import { FaRegEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 import { GiPositionMarker } from "react-icons/gi";
 import { IoCallOutline } from "react-icons/io5";
 import { BsBriefcase } from "react-icons/bs";
@@ -25,7 +25,6 @@ const initialDoctor: Omit<Doctor, "id"> = {
   phone: "",
   password: "",
   role: "doctor",
-  pic: "",
   document: "",
 };
 
@@ -33,6 +32,8 @@ const SignUp: React.FC = () => {
   const [myNewDoctor, setMyNewDoctor] =
     useState<Omit<Doctor, "id">>(initialDoctor);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to manage confirm password visibility
   const { signUp, loading } = useAuth();
 
   // Handlers
@@ -43,8 +44,14 @@ const SignUp: React.FC = () => {
     setMyNewDoctor({ ...myNewDoctor, document: documentURL });
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!myNewDoctor.email.match(emailRegex)) {
+      toast.error("Invalid email format");
+      return;
+    }
     if (myNewDoctor.password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
@@ -86,7 +93,7 @@ const SignUp: React.FC = () => {
             <div className="grid w-full grid-cols-2 gap-12 px-16">
               <div className="w-full">
                 <form>
-                  <div className="mb-4">
+                <div className="mb-4">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       First Name
                     </label>
@@ -103,6 +110,7 @@ const SignUp: React.FC = () => {
                             });
                           }
                         }}
+                        required
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                       />
 
@@ -119,6 +127,7 @@ const SignUp: React.FC = () => {
                       </span>
                     </div>
                   </div>
+
                   <div className="mb-4">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Email
@@ -135,6 +144,7 @@ const SignUp: React.FC = () => {
                             email: e.target.value,
                           });
                         }}
+                        required
                       />
 
                       <span className="absolute right-4 top-4">
@@ -166,6 +176,7 @@ const SignUp: React.FC = () => {
                             phone: e.target.value,
                           });
                         }}
+                        required
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                       />
 
@@ -189,7 +200,7 @@ const SignUp: React.FC = () => {
                     </label>
                     <div className="relative">
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"} // Toggle input type
                         placeholder="Enter your password"
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         value={myNewDoctor?.password}
@@ -199,9 +210,18 @@ const SignUp: React.FC = () => {
                             password: e.target.value,
                           });
                         }}
+                        required
                       />
+                      {/* Toggle button for password visibility */}
+                      <span
+                        className="absolute right-4 top-4 cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      </span>
                     </div>
-                  </div>
+                  </div>      
+                        {/* upload profile image */}
                   <div className="pt-4">
                     <ImageUpload
                       uploadFolder={UploadFolders["doctor/images"]}
@@ -227,6 +247,7 @@ const SignUp: React.FC = () => {
                             last_name: e.target.value,
                           });
                         }}
+                        required
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                       />
 
@@ -259,6 +280,7 @@ const SignUp: React.FC = () => {
                             address: e.target.value,
                           });
                         }}
+                        required
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                       />
 
@@ -294,6 +316,7 @@ const SignUp: React.FC = () => {
                             speciality: e.target.value,
                           });
                         }}
+                        required
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                       />
 
@@ -310,22 +333,33 @@ const SignUp: React.FC = () => {
                       </span>
                     </div>
                   </div>
+
                   <div className="mb-4">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Confirm Password
                     </label>
                     <div className="relative">
                       <input
-                        type="password"
+                        type={showConfirmPassword ? "text" : "password"} // Toggle input type
                         placeholder="Confirm your password"
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         value={confirmPassword}
                         onChange={(e) => {
                           setConfirmPassword(e.target.value);
                         }}
+                        required
                       />
+                      {/* Toggle button for confirm password visibility */}
+                      <span
+                        className="absolute right-4 top-4 cursor-pointer"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      >
+                        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                      </span>
                     </div>
                   </div>
+
+                      {/* upload document */}
                   <div className="pt-4">
                     <DocumentUpload
                       uploadFolder={UploadFolders["doctor/documents"]}
@@ -335,6 +369,8 @@ const SignUp: React.FC = () => {
                 </form>
               </div>
             </div>
+
+
 
             <div className="flex w-full flex-col items-center justify-center pb-6">
               <div className="w-60">

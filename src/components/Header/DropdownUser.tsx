@@ -62,7 +62,7 @@ const DropdownUser = () => {
               : "Admin"}
           </span>
         </span>
-
+        {loggedInUser?.role === Roles.doctor && (
         <span className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-700 drop-shadow-2">
           {loggedInUser &&
             loggedInUser.role === Roles.doctor &&
@@ -76,6 +76,7 @@ const DropdownUser = () => {
               />
             )}
         </span>
+        )}
 
         <svg
           className="hidden fill-current sm:block"
@@ -104,6 +105,7 @@ const DropdownUser = () => {
         }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+        {loggedInUser?.role === Roles.doctor && (
           <li>
             <Link
               href="/dashboard/profile"
@@ -121,6 +123,7 @@ const DropdownUser = () => {
               My Profile
             </Link>
           </li>
+          )}
           <li>
             <Link
               href="/dashboard/settings"

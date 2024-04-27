@@ -4,13 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useAuth } from "@/components/AuthContext";
-import { FaRegEnvelope } from "react-icons/fa";
+import { FaRegEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 import clsx from "clsx";
 
 const SignIn: React.FC = () => {
   const { loggedInUser, login, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
+
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       <div className="w-full max-w-5xl">
@@ -88,16 +90,23 @@ const SignIn: React.FC = () => {
                     </label>
                     <div className="relative">
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"} // Toggle input type
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="6+ Characters, 1 Capital letter"
                         className="required w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input  dark:focus:border-purple-700"
                       />
+                      {/* Toggle button for password visibility */}
+                      <span
+                        className="absolute right-4 top-4 cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      </span>
                     </div>
                     <div>
                       <Link
-                        href="/dashboard/auth/resetpassword"
+                        href="/forgotpassword"
                         className="ms-60 text-purple-700"
                       >
                         Forgot password?
