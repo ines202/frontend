@@ -7,10 +7,10 @@ export type Doctor = {
   speciality: string;
   phone: string;
   password: string;
-  pic: string;
   role: string;
   bio?: string;
   document: string;
   profilePicture?: string;
   isDisabled: boolean;
+  isArchived?: boolean;
 };

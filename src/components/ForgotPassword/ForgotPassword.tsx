@@ -7,21 +7,21 @@ import axios, { AxiosError } from 'axios';
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
-  
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (!validateEmail(email)) {
             setError('Please enter a valid email address.');
             return;
         }
-        
+
         try {
             const response = await axios.post('/api/send-code', { email });
             if (response.data.success) {
                 // If successful, navigate to the VerifyCode component
                 // You can replace this line with your preferred navigation method
-                // router.push('/VerifyCode'); 
+                // router.push('/VerifyCode');
             } else {
                 // Handle error if success is false
                 setError('Error: ' + response.data.error);
@@ -40,20 +40,20 @@ const ForgotPassword = () => {
             }
         }
     };
-    
+
     const validateEmail = (email: string) => {
         const re = /\S+@\S+\.\S+/;
         return re.test(email);
     };
-  
+
     return (
         <div className="flex h-screen w-screen items-center justify-center">
             <div className="w-full max-w-5xl">
                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                     <div className="flex flex-wrap items-center">
                         {/* Left Section */}
-                        <div className="hidden w-full xl:block xl:w-1/2">
-                            <div className="px-26 py-17.5">
+                        <div className="hidden w-full xl:flex xl:w-1/2 flex-col items-center justify-center">
+                            <div className="px-26 py-17.5 flex flex-col items-center">
                                 <Link href="/">
                                     <Image
                                         className="hidden dark:block"
@@ -109,15 +109,7 @@ const ForgotPassword = () => {
                                                 required
                                             />
                                             <span className="absolute right-4 top-4">
-                                                <div
-                                                    style={{
-                                                        display: "flex",
-                                                        justifyContent: "center",
-                                                        alignItems: "center",
-                                                    }}
-                                                >
-                                                    <FaRegEnvelope className="text-gray-200" size={20} />
-                                                </div>
+                                                <FaRegEnvelope className="text-gray-200" size={20} />
                                             </span>
                                         </div>
                                     </div>
@@ -140,7 +132,7 @@ const ForgotPassword = () => {
                                         </p>
                                     </div>
                                 </form>
-                                {error && <p className="text-red-500">{error}</p>}
+                                {error && <p className="text-red-500 mt-4">{error}</p>}
                             </div>
                         </div>
                     </div>

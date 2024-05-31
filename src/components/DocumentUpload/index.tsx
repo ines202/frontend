@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { FaUpload } from "react-icons/fa6";
-import Image from "next/image";
-import { UploadFolders, useUploadFiles } from "@/api/upload";
 import { HiOutlineDocumentArrowUp } from "react-icons/hi2";
+import { UploadFolders, useUploadFiles } from "@/api/upload";
 
 interface IProps {
   uploadedDocumentURL: (documentURL: string) => void;
   uploadFolder: (typeof UploadFolders)[keyof typeof UploadFolders];
   hideSuccess?: boolean;
+  documentUploaded: boolean;
+  setDocumentUploaded: (uploaded: boolean) => void;
 }
 
 const DocumentUpload = ({
   uploadedDocumentURL,
   uploadFolder,
   hideSuccess = false,
+  documentUploaded,
+  setDocumentUploaded
 }: IProps) => {
   const [documentURL, setDocumentURL] = useState<string | null>(null);
 
@@ -30,6 +33,7 @@ const DocumentUpload = ({
     });
     setDocumentURL(files[0].path);
     uploadedDocumentURL(files[0].path);
+    setDocumentUploaded(true); // Update the state to reflect that a document has been uploaded
   };
 
   return (
@@ -43,6 +47,7 @@ const DocumentUpload = ({
           accept=".pdf,.doc,.docx"
           className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
           onChange={handleUploadFiles}
+          required
         />
         <div className="flex flex-col items-center justify-center space-y-3">
           <span className="flex h-8 w-8 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
@@ -52,6 +57,11 @@ const DocumentUpload = ({
             <span className="text-primary">Click to upload</span> your document
           </p>
         </div>
+      </div>
+      <div className="flex justify-center">
+        <p className="text-sm text-red">
+          The document must contain proof to activate your account.
+        </p>
       </div>
       <div className="mb-4 flex items-center justify-center">
         <div className="mt-4 flex items-center justify-center gap-2 text-green-600">

@@ -6,7 +6,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
 const ResetPassword = () => {
- 
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
@@ -24,8 +24,8 @@ const ResetPassword = () => {
 
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="flex flex-wrap items-center">
-            <div className="hidden w-full xl:block xl:w-1/2">
-              <div className="px-26 py-5">
+            <div className="hidden w-full xl:flex xl:w-1/2 flex-col items-center justify-center">
+              <div className="px-26 py-17.5 flex flex-col items-center">
                 <Link href="/">
                   <Image
                     className="hidden dark:block"

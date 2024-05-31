@@ -1,12 +1,10 @@
 "use client";
 import { useGetDoctorById, useUpdateDoctor } from "@/api/doctor";
 import { useAuth } from "@/components/AuthContext";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import { Roles } from "@/types/types";
 import { useParams, useRouter } from "next/navigation";
 import Image from 'next/image';
-import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { useEffect, useState } from 'react';
 import { toast } from "react-toastify";
 
@@ -30,18 +28,18 @@ const DoctorDetails = () => {
     try {
       // Call API to update doctor
       await updateDoctor(newDoctor);
-  
+
     } catch (error) {
       console.error("Error updating doctor:", error);
       // Handle error if necessary
     }
     toast.success("Profile updated successfully");
   };
- 
-  
+
+
   return (
     <DashboardLayout>
-      
+
       <div className="rounded-lg bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
         {isLoading && <p>Loading...</p>}
         {error && <p className="text-red-500">Error: {error.message}</p>}
@@ -53,7 +51,7 @@ const DoctorDetails = () => {
               </h2>
               <div className="mb-4 grid grid-cols-3 gap-4">
                 <div className="mb-3 flex flex-col">
-                  
+
                   <div className="relative h-40 w-40 rounded-full border-4 border-purple-700 drop-shadow-2">
                     {doctor && doctor.profilePicture && (
                       <Image
@@ -188,19 +186,19 @@ const DoctorDetails = () => {
                     value={doctor?.bio}
                   />
                 </div>
-               
 
-              
+
+
               </div>
             </div>
           </div>
         )}
         <div className="mt-4 flex justify-end">
-          <button className="mr-2 rounded-md bg-purple-700 px-4 py-2 text-white"
+          {/* <button className="mr-2 rounded-md bg-purple-700 px-4 py-2 text-white"
         onClick={handleSaveChanges}
           >
             Save
-          </button>
+          </button> */}
 
           <button
             className="mr-2 rounded-md bg-purple-700 px-4 py-2 text-white"

@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useAuth } from "@/components/AuthContext";
 import { FaRegEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 import clsx from "clsx";
@@ -14,12 +13,12 @@ const SignIn: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
+    <div className="flex h-screen w-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-5xl">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="flex flex-wrap items-center">
-            <div className="hidden w-full xl:block xl:w-1/2">
-              <div className="px-26  ">
+          <div className="hidden w-full xl:flex xl:w-1/2 flex-col items-center justify-center">
+              <div className="px-26 flex flex-col items-center">
                 <Link className="mb-7 mt-10 inline-block" href="/">
                   <Image
                     className="hidden dark:block"
@@ -37,9 +36,9 @@ const SignIn: React.FC = () => {
                   />
                 </Link>
                 <p className="text-center 2xl:px-10">
-                  Enter your personal details and start journey with us.
+                  Enter your personal details and start your journey with us.
                 </p>
-                <Image
+                 <Image
                   className=" mb-9"
                   src={"/images/signin/signup.png"}
                   alt="signin"
@@ -51,9 +50,8 @@ const SignIn: React.FC = () => {
 
             <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
               <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-                <h2 className="mb-9 whitespace-nowrap text-xl font-bold text-black dark:text-white sm:text-title-xl2   ">
-                  Welcome to<span className="ms-2 text-purple-700">Doolab</span>
-                  Care
+                <h2 className="mb-9 whitespace-nowrap text-xl font-bold text-black dark:text-white sm:text-title-xl2">
+                  Welcome to<span className="ms-2 text-purple-700">Doolab</span>Care
                 </h2>
 
                 <form>
@@ -69,17 +67,8 @@ const SignIn: React.FC = () => {
                         placeholder="Enter your email"
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
-
                       <span className="absolute right-4 top-4">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <FaRegEnvelope className="text-gray-200" size={20} />
-                        </div>
+                        <FaRegEnvelope className="text-gray-200" size={20} />
                       </span>
                     </div>
                   </div>
@@ -94,9 +83,8 @@ const SignIn: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="6+ Characters, 1 Capital letter"
-                        className="required w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input  dark:focus:border-purple-700"
+                        className="required w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                       />
-                      {/* Toggle button for password visibility */}
                       <span
                         className="absolute right-4 top-4 cursor-pointer"
                         onClick={() => setShowPassword(!showPassword)}
@@ -105,10 +93,7 @@ const SignIn: React.FC = () => {
                       </span>
                     </div>
                     <div>
-                      <Link
-                        href="/forgotpassword"
-                        className="ms-60 text-purple-700"
-                      >
+                      <Link href="/forgotpassword" className="ms-60 text-purple-700">
                         Forgot password?
                       </Link>
                     </div>
@@ -123,11 +108,11 @@ const SignIn: React.FC = () => {
                         login(email, password);
                       }}
                       className={clsx(
-                        "w-full cursor-pointer rounded-lg border border-purple-700 bg-purple-700  p-4 text-white transition hover:bg-opacity-90",
+                        "w-full cursor-pointer rounded-lg border border-purple-700 bg-purple-700 p-4 text-white transition hover:bg-opacity-90",
                         {
                           "opacity-50": loading,
                           "pointer-events-none": loading,
-                        },
+                        }
                       )}
                       disabled={loading}
                     />
@@ -135,7 +120,7 @@ const SignIn: React.FC = () => {
 
                   <div className="mt-6 text-center">
                     <p>
-                      Don’t have any account?{" "}
+                      Don’t have an account?{" "}
                       <Link href="/signup" className="text-purple-700">
                         Sign Up
                       </Link>

@@ -269,9 +269,9 @@ const PatientDetails = () => {
           </div>
         )}
         <div className="mt-4 flex justify-end">
-          <button className="mr-2 rounded-md bg-purple-700 px-4 py-2 text-white">
+          {/* <button className="mr-2 rounded-md bg-purple-700 px-4 py-2 text-white">
             Save
-          </button>
+          </button> */}
 
           <button
             className="mr-2 rounded-md bg-purple-700 px-4 py-2 text-white"

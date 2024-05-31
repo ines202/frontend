@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
@@ -26,6 +26,8 @@ const initialDoctor: Omit<Doctor, "id"> = {
   password: "",
   role: "doctor",
   document: "",
+  profilePicture: "", // Add this if it exists in Doctor type
+  isDisabled: false,  // Added the missing isDisabled property
 };
 
 const SignUp: React.FC = () => {
@@ -34,6 +36,7 @@ const SignUp: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to manage confirm password visibility
+  const [documentUploaded, setDocumentUploaded] = useState(false); // State to track if a document has been uploaded
   const { signUp, loading } = useAuth();
 
   // Handlers
@@ -56,14 +59,19 @@ const SignUp: React.FC = () => {
       toast.error("Passwords do not match");
       return;
     }
+    if (!documentUploaded) {
+      toast.error("Document upload is required");
+      return;
+    }
     signUp(myNewDoctor);
   };
+
   return (
-    <div className="flex h-screen w-screen items-center justify-center ">
+    <div className="flex h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-5xl">
         <Breadcrumb pageName="Sign Up" />
 
-        <div className="rounded-sm border border-stroke bg-white shadow-default">
+        <div className="rounded-sm border border-stroke bg-white shadow-default h-full">
           <div className="flex flex-col items-center">
             <div className="flex w-full flex-col items-center justify-center py-10">
               <div className="mb-2">
@@ -90,314 +98,248 @@ const SignUp: React.FC = () => {
               </h2>
             </div>
 
-            <div className="grid w-full grid-cols-2 gap-12 px-16">
+            <form className="grid w-full grid-cols-2 gap-12 px-16" onSubmit={handleSubmit}>
               <div className="w-full">
-                <form>
                 <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      First Name
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder="Enter your First name"
-                        value={myNewDoctor?.first_name}
-                        onChange={(e) => {
-                          if (e.target.value.length > 0) {
-                            setMyNewDoctor({
-                              ...myNewDoctor,
-                              first_name: e.target.value,
-                            });
-                          }
-                        }}
-                        required
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
-                      />
-
-                      <span className="absolute right-4 top-4">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <BsPerson className="text-grey-200" size={20} />
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Email
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        placeholder="Enter your email"
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
-                        value={myNewDoctor?.email}
-                        onChange={(e) => {
-                          setMyNewDoctor({
-                            ...myNewDoctor,
-                            email: e.target.value,
-                          });
-                        }}
-                        required
-                      />
-
-                      <span className="absolute right-4 top-4">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <FaRegEnvelope className="text-grey-200" size={20} />
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Phone Number
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        placeholder="Enter your Phone Number"
-                        value={myNewDoctor?.phone}
-                        onChange={(e) => {
-                          setMyNewDoctor({
-                            ...myNewDoctor,
-                            phone: e.target.value,
-                          });
-                        }}
-                        required
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
-                      />
-
-                      <span className="absolute right-4 top-4">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <IoCallOutline className="text-gray-200" size={20} />
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Password
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? "text" : "password"} // Toggle input type
-                        placeholder="Enter your password"
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        value={myNewDoctor?.password}
-                        onChange={(e) => {
-                          setMyNewDoctor({
-                            ...myNewDoctor,
-                            password: e.target.value,
-                          });
-                        }}
-                        required
-                      />
-                      {/* Toggle button for password visibility */}
-                      <span
-                        className="absolute right-4 top-4 cursor-pointer"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
-                      </span>
-                    </div>
-                  </div>      
-                        {/* upload profile image */}
-                  <div className="pt-4">
-                    <ImageUpload
-                      uploadFolder={UploadFolders["doctor/images"]}
-                      uploadedImageURL={handleUploadImage}
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    First Name
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Enter your First name"
+                      value={myNewDoctor.first_name}
+                      onChange={(e) =>
+                        setMyNewDoctor({
+                          ...myNewDoctor,
+                          first_name: e.target.value,
+                        })
+                      }
+                      required
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                     />
+                    <span className="absolute right-4 top-4">
+                      <BsPerson className="text-grey-200" size={20} />
+                    </span>
                   </div>
-                </form>
+                </div>
+
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Email
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
+                      value={myNewDoctor.email}
+                      onChange={(e) =>
+                        setMyNewDoctor({
+                          ...myNewDoctor,
+                          email: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                    <span className="absolute right-4 top-4">
+                      <FaRegEnvelope className="text-grey-200" size={20} />
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Phone Number
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      placeholder="Enter your Phone Number"
+                      value={myNewDoctor.phone}
+                      onChange={(e) =>
+                        setMyNewDoctor({
+                          ...myNewDoctor,
+                          phone: e.target.value,
+                        })
+                      }
+                      required
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
+                    />
+                    <span className="absolute right-4 top-4">
+                      <IoCallOutline className="text-gray-200" size={20} />
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"} // Toggle input type
+                      placeholder="Enter your password"
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      value={myNewDoctor.password}
+                      onChange={(e) =>
+                        setMyNewDoctor({
+                          ...myNewDoctor,
+                          password: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                    <span
+                      className="absolute right-4 top-4 cursor-pointer"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
+                  </div>
+                </div>
+
+                {/* upload profile image */}
+                <div className="pt-4">
+                  <ImageUpload
+                    uploadFolder={UploadFolders["doctor/images"]}
+                    uploadedImageURL={handleUploadImage}
+                  />
+                </div>
               </div>
               <div className="w-full">
-                <form>
-                  <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Last Name
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder="Enter your Last name"
-                        value={myNewDoctor?.last_name}
-                        onChange={(e) => {
-                          setMyNewDoctor({
-                            ...myNewDoctor,
-                            last_name: e.target.value,
-                          });
-                        }}
-                        required
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
-                      />
-
-                      <span className="absolute right-4 top-4">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <BsPerson className="text-grey-200" size={20} />
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Address
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder="Enter your Address"
-                        value={myNewDoctor?.address}
-                        onChange={(e) => {
-                          setMyNewDoctor({
-                            ...myNewDoctor,
-                            address: e.target.value,
-                          });
-                        }}
-                        required
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
-                      />
-
-                      <span className="absolute right-4 top-4">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <GiPositionMarker
-                            className="text-grey-200"
-                            size={20}
-                          />
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Speciality
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder="Enter your Speciality"
-                        value={myNewDoctor?.speciality}
-                        onChange={(e) => {
-                          setMyNewDoctor({
-                            ...myNewDoctor,
-                            speciality: e.target.value,
-                          });
-                        }}
-                        required
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
-                      />
-
-                      <span className="absolute right-4 top-4">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <BsBriefcase className="text-gray-200" size={20} />
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                      Confirm Password
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showConfirmPassword ? "text" : "password"} // Toggle input type
-                        placeholder="Confirm your password"
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        value={confirmPassword}
-                        onChange={(e) => {
-                          setConfirmPassword(e.target.value);
-                        }}
-                        required
-                      />
-                      {/* Toggle button for confirm password visibility */}
-                      <span
-                        className="absolute right-4 top-4 cursor-pointer"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      >
-                        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                      </span>
-                    </div>
-                  </div>
-
-                      {/* upload document */}
-                  <div className="pt-4">
-                    <DocumentUpload
-                      uploadFolder={UploadFolders["doctor/documents"]}
-                      uploadedDocumentURL={handleUploadDocument}
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Last Name
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Enter your Last name"
+                      value={myNewDoctor.last_name}
+                      onChange={(e) =>
+                        setMyNewDoctor({
+                          ...myNewDoctor,
+                          last_name: e.target.value,
+                        })
+                      }
+                      required
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
                     />
+                    <span className="absolute right-4 top-4">
+                      <BsPerson className="text-grey-200" size={20} />
+                    </span>
                   </div>
-                </form>
+                </div>
+
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Address
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Enter your Address"
+                      value={myNewDoctor.address}
+                      onChange={(e) =>
+                        setMyNewDoctor({
+                          ...myNewDoctor,
+                          address: e.target.value,
+                        })
+                      }
+                      required
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
+                    />
+                    <span className="absolute right-4 top-4">
+                      <GiPositionMarker className="text-grey-200" size={20} />
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Speciality
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Enter your Speciality"
+                      value={myNewDoctor.speciality}
+                      onChange={(e) =>
+                        setMyNewDoctor({
+                          ...myNewDoctor,
+                          speciality: e.target.value,
+                        })
+                      }
+                      required
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-purple-700 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-purple-700"
+                    />
+                    <span className="absolute right-4 top-4">
+                      <BsBriefcase className="text-gray-200" size={20} />
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Confirm Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showConfirmPassword ? "text" : "password"} // Toggle input type
+                      placeholder="Confirm your password"
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                    />
+                    <span
+                      className="absolute right-4 top-4 cursor-pointer"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                    >
+                      {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
+                  </div>
+                </div>
+
+                {/* upload document */}
+                <div className="pt-4">
+                  <DocumentUpload
+                    uploadFolder={UploadFolders["doctor/documents"]}
+                    uploadedDocumentURL={handleUploadDocument}
+                    documentUploaded={documentUploaded}
+                    setDocumentUploaded={setDocumentUploaded}
+                  />
+                </div>
               </div>
-            </div>
+              <div className="flex w-full flex-col items-center justify-center pb-6 col-span-2">
+                <div className="w-60">
+                  <input
+                    type="submit"
+                    value={loading ? "Creating account.." : "Create account"}
+                    className={clsx(
+                      "w-full cursor-pointer rounded-lg border border-purple-700 bg-purple-700 p-4 text-white transition hover:bg-opacity-90",
+                      {
+                        "opacity-50": loading,
+                        "pointer-events-none": loading,
+                      }
+                    )}
+                    disabled={loading}
+                  />
+                </div>
 
-
-
-            <div className="flex w-full flex-col items-center justify-center pb-6">
-              <div className="w-60">
-                <input
-                  type="submit"
-                  value={loading ? "Creating account.." : "Create account"}
-                  onClick={handleSubmit}
-                  className={clsx(
-                    "w-full cursor-pointer rounded-lg border border-purple-700 bg-purple-700 p-4 text-white transition hover:bg-opacity-90",
-                    {
-                      "opacity-50": loading,
-                      "pointer-events-none": loading,
-                    },
-                  )}
-                  disabled={loading}
-                />
+                <div className="mt-4 text-center">
+                  <p>
+                    Already have an account?
+                    <Link href="/signin" className="text-purple-700">
+                      Sign in
+                    </Link>
+                  </p>
+                </div>
               </div>
-
-              <div className="mt-4 text-center">
-                <p>
-                  Already have an account?
-                  <Link href="/signin" className="text-purple-700">
-                    Sign in
-                  </Link>
-                </p>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

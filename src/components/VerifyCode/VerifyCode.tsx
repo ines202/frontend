@@ -30,14 +30,12 @@ const CodeReceive: React.FC = () => {
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       <div className="w-full max-w-5xl">
-        <Breadcrumb pageName="Forgot Password" />
-
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="flex flex-wrap items-center">
             {/* Left side content */}
-            <div className="hidden w-full xl:block xl:w-1/2">
-              <div className="px-26 py-17.5">
-                <Link className="mb-7 inline-block" href="/">
+            <div className="hidden w-full xl:flex xl:w-1/2 flex-col items-center justify-center">
+              <div className="px-26 py-17.5 flex flex-col items-center">
+                <Link href="/">
                   <Image
                     className="hidden dark:block"
                     src={"/images/logo/logo.png"}

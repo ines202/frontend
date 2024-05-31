@@ -1,44 +1,31 @@
+import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { useGetDoctors, useUpdateDoctor, useArchiveDoctor } from "@/api/doctor";
+import { useGetArchivedDoctors, useUpdateDoctor, useArchiveDoctor } from "@/api/doctor";
 import { Doctor } from "@/types/doctor";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Doctors = () => {
+const ArchivedDoctors = () => {
   const router = useRouter();
-  const { data: doctors, error, isLoading, refetch } = useGetDoctors();
-  const { mutateAsync: updateDoctor, isPending } = useUpdateDoctor();
+  const { data: doctors, error, isLoading, refetch } = useGetArchivedDoctors();
+  //const { mutateAsync: updateDoctor, isPending } = useUpdateDoctor();
   const { mutateAsync: archiveDoctor, isPending: isArchiving } = useArchiveDoctor();
 
   const handleDoctorView = (doctor: Doctor) => {
     router.push(`/dashboard/doctors/${doctor.id}`);
   };
 
-  const handleDoctorStatus = (doctor: Doctor) => async () => {
-    try {
-      await updateDoctor({
-        ...doctor,
-        id: doctor.id,
-        isDisabled: !doctor.isDisabled,
-      });
-      await refetch();
-      toast.success("Doctor status updated successfully");
-    } catch (error) {
-      console.error("Error updating doctor status:", error);
-      toast.error("Failed to update doctor status");
-    }
-  };
 
-  const handleArchiveDoctor = async (doctor: Doctor) => {
+  const handleRestoreDoctor = async (doctor: Doctor) => {
     try {
-      await archiveDoctor({ doctorId: doctor.id.toString(), isArchived: true });
-      toast.success("Doctor archived successfully");
+      await archiveDoctor({ doctorId: doctor.id.toString(), isArchived: false }); // Restore doctor by setting isArchived to false
+      toast.success("Doctor restored successfully");
       await refetch();
     } catch (error) {
-      console.error("Error archiving doctor:", error);
-      toast.error("Failed to archive doctor");
+      console.error("Error restoring doctor:", error);
+      toast.error("Failed to restore doctor");
     }
   };
 
@@ -47,7 +34,7 @@ const Doctors = () => {
       <ToastContainer />
       <div className="px-4 py-6 md:px-6 xl:px-7.5">
         <h4 className="text-xl font-semibold text-black dark:text-white">
-          Doctors List
+          Archived Doctors List
         </h4>
       </div>
 
@@ -112,25 +99,11 @@ const Doctors = () => {
             </div>
             <div className="col-span-2 flex items-center p-2.5">
               <button
-                className={clsx(
-                  "disabled:bg-gray-300 dark:hover:bg-gray-800 rounded-md bg-green-600 px-3 py-1 text-sm",
-                  {
-                    "bg-red text-white": doctor.isDisabled,
-                    "bg-green-600 text-white": !doctor.isDisabled,
-                    "cursor-not-allowed opacity-75": isPending,
-                  }
-                )}
-                onClick={handleDoctorStatus(doctor)}
-                disabled={isPending}
-              >
-                {doctor.isDisabled ? "Enable" : "Disable"}
-              </button>
-              <button
-                className="bg-purple-100 rounded-md ml-3 px-3 py-1 text-sm text-black dark:text-black"
-                onClick={() => handleArchiveDoctor(doctor)}
+                className="bg-purple-100 rounded-md ml-10 px-3 py-1 text-sm text-black dark:text-black"
+                onClick={() => handleRestoreDoctor(doctor)}
                 disabled={isArchiving}
               >
-                Archive
+                Restore
               </button>
             </div>
           </div>
@@ -140,4 +113,4 @@ const Doctors = () => {
   );
 };
 
-export default Doctors;
+export default ArchivedDoctors;

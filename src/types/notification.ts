@@ -4,6 +4,6 @@ export type NOTIFICATION = {
   date : Date;
   hour: string;
   phone: number;
-  result: number;
+  result: string;
   image: string;
 };
