@@ -130,7 +130,7 @@ const ChartOne: React.FC = () => {
         data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
       },
 
-      
+
     ],
   });
 
@@ -151,12 +151,12 @@ const ChartOne: React.FC = () => {
             </span>
             <div className="w-full">
               <p className="font-semibold text-purple-700">Total Notificatin</p>
-              <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p>
+             {/* <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p> */}
             </div>
           </div>
-         
+
         </div>
-        <div className="flex w-full max-w-45 justify-end">
+        {/* <div className="flex w-full max-w-45 justify-end">
           <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
             <button className="rounded bg-white px-3 py-1 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark">
               Day
@@ -168,7 +168,7 @@ const ChartOne: React.FC = () => {
               Month
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div>

@@ -22,9 +22,9 @@ const PatientDetails = () => {
 
   return (
     <DashboardLayout>
-      <Breadcrumb
+      {/* <Breadcrumb
         pageName={`Patient Details: ${patientProfile?.patient.first_name} ${patientProfile?.patient.last_name}`}
-      />
+      /> */}
       <div className="rounded-lg bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
         {isLoading && <p>Loading...</p>}
         {error && <p className="text-red-500">Error: {error.message}</p>}
@@ -47,6 +47,7 @@ const PatientDetails = () => {
                     id="firstName"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={patientProfile.patient.first_name}
+                    disabled
                   />
                 </div>
                 <div className="mb-3 flex flex-col">
@@ -61,6 +62,7 @@ const PatientDetails = () => {
                     id="lastName"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={patientProfile.patient.last_name}
+                    disabled
                   />
                 </div>
                 <div className="mb-3 flex flex-col">
@@ -75,6 +77,7 @@ const PatientDetails = () => {
                     id="email"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={patientProfile.patient.email}
+                    disabled
                   />
                 </div>
                 <div className="mb-3 flex flex-col">
@@ -89,9 +92,10 @@ const PatientDetails = () => {
                     id="phone"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={patientProfile.patient.phone}
+                    disabled
                   />
                 </div>
-                <div className="mb-3 flex flex-col">
+                {/* <div className="mb-3 flex flex-col">
                   <label
                     htmlFor="address"
                     className="mb-3 font-medium text-black dark:text-white"
@@ -103,8 +107,9 @@ const PatientDetails = () => {
                     id="address"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     value={patientProfile.patient.address}
+                    disabled
                   />
-                </div>
+                </div> */}
 
                 <div className="mb-3 flex flex-col">
                   <label
@@ -117,6 +122,7 @@ const PatientDetails = () => {
                     type="text"
                     id="gender"
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                    disabled
                   />
                 </div>
                 <div className="mb-3 flex flex-col">
@@ -129,6 +135,7 @@ const PatientDetails = () => {
                   <input
                     type="text"
                     id="height"
+                    disabled
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                   />
                 </div>
@@ -136,12 +143,14 @@ const PatientDetails = () => {
                   <label
                     htmlFor="weight"
                     className="mb-3 font-medium text-black dark:text-white"
+
                   >
                     Weight:
                   </label>
                   <input
                     type="text"
                     id="weight"
+                    disabled
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                   />
                 </div>
@@ -155,6 +164,7 @@ const PatientDetails = () => {
                   <input
                     type="text"
                     id="birthdate"
+                    disabled
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                   />
                 </div>
