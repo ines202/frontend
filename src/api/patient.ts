@@ -3,30 +3,17 @@ import API from "@/app/lib/api";
 import { AxiosError } from "axios";
 import { PatientProfile } from "@/types/patientProfile";
 
-export const useGetPatients = () => {
+export const useGetPatients = (includeArchived = false) => {
   return useQuery<PatientProfile[], AxiosError>({
-    queryKey: ["patients"],
+    queryKey: ["patients", includeArchived],
     queryFn: async () => {
       try {
-        const response = await API.get("/patients");
+        const response = await API.get("/patients", {
+          params: { includeArchived },
+        });
         return response.data.data;
       } catch (error) {
         console.error("Error fetching patients:", error);
-        throw error;
-      }
-    },
-  });
-};
-
-export const useGetArchivedPatients = () => {
-  return useQuery<PatientProfile[], AxiosError>({
-    queryKey: ["archivedPatients"],
-    queryFn: async () => {
-      try {
-        const response = await API.get("/patients/archived");
-        return response.data.data;
-      } catch (error: any) {
-        console.error("Error fetching archived patients:", error);
         throw error;
       }
     },

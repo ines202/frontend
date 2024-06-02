@@ -12,7 +12,7 @@ const Patients = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { loggedInUser } = useAuth();
-  const { data: patientProfiles, isLoading } = useGetPatients();
+  const { data: patientProfiles, isLoading } = useGetPatients(false);
   const { mutateAsync: archivePatient, isPending: isArchiving } = useArchivePatient();
 
   const handleMedicalRecordClick = (patientProfile: PatientProfile) => {

@@ -1,15 +1,21 @@
 
 import { PatientProfile } from "@/types/patientProfile";
-import { useGetPatients } from "@/api/patient";
+import { useArchivePatient, useGetPatients } from "@/api/patient";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 const Patients = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   // Queries
-  const { data: patientProfiles, error, isLoading } = useGetPatients();
+  const { data: patientProfiles, error, isLoading } = useGetPatients(true);
+
+  // Mutations
+  const { mutateAsync: restorePatient, isPending: isArchiving } = useArchivePatient();
 
 
   // Handlers
@@ -17,6 +23,16 @@ const Patients = () => {
     router.push(`/dashboard/patients/${patientProfile.patient.id}`);
   };
 
+  const handleRestoreClick = async (patientId: string) => {
+    try {
+      await restorePatient({ patientId, isArchived: false });
+      toast.success("Patient restored successfully.");
+      queryClient.invalidateQueries({ queryKey: ["patients"] });
+    } catch (error) {
+      console.error("Error restoring patient:", error);
+      toast.error("Failed to restore patient.");
+    }
+  };
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -88,7 +104,7 @@ const Patients = () => {
             <div className="flex items-center justify-center">
               <button
                 className="ml-70 rounded-md bg-purple-100 px-3 py-1 text-sm text-black dark:text-black"
-
+                onClick={() => handleRestoreClick(patientProfile.patient.id.toString())}
               >
                 Restore
               </button>
