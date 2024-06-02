@@ -121,7 +121,8 @@ const PatientDetails = () => {
                   <input
                     type="text"
                     id="gender"
-                    className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
+                    value={patientProfile.gender}
+                    className="w-80 rounded border capitalize border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                     disabled
                   />
                 </div>
@@ -135,6 +136,7 @@ const PatientDetails = () => {
                   <input
                     type="text"
                     id="height"
+                    value={`${patientProfile.height} m`}
                     disabled
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                   />
@@ -150,6 +152,7 @@ const PatientDetails = () => {
                   <input
                     type="text"
                     id="weight"
+                    value={`${patientProfile.weight} kg`}
                     disabled
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                   />
@@ -164,6 +167,7 @@ const PatientDetails = () => {
                   <input
                     type="text"
                     id="birthdate"
+                    value={`${String(new Date(patientProfile.birth_date).getDate()).padStart(2, '0')}-${String(new Date(patientProfile.birth_date).getMonth() + 1).padStart(2, '0')}-${new Date(patientProfile.birth_date).getFullYear()}`}
                     disabled
                     className="w-80 rounded border border-stroke bg-gray py-3 pl-4 pr-4.5 text-black focus:border-purple-700 focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-purple-700"
                   />
