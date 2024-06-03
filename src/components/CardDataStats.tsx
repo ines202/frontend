@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
+import Skeleton from "react-loading-skeleton";
 
 interface CardDataStatsProps {
   title: string;
-  total: string;
-  rate: string;
+  total?: number;
   levelUp?: boolean;
   levelDown?: boolean;
   children: ReactNode;
@@ -12,7 +12,6 @@ interface CardDataStatsProps {
 const CardDataStats: React.FC<CardDataStatsProps> = ({
   title,
   total,
-  rate,
   levelUp,
   levelDown,
   children,
@@ -26,7 +25,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black dark:text-white">
-            {total}
+            {total ?? <Skeleton />}
           </h4>
           <span className="text-sm font-medium">{title}</span>
         </div>
@@ -36,7 +35,6 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
             levelUp && "text-meta-3"
           } ${levelDown && "text-meta-5"} `}
         >
-          {rate}
 
           {levelUp && (
             <svg
