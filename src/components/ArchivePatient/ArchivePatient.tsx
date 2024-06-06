@@ -1,11 +1,9 @@
-
 import { PatientProfile } from "@/types/patientProfile";
 import { useArchivePatient, useGetPatients } from "@/api/patient";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
-
 
 const Patients = () => {
   const router = useRouter();
@@ -15,8 +13,8 @@ const Patients = () => {
   const { data: patientProfiles, error, isLoading } = useGetPatients(true);
 
   // Mutations
-  const { mutateAsync: restorePatient, isPending: isArchiving } = useArchivePatient();
-
+  const { mutateAsync: restorePatient, isPending: isArchiving } =
+    useArchivePatient();
 
   // Handlers
   const handleMedicalRecordClick = (patientProfile: PatientProfile) => {
@@ -36,7 +34,12 @@ const Patients = () => {
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-
+      <ToastContainer />
+      <div className="px-4 py-6 md:px-6 xl:px-7.5">
+        <h4 className="text-xl font-semibold text-black dark:text-white">
+          Archived Patients List
+        </h4>
+      </div>
       <div className="grid grid-cols-12 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-12 md:px-6 2xl:px-7.5">
         <div className="col-span-2 flex items-center">
           <p className="font-medium">Full name </p>
@@ -44,9 +47,9 @@ const Patients = () => {
         <div className="col-span-2 items-center">
           <p className="font-medium">Email</p>
         </div>
-        <div className="col-span-2 items-center">
+        {/* <div className="col-span-2 items-center">
           <p className="font-medium">Address</p>
-        </div>
+        </div> */}
         <div className="col-span-2 flex items-center">
           <p className="font-medium">Phone number</p>
         </div>
@@ -83,11 +86,11 @@ const Patients = () => {
                 {patientProfile.patient.email}
               </p>
             </div>
-            <div className="col-span-2 hidden items-center sm:flex">
+            {/* <div className="col-span-2 hidden items-center sm:flex">
               <p className="text-sm text-black dark:text-white">
                 {patientProfile.patient.address}
               </p>
-            </div>
+            </div> */}
             <div className="col-span-2 flex items-center">
               <p className="text-sm text-black dark:text-white">
                 {patientProfile.patient.phone}
@@ -104,7 +107,9 @@ const Patients = () => {
             <div className="flex items-center justify-center">
               <button
                 className="ml-70 rounded-md bg-purple-100 px-3 py-1 text-sm text-black dark:text-black"
-                onClick={() => handleRestoreClick(patientProfile.patient.id.toString())}
+                onClick={() =>
+                  handleRestoreClick(patientProfile.patient.id.toString())
+                }
               >
                 Restore
               </button>

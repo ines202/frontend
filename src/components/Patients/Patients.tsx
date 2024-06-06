@@ -4,7 +4,7 @@ import { PatientProfile } from "@/types/patientProfile";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../AuthContext";
 import { Roles } from "@/types/types";
 
@@ -13,7 +13,8 @@ const Patients = () => {
   const queryClient = useQueryClient();
   const { loggedInUser } = useAuth();
   const { data: patientProfiles, isLoading } = useGetPatients(false);
-  const { mutateAsync: archivePatient, isPending: isArchiving } = useArchivePatient();
+  const { mutateAsync: archivePatient, isPending: isArchiving } =
+    useArchivePatient();
 
   const handleMedicalRecordClick = (patientProfile: PatientProfile) => {
     router.push(`/dashboard/patients/${patientProfile.patient.id}`);
@@ -88,7 +89,7 @@ const Patients = () => {
               <>
                 <div className="col-span-2 flex items-center p-2.5">
                   <button
-                    className="rounded-md bg-purple-700 ml-5 px-3 py-1 text-sm text-white"
+                    className="ml-5 rounded-md bg-purple-700 px-3 py-1 text-sm text-white"
                     onClick={() => handleMedicalRecordClick(patientProfile)}
                   >
                     View
@@ -96,8 +97,10 @@ const Patients = () => {
                 </div>
                 <div className="col-span-2 flex items-center p-2.5">
                   <button
-                    className="rounded-md bg-purple-100 px-3 ml-13 py-1 text-sm text-black"
-                    onClick={() => handleArchiveClick(patientProfile.patient.id.toString())}
+                    className="ml-13 rounded-md bg-purple-100 px-3 py-1 text-sm text-black"
+                    onClick={() =>
+                      handleArchiveClick(patientProfile.patient.id.toString())
+                    }
                     disabled={isArchiving}
                   >
                     Archive

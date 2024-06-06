@@ -6,38 +6,38 @@ import { NOTIFICATION } from "@/types/notification";
 
 const notificationData: NOTIFICATION[] = [
   {
-    firstname: "John",
-    lastname: "Doe",
+    firstname: "Anis",
+    lastname: "Kehal",
     date: new Date("2024-03-21"),
     hour: "14:30",
-    phone: 1234567890,
+    phone: 756359874,
     result: "ulcer",
     image: "/images/ulcer/1.jpg",
   },
+  // {
+  //   firstname: "Doe",
+  //   lastname: "John",
+  //   date: new Date("2024-02-21"),
+  //   hour: "16:30",
+  //   phone: 734567890,
+  //   result: "healthy skin",
+  //   image: "/images/ulcer/4.jpg",
+  // },
   {
-    firstname: "Doe",
-    lastname: "John",
-    date: new Date("2024-02-21"),
-    hour: "16:30",
-    phone: 1234567890,
-    result: "healthy skin",
-    image: "/images/ulcer/4.jpg",
-  },
-  {
-    firstname: "ines",
-    lastname: "boukhors",
-    date: new Date("2024-03-21"),
-    hour: "14:30",
-    phone: 1234567890,
+    firstname: "mouhamed",
+    lastname: "bachiri",
+    date: new Date("2024-04-21"),
+    hour: "08:00",
+    phone: 586391639,
     result: "healthy skin",
     image: "/images/ulcer/7.jpg",
   },
   {
-    firstname: "kawther",
-    lastname: "rached",
-    date: new Date("2024-03-21"),
+    firstname: "fairouz",
+    lastname: "achouri",
+    date: new Date("2024-05-01"),
     hour: "14:30",
-    phone: 1234567890,
+    phone: 697301522,
     result: "ulcer",
     image: "/images/ulcer/3.jpg",
   },
@@ -121,18 +121,20 @@ const Test = () => {
               </p>
             </div>
             <div className="col-span-2 flex items-center">
-              <p className="text-black dark:text-white">{notification.result}</p>
+              <p className="text-black dark:text-white">
+                {notification.result}
+              </p>
             </div>
             <div className="col-span-2 flex items-center">
               <button
-                className="border border-gray-300 text-white hover:bg-gray-100 rounded-md bg-purple-700 pt-2 pb-2 px-4 py-2"
+                className="border-gray-300 hover:bg-gray-100 rounded-md border bg-purple-700 px-4 py-2 pb-2 pt-2 text-white"
                 onClick={() => handleShowImage(notification.image)}
               >
                 Show
               </button>
               {selectedImage === notification.image && (
                 <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
-                  <div className="bg-white p-4 rounded-lg">
+                  <div className="rounded-lg bg-white p-4">
                     <Image
                       src={selectedImage}
                       alt="Notification Image"
@@ -141,7 +143,7 @@ const Test = () => {
                       height={300}
                     />
                     <button
-                      className="mt-4 border border-purple-700 text-white hover:bg-gray-100 rounded-md bg-purple-700 pt-2 pb-2 px-4 py-2"
+                      className="hover:bg-gray-100 mt-4 rounded-md border border-purple-700 bg-purple-700 px-4 py-2 pb-2 pt-2 text-white"
                       onClick={handleCloseImage}
                     >
                       Close

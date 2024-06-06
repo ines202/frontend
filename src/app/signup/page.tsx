@@ -27,7 +27,7 @@ const initialDoctor: Omit<Doctor, "id"> = {
   role: "doctor",
   document: "",
   profilePicture: "", // Add this if it exists in Doctor type
-  isDisabled: false,  // Added the missing isDisabled property
+  isDisabled: false, // Added the missing isDisabled property
 };
 
 const SignUp: React.FC = () => {
@@ -67,11 +67,9 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100">
+    <div className="bg-gray-100 flex h-screen items-center justify-center">
       <div className="w-full max-w-5xl">
-        <Breadcrumb pageName="Sign Up" />
-
-        <div className="rounded-sm border border-stroke bg-white shadow-default h-full">
+        <div className="h-full rounded-sm border border-stroke bg-white shadow-default">
           <div className="flex flex-col items-center">
             <div className="flex w-full flex-col items-center justify-center py-10">
               <div className="mb-2">
@@ -98,7 +96,10 @@ const SignUp: React.FC = () => {
               </h2>
             </div>
 
-            <form className="grid w-full grid-cols-2 gap-12 px-16" onSubmit={handleSubmit}>
+            <form
+              className="grid w-full grid-cols-2 gap-12 px-16"
+              onSubmit={handleSubmit}
+            >
               <div className="w-full">
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
@@ -154,7 +155,7 @@ const SignUp: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
-                      type="tel"
+                      type="number"
                       placeholder="Enter your Phone Number"
                       value={myNewDoctor.phone}
                       onChange={(e) =>
@@ -314,7 +315,7 @@ const SignUp: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="flex w-full flex-col items-center justify-center pb-6 col-span-2">
+              <div className="col-span-2 flex w-full flex-col items-center justify-center pb-6">
                 <div className="w-60">
                   <input
                     type="submit"
@@ -324,7 +325,7 @@ const SignUp: React.FC = () => {
                       {
                         "opacity-50": loading,
                         "pointer-events-none": loading,
-                      }
+                      },
                     )}
                     disabled={loading}
                   />
