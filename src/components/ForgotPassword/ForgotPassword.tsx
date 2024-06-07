@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaRegEnvelope } from "react-icons/fa";
-import axios, { AxiosError } from 'axios';
+import { useForgotPassword } from "@/api/forgotpassword";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const ForgotPassword = () => {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
+
+    // Mutations
+     const { mutateAsync: forgetPassword } = useForgotPassword();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -17,28 +23,15 @@ const ForgotPassword = () => {
         }
 
         try {
-            const response = await axios.post('/api/send-code', { email });
-            if (response.data.success) {
-                // If successful, navigate to the VerifyCode component
-                // You can replace this line with your preferred navigation method
-                // router.push('/VerifyCode');
-            } else {
-                // Handle error if success is false
-                setError('Error: ' + response.data.error);
-            }
-        } catch (error) {
-            // Handle network errors or other exceptions
-            if (axios.isAxiosError(error)) {
-                const axiosError = error as AxiosError; // Type assertion
-                // Handle Axios errors
-                setError('Axios Error: ' + axiosError.message);
-                console.error('Axios Error Response:', axiosError.response);
-            } else {
-                // Handle other errors
-                const unknownError = error as Error; // Type assertion
-                setError('Error: ' + unknownError.message);
-            }
+            await forgetPassword({ email });
+            toast.success('Password reset email sent successfully.');
+            setTimeout(() => {
+                router.push(`/verifycode?email=${email}`);
+            }, 2000)
+        } catch (error: any) {
+            setError(error.response.data.message);
         }
+        
     };
 
     const validateEmail = (email: string) => {

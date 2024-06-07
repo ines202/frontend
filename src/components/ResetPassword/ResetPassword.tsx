@@ -4,17 +4,43 @@ import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
+import { useResetPassword } from "@/api/forgotpassword";
 
 const ResetPassword = () => {
-
+  const router = useRouter();
+  const params = useSearchParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to manage confirm password visibility
 
-  const handleResetPassword = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+  // Mutations
+  const { mutateAsync: resetPassword } = useResetPassword();
+
+  const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Add your reset password logic here
+    const email = params.get("email");
+    if (!email) {
+      router.push("/forgotpassword");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await resetPassword({ email, newPassword: password });
+      toast.success(response.message);
+      setTimeout(() => {
+        router.push(`/signin`);
+      }, 2000);
+    } catch (error: any) {
+      alert(error.response.data.message);
+    }
   };
 
   return (
@@ -24,8 +50,8 @@ const ResetPassword = () => {
 
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="flex flex-wrap items-center">
-            <div className="hidden w-full xl:flex xl:w-1/2 flex-col items-center justify-center">
-              <div className="px-26 py-17.5 flex flex-col items-center">
+            <div className="hidden w-full flex-col items-center justify-center xl:flex xl:w-1/2">
+              <div className="flex flex-col items-center px-26 py-17.5">
                 <Link href="/">
                   <Image
                     className="hidden dark:block"
@@ -102,7 +128,9 @@ const ResetPassword = () => {
                       {/* Toggle button for confirm password visibility */}
                       <span
                         className="absolute right-4 top-4 cursor-pointer"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
                       >
                         {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                       </span>
@@ -120,13 +148,12 @@ const ResetPassword = () => {
 
                   <div className="mt-6 text-center">
                     <p>
-                     Go to {" "}
+                      Go to{" "}
                       <Link href="/signin" className="text-purple-700">
                         Sign In
                       </Link>
                     </p>
                   </div>
-
                 </form>
               </div>
             </div>

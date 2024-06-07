@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import { useVerifyCode } from "@/api/forgotpassword";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
 
 const CodeReceive: React.FC = () => {
+  const router = useRouter();
+  const params = useSearchParams();
   const [verificationCode, setVerificationCode] = useState<string[]>([]);
   const [error, setError] = useState<string>("");
+
+  // Mutations
+  const { mutateAsync: verifyCode } = useVerifyCode();
 
   const handleInputChange = (index: number, value: string) => {
     const updatedCode = [...verificationCode];
@@ -13,18 +20,24 @@ const CodeReceive: React.FC = () => {
     setVerificationCode(updatedCode);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const enteredCode = verificationCode.join("");
-    // Check if the entered code matches the expected code
-    const expectedCode = "1234"; // Replace with the actual expected code
-    if (enteredCode === expectedCode) {
-      // Code is correct, proceed to next step
-      // Add logic to navigate to the next step
-    } else {
-      // Code is incorrect, display error message
-      setError("Incorrect verification code. Please try again.");
+    const email = params.get('email');
+    if(!email) {
+      router.push('/forgotpassword');
+      return;
     }
+    const enteredCode = verificationCode.join("");
+    try {
+      await verifyCode({ email, code: enteredCode});
+      toast.success('Code is correct.');
+      setTimeout(() => {
+          router.push(`/resetpassword?email=${email}`);
+      }, 2000)
+    } catch (error: any) {
+        setError(error.response.data.message);
+    }
+    
   };
 
   return (
