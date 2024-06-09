@@ -1,12 +1,36 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useAuth } from "../AuthContext";
+import { useGetDfuRecordsByDoctorId } from "@/api/dfuRecordsByDoctor";
 
 const DropdownNotification = () => {
+  const { loggedInUser } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [notifying, setNotifying] = useState(true);
+  const [notifying, setNotifying] = useState(false);
+
+  // Queries
+  const { data: dfuRecordsData, isFetchedAfterMount } =
+    useGetDfuRecordsByDoctorId(loggedInUser?.doctor?.id, 3000);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+
+  // Use previous data to compare and detect changes
+  const previousDataRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (isFetchedAfterMount) {
+      if (previousDataRef.current) {
+        const dataChanged =
+          JSON.stringify(previousDataRef.current) !==
+          JSON.stringify(dfuRecordsData?.dfuRecords);
+        if (dataChanged) {
+          setNotifying(true);
+        }
+      }
+      previousDataRef.current = dfuRecordsData?.dfuRecords;
+    }
+  }, [dfuRecordsData, isFetchedAfterMount]);
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -71,7 +95,7 @@ const DropdownNotification = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute -right-27 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80 ${
+        className={`absolute -right-27 mt-2.5 flex h-36 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80 ${
           dropdownOpen === true ? "block" : "hidden"
         }`}
       >
@@ -80,69 +104,31 @@ const DropdownNotification = () => {
         </div>
 
         <ul className="flex h-auto flex-col overflow-y-auto">
-          <li>
-            <Link
-              className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
-              href="#"
-            >
-              <p className="text-sm">
-                <span className="text-black dark:text-white">
-                  Edit your information in a swipe
-                </span>{" "}
-                Sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim.
-              </p>
-
-              <p className="text-xs">12 May, 2025</p>
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
-              href="#"
-            >
-              <p className="text-sm">
-                <span className="text-black dark:text-white">
-                  It is a long established fact
-                </span>{" "}
-                that a reader will be distracted by the readable.
-              </p>
-
-              <p className="text-xs">24 Feb, 2025</p>
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
-              href="#"
-            >
-              <p className="text-sm">
-                <span className="text-black dark:text-white">
-                  There are many variations
-                </span>{" "}
-                of passages of Lorem Ipsum available, but the majority have
-                suffered
-              </p>
-
-              <p className="text-xs">04 Jan, 2025</p>
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
-              href="#"
-            >
-              <p className="text-sm">
-                <span className="text-black dark:text-white">
-                  There are many variations
-                </span>{" "}
-                of passages of Lorem Ipsum available, but the majority have
-                suffered
-              </p>
-
-              <p className="text-xs">01 Dec, 2024</p>
-            </Link>
-          </li>
+          {isFetchedAfterMount && (
+            <li>
+              <Link
+                className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
+                href="/dashboard/DfuRecordsByDoctor"
+              >
+                <p className="text-sm">
+                  <span className="text-black dark:text-white">
+                    {
+                      dfuRecordsData?.dfuRecords[0].medical_record.patient
+                        .first_name
+                    }{" "}
+                    {
+                      dfuRecordsData?.dfuRecords[0].medical_record.patient
+                        .last_name
+                    }
+                  </span>{" "}
+                  has submitted a new DFU image record, click here to view it.
+                </p>
+                <p className="text-xs">
+                  {dfuRecordsData?.dfuRecords[0].updatedAtFormatted}
+                </p>
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </li>

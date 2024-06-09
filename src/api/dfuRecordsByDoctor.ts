@@ -3,7 +3,6 @@ import {
   } from "@tanstack/react-query";
   import API from "@/app/lib/api";
   import { AxiosError } from "axios";
-  import { Doctor } from "@/types/doctor";
   import { MedicalRecord } from "@/types/medicalRecord";
 import { DfuRecord } from "@/types/dfuRecord";
 import { Patient } from "@/types/patient";
@@ -15,7 +14,7 @@ type GetDfuRecordByDoctorType = DfuRecord & {
     updatedAtFormatted: string;
     createdAtFormatted: string;
 };
-  export const useGetDfuRecordsByDoctorId = (id?: number) => {
+  export const useGetDfuRecordsByDoctorId = (id?: number, refetchInterval?: number | false) => {
     return useQuery<
     {
         dfuRecords: GetDfuRecordByDoctorType[];
@@ -27,9 +26,6 @@ type GetDfuRecordByDoctorType = DfuRecord & {
       queryFn: async () => {
         try {
           const response = await API.get(`/dfu-records-by-doctor-id/${id}`);
-        //   if (response.data.dfuRecords === undefined) {
-        //     return []; 
-        //   }
           return response.data;
         } catch (error: any) {
           console.error("Error fetching Dfu records for doctor:", error);
@@ -37,5 +33,7 @@ type GetDfuRecordByDoctorType = DfuRecord & {
         }
       },
       enabled: !!id,
+      refetchInterval: refetchInterval || false,
+      refetchIntervalInBackground: refetchInterval ? true : false
     });
   };

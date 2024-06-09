@@ -67,12 +67,14 @@ const DfuRecordsByDoctor = () => {
           >
             <div className="col-span-2 flex items-center">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                <p className="text-sm text-black dark:text-white">
-                  {dfuRecord.medical_record.patient.first_name}
-                </p>
-                <p className="text-sm text-black dark:text-white">
-                  {dfuRecord.medical_record.patient.last_name}
-                </p>
+                <a href={`/dashboard/patients/${dfuRecord.medical_record.patient.id}`} className="flex items-start gap-2 underline">
+                  <p className="text-sm text-black dark:text-white">
+                    {dfuRecord.medical_record.patient.first_name}
+                  </p>
+                  <p className="text-sm text-black dark:text-white">
+                    {dfuRecord.medical_record.patient.last_name}
+                  </p>
+                </a>
               </div>
             </div>
             <div className="col-span-2 flex items-center">
