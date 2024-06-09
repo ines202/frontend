@@ -2,11 +2,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useAuth } from "@/components/AuthContext";
 import { Doctor } from "@/types/doctor";
 import { BsPerson } from "react-icons/bs";
-import { FaRegEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
+import { FaRegEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
 import { IoCallOutline } from "react-icons/io5";
 import { BsBriefcase } from "react-icons/bs";
@@ -26,17 +25,17 @@ const initialDoctor: Omit<Doctor, "id"> = {
   password: "",
   role: "doctor",
   document: "",
-  profilePicture: "", // Add this if it exists in Doctor type
-  isDisabled: false, // Added the missing isDisabled property
+  profilePicture: "",
+  isDisabled: false,
 };
 
 const SignUp: React.FC = () => {
   const [myNewDoctor, setMyNewDoctor] =
     useState<Omit<Doctor, "id">>(initialDoctor);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to manage confirm password visibility
-  const [documentUploaded, setDocumentUploaded] = useState(false); // State to track if a document has been uploaded
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [documentUploaded, setDocumentUploaded] = useState(false); 
   const { signUp, loading } = useAuth();
 
   // Handlers

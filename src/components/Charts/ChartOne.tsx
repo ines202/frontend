@@ -150,25 +150,11 @@ const ChartOne: React.FC = () => {
               <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-purple-700"></span>
             </span>
             <div className="w-full">
-              <p className="font-semibold text-purple-700">Total Notificatin</p>
-             {/* <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p> */}
+              <p className="font-semibold text-purple-700">Total Patients</p>
             </div>
           </div>
 
         </div>
-        {/* <div className="flex w-full max-w-45 justify-end">
-          <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
-            <button className="rounded bg-white px-3 py-1 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark">
-              Day
-            </button>
-            <button className="rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
-              Week
-            </button>
-            <button className="rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
-              Month
-            </button>
-          </div>
-        </div> */}
       </div>
 
       <div>

@@ -22,16 +22,22 @@ const ChartTwo: React.FC<IProps> = ({ registeredCount }) => {
     series: [],
   });
 
-  const dates = Array.from(new Set(registeredCount?.map(item => item.date))).sort();
+  const dates = Array.from(
+    new Set(registeredCount?.map((item) => item.date)),
+  ).sort();
 
   useEffect(() => {
-    const doctorData = dates.map(date => {
-      const item = registeredCount?.find(rc => rc.date === date && rc.role === "Doctor");
+    const doctorData = dates.map((date) => {
+      const item = registeredCount?.find(
+        (rc) => rc.date === date && rc.role === "Doctor",
+      );
       return item ? parseInt(item.count) : 0;
     });
 
-    const patientData = dates.map(date => {
-      const item = registeredCount?.find(rc => rc.date === date && rc.role === "Patient");
+    const patientData = dates.map((date) => {
+      const item = registeredCount?.find(
+        (rc) => rc.date === date && rc.role === "Patient",
+      );
       return item ? parseInt(item.count) : 0;
     });
 
@@ -111,10 +117,9 @@ const ChartTwo: React.FC<IProps> = ({ registeredCount }) => {
       <div className="mb-4 justify-between gap-4 sm:flex">
         <div>
           <h4 className="text-xl font-semibold text-black dark:text-white">
-            Users
+            Total Users
           </h4>
         </div>
-        <div></div>
       </div>
 
       <div>

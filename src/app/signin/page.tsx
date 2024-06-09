@@ -3,22 +3,23 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useAuth } from "@/components/AuthContext";
-import { FaRegEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
+import { FaRegEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; 
 import clsx from "clsx";
 
 const SignIn: React.FC = () => {
-  const { loggedInUser, login, loading } = useAuth();
+  const { login, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
+  // State to manage password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gray-100">
+    <div className="bg-gray-100 flex h-screen w-screen items-center justify-center">
       <div className="w-full max-w-5xl">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="flex flex-wrap items-center">
-          <div className="hidden w-full xl:flex xl:w-1/2 flex-col items-center justify-center">
-              <div className="px-26 flex flex-col items-center">
+            <div className="hidden w-full flex-col items-center justify-center xl:flex xl:w-1/2">
+              <div className="flex flex-col items-center px-26">
                 <Link className="mb-7 mt-10 inline-block" href="/">
                   <Image
                     className="hidden dark:block"
@@ -38,7 +39,7 @@ const SignIn: React.FC = () => {
                 <p className="text-center 2xl:px-10">
                   Enter your personal details and start your journey with us.
                 </p>
-                 <Image
+                <Image
                   className=" mb-9"
                   src={"/images/signin/signup.png"}
                   alt="signin"
@@ -51,7 +52,8 @@ const SignIn: React.FC = () => {
             <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
               <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
                 <h2 className="mb-9 whitespace-nowrap text-xl font-bold text-black dark:text-white sm:text-title-xl2">
-                  Welcome to<span className="ms-2 text-purple-700">Doolab</span>Care
+                  Welcome to<span className="ms-2 text-purple-700">Doolab</span>
+                  Care
                 </h2>
 
                 <form>
@@ -93,7 +95,10 @@ const SignIn: React.FC = () => {
                       </span>
                     </div>
                     <div>
-                      <Link href="/forgotpassword" className="ms-60 text-purple-700">
+                      <Link
+                        href="/forgotpassword"
+                        className="ms-60 text-purple-700"
+                      >
                         Forgot password?
                       </Link>
                     </div>
@@ -112,7 +117,7 @@ const SignIn: React.FC = () => {
                         {
                           "opacity-50": loading,
                           "pointer-events-none": loading,
-                        }
+                        },
                       )}
                       disabled={loading}
                     />
