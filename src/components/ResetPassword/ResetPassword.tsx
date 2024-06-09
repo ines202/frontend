@@ -19,7 +19,7 @@ const ResetPassword = () => {
   // Mutations
   const { mutateAsync: resetPassword } = useResetPassword();
 
-  const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleResetPassword = async (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
     const email = params.get("email");
     if (!email) {
