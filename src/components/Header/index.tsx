@@ -77,9 +77,9 @@ const Header = (props: {
             <DarkModeSwitcher />
 
             {/* <!-- Notification Menu Area --> */}
-            {/* {loggedInUser?.role === Roles.doctor && (
+            {loggedInUser?.role === Roles.doctor && (
             <DropdownNotification />
-          )} */}
+          )}
           </ul>
 
           <DropdownUser />
