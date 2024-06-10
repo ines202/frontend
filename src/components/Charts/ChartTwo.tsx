@@ -58,7 +58,7 @@ const ChartTwo: React.FC<IProps> = ({ registeredCount }) => {
         },
       ],
     });
-  }, [registeredCount, dates, loggedInUser?.role]);
+  }, [registeredCount, loggedInUser?.role]);
 
   const options: ApexOptions = {
     colors: ["#3C50E0", "#80CAEE"],
