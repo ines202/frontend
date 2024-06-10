@@ -9,7 +9,7 @@ import { IoPersonOutline } from "react-icons/io5";
 import { useGetDashboardStatistics } from "@/api/dashboard";
 
 const Dashboard: React.FC = () => {
-  const { loggedInUser, updateToken } = useAuth();
+  const { loggedInUser } = useAuth();
 
   // Queries
   const { data: statistics, error, isLoading, refetch } = useGetDashboardStatistics();
@@ -42,7 +42,8 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        {loggedInUser?.role === Roles.doctor && <ChartOne />}
+        {/* {loggedInUser?.role === Roles.doctor && <ChartOne />} */}
+        {loggedInUser?.role === Roles.doctor && <ChartTwo registeredCount={statistics?.registeredCount}/>}
         {loggedInUser?.role === Roles.admin && <ChartTwo registeredCount={statistics?.registeredCount}/>}
       </div>
     </>

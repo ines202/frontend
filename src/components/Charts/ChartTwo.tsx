@@ -1,6 +1,8 @@
 import { ApexOptions } from "apexcharts";
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
+import { useAuth } from "../AuthContext";
+import { Roles } from "@/types/types";
 
 interface ChartTwoState {
   series: {
@@ -18,6 +20,7 @@ interface IProps {
 }
 
 const ChartTwo: React.FC<IProps> = ({ registeredCount }) => {
+  const { loggedInUser } = useAuth();
   const [state, setState] = useState<ChartTwoState>({
     series: [],
   });
@@ -43,17 +46,19 @@ const ChartTwo: React.FC<IProps> = ({ registeredCount }) => {
 
     setState({
       series: [
-        {
-          name: "Doctors",
-          data: doctorData,
-        },
+        ...loggedInUser?.role === Roles.admin ? [
+          {
+            name: "Doctors",
+            data: doctorData,
+          }] : []
+        ,
         {
           name: "Patients",
           data: patientData,
         },
       ],
     });
-  }, [registeredCount, dates]);
+  }, [registeredCount, dates, loggedInUser?.role]);
 
   const options: ApexOptions = {
     colors: ["#3C50E0", "#80CAEE"],
@@ -117,7 +122,7 @@ const ChartTwo: React.FC<IProps> = ({ registeredCount }) => {
       <div className="mb-4 justify-between gap-4 sm:flex">
         <div>
           <h4 className="text-xl font-semibold text-black dark:text-white">
-            Total Users
+            {loggedInUser?.role === Roles.admin ? "Registered users in the last 7 days" : "Registered patients in the last 7 days"}
           </h4>
         </div>
       </div>
