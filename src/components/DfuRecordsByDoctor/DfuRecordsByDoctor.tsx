@@ -11,6 +11,7 @@ const DfuRecordsByDoctor = () => {
   // Queries
   const {
     data: dfuRecordsData,
+    isLoading
   } = useGetDfuRecordsByDoctorId(loggedInUser?.doctor?.id);
 
   useEffect(() => {
@@ -53,8 +54,14 @@ const DfuRecordsByDoctor = () => {
         </div>
       </div>
 
-      {!dfuRecordsData?.dfuRecords ? (
-        <Skeleton count={5} />
+      {
+        isLoading ? (
+          <Skeleton count={5} />
+        ) : 
+      !dfuRecordsData?.dfuRecords ? (
+        <div className="px-4 py-4.5 flex items-center justify-center">
+          <p className="text-black dark:text-white">No DFU records found</p>
+        </div>
       ) : (
         dfuRecordsData.dfuRecords.map((dfuRecord, index) => (
           <div
