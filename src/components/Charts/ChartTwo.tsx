@@ -1,6 +1,7 @@
+"use client";
 import { ApexOptions } from "apexcharts";
 import React, { useState, useEffect } from "react";
-import ReactApexChart from "react-apexcharts";
+// import ReactApexChart from "react-apexcharts";
 import { useAuth } from "../AuthContext";
 import { Roles } from "@/types/types";
 
@@ -20,6 +21,7 @@ interface IProps {
 }
 
 const ChartTwo: React.FC<IProps> = ({ registeredCount }) => {
+  const [Chart, setChart] = useState<any>();
   const { loggedInUser } = useAuth();
   const [state, setState] = useState<ChartTwoState>({
     series: [],
@@ -28,6 +30,12 @@ const ChartTwo: React.FC<IProps> = ({ registeredCount }) => {
   const dates = Array.from(
     new Set(registeredCount?.map((item) => item.date)),
   ).sort();
+
+  useEffect(() => {
+    import("react-apexcharts").then((mod) => {
+      setChart(() => mod.default);
+    });
+  }, [])
 
   useEffect(() => {
     const doctorData = dates.map((date) => {
@@ -129,13 +137,13 @@ const ChartTwo: React.FC<IProps> = ({ registeredCount }) => {
 
       <div>
         <div id="chartTwo" className="-mb-9 -ml-5">
-          <ReactApexChart
+        {Chart && <Chart
             options={options}
             series={state.series}
             type="bar"
             height={350}
             width={"100%"}
-          />
+          /> }
         </div>
       </div>
     </div>
